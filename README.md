@@ -12,3 +12,7 @@ viewed at this
 ).
 We jotted down various implementation ideas in rough over 
 [here](https://docs.google.com/document/d/10oi_GV8wzoeZaYYYcrU4NkAEe1DAV9ea_DhNbPBm60I/edit).
+
+The initial submission with respect to the project details and ER diagrams 
+is 
+[here](https://docs.google.com/document/d/e/2PACX-1vSmXQEsxZ5Pj7gX7MVy9amVMYhM1G6nRHbiDOBCnrO3-bkc6izFCOZY1vbYdHnxrFN_kPRobC5rBHbQ/pub).
