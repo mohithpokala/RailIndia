@@ -1,4 +1,3 @@
-
 DROP TABLE  if exists users cascade;
 DROP TABLE  if exists station cascade;
 DROP TABLE  if exists train cascade; 
