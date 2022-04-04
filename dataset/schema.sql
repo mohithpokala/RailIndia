@@ -1,11 +1,11 @@
-DROP TABLE train_schedule;
-DROP TABLE path;
-DROP TABLE passenger;
-DROP TABLE booking;
-DROP TABLE train_instance;
-DROP TABLE train;
-DROP TABLE station;
-DROP TABLE users;
+
+DROP TABLE if exists paths;
+DROP TABLE  if exists passenger;
+DROP TABLE  if exists booking;
+DROP TABLE  if exists train_dates;
+DROP TABLE  if exists train;
+DROP TABLE  if exists station;
+DROP TABLE  if exists users;
 
 CREATE TABLE users(
     user_id INT,
@@ -38,8 +38,22 @@ CREATE TABLE train(
     source_id TEXT NOT NULL,
     dest_id TEXT NOT NULL,
     PRIMARY KEY(train_no),
-    FOREIGN KEY(source_id) references station,
-    FOREIGN KEY(dest_id) references station
+    FOREIGN KEY(source_id) references station(station_id),
+    FOREIGN KEY(dest_id) references station(station_id)
+);
+
+
+CREATE TABLE paths(
+    path_id INT NOT NULL,
+    train_no INT NOT NULL,    
+    station_id TEXT NOT NULL,
+    expected_arrival_time TIMESTAMP,
+    expected_departure_time TIMESTAMP,
+    distance_from_source INT,
+    price INT DEFAULT 500,
+    PRIMARY KEY(path_id,train_no),
+    FOREIGN KEY(station_id) references station,
+    FOREIGN KEY(train_no) references train
 );
 
 CREATE TABLE TRAIN_DATES(
@@ -47,8 +61,8 @@ CREATE TABLE TRAIN_DATES(
     available_seats INT DEFAULT 0,
     cum_seats INT DEFAULT 0,
     path_id INT NOT NULL,
-    train_no INT NOT NULL
-    FOREIGN KEY(train_no,path_id) references train,
+    train_no INT NOT NULL,
+    FOREIGN KEY(train_no,path_id) references paths(train_no,path_id),
     PRIMARY KEY(train_no,path_id,journey_date)
 );
 
@@ -58,13 +72,13 @@ CREATE TABLE booking(
     train_no INT NOT NULL,
     journey_date DATE NOT NULL,
     user_id INT NOT NULL,
-    start_station NOT NULL,
-    end_station NOT NULL,
+    start_station INT NOT NULL,
+    end_station INT NOT NULL,
     PRIMARY KEY(booking_id),
     FOREIGN KEY(train_no) references train,
     FOREIGN KEY(user_id) references users,
-    FOREIGN KEY(start_station,train_no) references path(path_id,train_no),
-    FOREIGN KEY(end_station,train_no) references path(path_id,train_no)
+    FOREIGN KEY(start_station,train_no) references paths(path_id,train_no),
+    FOREIGN KEY(end_station,train_no) references paths(path_id,train_no)
 );
 
 CREATE TABLE passenger(
@@ -79,15 +93,3 @@ CREATE TABLE passenger(
     FOREIGN KEY(booking_id) references booking
 );
 
-CREATE TABLE path(
-    path_id INT NOT NULL,
-    train_no INT NOT NULL,    
-    station_id TEXT NOT NULL,
-    expected_arrival_time TIMESTAMP,
-    expected_departure_time TIMESTAMP,
-    distance_from_source INT,
-    price INT DEFAULT 500,
-    PRIMARY KEY(path_id,train_no,station_id),
-    FOREIGN KEY(station_id) references station,
-    FOREIGN KEY(train_no) references train
-);
