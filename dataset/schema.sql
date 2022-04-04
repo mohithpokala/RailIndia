@@ -83,7 +83,7 @@ CREATE TABLE path(
     path_id INT NOT NULL,
     train_no INT NOT NULL,    
     station_id TEXT NOT NULL,
-    expected_arrived_time TIMESTAMP,
+    expected_arrival_time TIMESTAMP,
     expected_departure_time TIMESTAMP,
     distance_from_source INT,
     price INT DEFAULT 500,
