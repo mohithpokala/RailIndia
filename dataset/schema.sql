@@ -13,9 +13,9 @@ CREATE TABLE users(
     age INT,
     is_admin BOOLEAN NOT NULL,
     phone CHAR(10) NOT NULL,
-    email TEXT,
+    email TEXT not NULL,
     sex TEXT,
-    password TEXT,
+    password TEXT not NULL,
     PRIMARY KEY(user_id),
     CONSTRAINT chk_phone CHECK (phone not like '%[^0-9]%')
 );
@@ -63,8 +63,8 @@ CREATE TABLE booking(
     PRIMARY KEY(booking_id),
     FOREIGN KEY(train_no) references train,
     FOREIGN KEY(user_id) references users,
-    FOREIGN KEY(start_station) references path,
-    FOREIGN KEY(end_station) references path
+    FOREIGN KEY(start_station,train_no) references path(path_id,train_no),
+    FOREIGN KEY(end_station,train_no) references path(path_id,train_no)
 );
 
 CREATE TABLE passenger(
