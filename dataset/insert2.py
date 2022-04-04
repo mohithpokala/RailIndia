@@ -8,7 +8,7 @@ data = text_file.read()
 text_file.close()
 data  = json.loads(data)
 
-M={}
+M = {}
 
 for i in range(len(data['features'])):
     if data['features'][i]['geometry'] is None:
