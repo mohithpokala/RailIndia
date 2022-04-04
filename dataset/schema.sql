@@ -1,11 +1,11 @@
 
-DROP TABLE if exists paths;
-DROP TABLE  if exists passenger;
-DROP TABLE  if exists booking;
-DROP TABLE  if exists train_dates;
-DROP TABLE  if exists train;
-DROP TABLE  if exists station;
-DROP TABLE  if exists users;
+DROP TABLE  if exists users cascade;
+DROP TABLE  if exists station cascade;
+DROP TABLE  if exists train cascade; 
+DROP TABLE  if exists paths cascade;
+DROP TABLE  if exists train_dates cascade;
+DROP TABLE  if exists booking cascade;
+DROP TABLE  if exists passenger cascade;
 
 CREATE TABLE users(
     user_id INT,
