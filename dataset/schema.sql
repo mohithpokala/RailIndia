@@ -32,7 +32,7 @@ CREATE TABLE station(
 
 CREATE TABLE train(
     train_no INT,
-    name TEXT,
+    train_name TEXT,
     capacity INT,
     num_stations INT,
     source_id TEXT NOT NULL,
