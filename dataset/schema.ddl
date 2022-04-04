@@ -6,8 +6,7 @@ DROP TABLE  if exists paths cascade;
 DROP TABLE  if exists train_dates cascade;
 DROP TABLE  if exists booking cascade;
 DROP TABLE  if exists passenger cascade;
-
-CREATE TABLE users(
+CREATE TABLE User(
     user_id INT,
     user_name TEXT NOT NULL,
     age INT,
@@ -20,7 +19,7 @@ CREATE TABLE users(
     CONSTRAINT chk_phone CHECK (phone not like '%[^0-9]%')
 );
 
-CREATE TABLE station(
+CREATE TABLE Station(
     station_id TEXT,
     station_name TEXT,
     location POINT,
@@ -30,7 +29,7 @@ CREATE TABLE station(
     PRIMARY KEY(station_id)
 );
 
-CREATE TABLE train(
+CREATE TABLE Train(
     train_no INT,
     train_name TEXT,
     capacity INT,
@@ -42,8 +41,7 @@ CREATE TABLE train(
     FOREIGN KEY(dest_id) references station(station_id)
 );
 
-
-CREATE TABLE paths(
+CREATE TABLE Path(
     path_id INT NOT NULL,
     train_no INT NOT NULL,    
     station_id TEXT NOT NULL,
@@ -56,10 +54,10 @@ CREATE TABLE paths(
     FOREIGN KEY(train_no) references train
 );
 
-CREATE TABLE TRAIN_DATES(
+CREATE TABLE Train_instance(
     journey_date DATE ,
     available_seats INT DEFAULT 0,
-    cum_seats INT DEFAULT 0,
+    cumulative_seats INT DEFAULT 0,
     path_id INT NOT NULL,
     train_no INT NOT NULL,
     FOREIGN KEY(train_no,path_id) references paths(train_no,path_id),
@@ -67,7 +65,7 @@ CREATE TABLE TRAIN_DATES(
 );
 
 
-CREATE TABLE booking(
+CREATE TABLE Booking(
     booking_id INT,
     train_no INT NOT NULL,
     journey_date DATE NOT NULL,
@@ -81,7 +79,7 @@ CREATE TABLE booking(
     FOREIGN KEY(end_station,train_no) references paths(path_id,train_no)
 );
 
-CREATE TABLE passenger(
+CREATE TABLE Passenger(
     passenger_id INT,
     booking_id INT NOT NULL,
     name TEXT,
