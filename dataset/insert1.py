@@ -11,3 +11,4 @@ for i in range(len(data['features'])):
         print("INSERT INTO station VALUES ('"+data['features'][i]['properties']['code']+"', '"+str(data['features'][i]['properties']['name'])+"', POINT(95.95,95.95),'"+str(data['features'][i]['properties']['zone'])+"','"+str(data['features'][i]['properties']['state'])+"','"+str(data['features'][i]['properties']['address'])+"');")
         continue
     print("INSERT INTO station VALUES ('"+data['features'][i]['properties']['code']+"', '"+str(data['features'][i]['properties']['name'])+"', POINT("+str(data['features'][i]['geometry']['coordinates'][0])+","+str(data['features'][i]['geometry']['coordinates'][1])+"),'"+str(data['features'][i]['properties']['zone'])+"','"+str(data['features'][i]['properties']['state'])+"','"+str(data['features'][i]['properties']['address'])+"');")
+
