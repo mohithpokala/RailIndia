@@ -85,6 +85,8 @@ CREATE TABLE path(
     station_id TEXT NOT NULL,
     expected_arrived_time TIMESTAMP,
     expected_departure_time TIMESTAMP,
+    distance_from_source INT,
+    price INT DEFAULT 500,
     PRIMARY KEY(path_id,train_no,station_id),
     FOREIGN KEY(station_id) references station,
     FOREIGN KEY(train_no) references train
