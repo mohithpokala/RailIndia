@@ -91,4 +91,3 @@ CREATE TABLE path(
     FOREIGN KEY(station_id) references station,
     FOREIGN KEY(train_no) references train
 );
-]
