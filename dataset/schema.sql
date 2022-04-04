@@ -9,7 +9,7 @@ DROP TABLE users;
 
 CREATE TABLE users(
     user_id INT,
-    name TEXT NOT NULL,
+    user_name TEXT NOT NULL,
     age INT,
     is_admin BOOLEAN NOT NULL,
     phone CHAR(10) NOT NULL,
@@ -80,12 +80,12 @@ CREATE TABLE passenger(
 );
 
 CREATE TABLE path(
-    path_index INT NOT NULL,
+    path_id INT NOT NULL,
     train_no INT NOT NULL,    
     station_id TEXT NOT NULL,
     expected_arrived_time TIMESTAMP,
     expected_departure_time TIMESTAMP,
-    PRIMARY KEY(path_index,train_no,station_id),
+    PRIMARY KEY(path_id,train_no,station_id),
     FOREIGN KEY(station_id) references station,
     FOREIGN KEY(train_no) references train
 );
