@@ -3,10 +3,10 @@ DROP TABLE  if exists users cascade;
 DROP TABLE  if exists station cascade;
 DROP TABLE  if exists train cascade; 
 DROP TABLE  if exists paths cascade;
-DROP TABLE  if exists train_dates cascade;
+DROP TABLE  if exists Train_instance cascade;
 DROP TABLE  if exists booking cascade;
 DROP TABLE  if exists passenger cascade;
-CREATE TABLE User(
+CREATE TABLE users(
     user_id INT,
     user_name TEXT NOT NULL,
     age INT,
@@ -41,12 +41,12 @@ CREATE TABLE Train(
     FOREIGN KEY(dest_id) references station(station_id)
 );
 
-CREATE TABLE Path(
+CREATE TABLE Paths(
     path_id INT NOT NULL,
     train_no INT NOT NULL,    
     station_id TEXT NOT NULL,
-    expected_arrival_time TIMESTAMP,
-    expected_departure_time TIMESTAMP,
+    expected_arrival_time TIME,
+    expected_departure_time TIME,
     distance_from_source INT,
     price INT DEFAULT 500,
     PRIMARY KEY(path_id,train_no),
