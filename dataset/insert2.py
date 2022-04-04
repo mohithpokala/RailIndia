@@ -35,11 +35,13 @@ path_table = "Path"
 print("-- Inserting Train data to the database")
 print("-- Inserting values to Path and Train Instance tables")
 for i in range(len(train['features'])):
-    if train['features'][i]['properties']['number'] == '14887S' or\
-       train['features'][i]['properties']['number'][-1]!='p' or\
-       train['features'][i]['properties']['number'][-2:]!='p2':
+    # print(train['features'][i]['properties']['distance'] )
+    if train['features'][i]['properties']['number'][-1] =='p' or\
+       train['features'][i]['properties']['number'][-2:] =='p2' or\
+       int(train['features'][i]['properties']['distance']) < 1000:
+       print("-- Skipping train number: ", train['features'][i]['properties']['number'])
        continue
-
+    
     print("INSERT INTO " + train_table + " VALUES ({}, '{}', {}, {}, '{}', '{}');".format(\
         train['features'][i]['properties']['number'],\
         train['features'][i]['properties']['name'],\
@@ -65,5 +67,6 @@ for i in range(len(train['features'])):
             M[(x[0],x[1])],\
             a,\
             d,\
+            0,\
             100))
         c += 1
