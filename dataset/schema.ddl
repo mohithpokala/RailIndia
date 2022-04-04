@@ -1,13 +1,13 @@
-DROP TABLE  if exists users cascade;
-DROP TABLE  if exists station cascade;
-DROP TABLE  if exists train cascade; 
-DROP TABLE  if exists paths cascade;
+DROP TABLE  if exists Users cascade;
+DROP TABLE  if exists Station cascade;
+DROP TABLE  if exists Train cascade; 
+DROP TABLE  if exists Path cascade;
 DROP TABLE  if exists Train_instance cascade;
-DROP TABLE  if exists booking cascade;
-DROP TABLE  if exists passenger cascade;
+DROP TABLE  if exists Booking cascade;
+DROP TABLE  if exists Passenger cascade;
 CREATE TABLE users(
     user_id INT,
-    name TEXT NOT NULL,
+    username TEXT NOT NULL,
     age INT not NULL,
     is_admin BOOLEAN NOT NULL,
     phone CHAR(10) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE Train(
     FOREIGN KEY(dest_id) references station(station_id)
 );
 
-CREATE TABLE Paths(
+CREATE TABLE Path(
     path_id INT NOT NULL,
     train_no INT NOT NULL,    
     station_id TEXT NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE Train_instance(
     cumulative_seats INT DEFAULT 0,
     path_id INT NOT NULL,
     train_no INT NOT NULL,
-    FOREIGN KEY(train_no,path_id) references paths(train_no,path_id),
+    FOREIGN KEY(train_no,path_id) references Path(train_no,path_id),
     PRIMARY KEY(train_no,path_id,journey_date)
 );
 
@@ -77,8 +77,8 @@ CREATE TABLE Booking(
     PRIMARY KEY(booking_id),
     FOREIGN KEY(train_no) references train,
     FOREIGN KEY(user_id) references users,
-    FOREIGN KEY(start_station,train_no) references paths(path_id,train_no),
-    FOREIGN KEY(end_station,train_no) references paths(path_id,train_no)
+    FOREIGN KEY(start_station,train_no) references Path(path_id,train_no),
+    FOREIGN KEY(end_station,train_no) references Path(path_id,train_no)
 );
 
 CREATE TABLE Passenger(
