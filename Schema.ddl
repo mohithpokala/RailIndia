@@ -1,4 +1,3 @@
-
 DROP TABLE  if exists users cascade;
 DROP TABLE  if exists station cascade;
 DROP TABLE  if exists train cascade; 
@@ -7,21 +6,22 @@ DROP TABLE  if exists Train_instance cascade;
 DROP TABLE  if exists booking cascade;
 DROP TABLE  if exists passenger cascade;
 CREATE TABLE users(
-    user_id INT,
-    user_name TEXT NOT NULL,
-    age INT,
+    user_id  SERIAL ,
+    name TEXT NOT NULL,
+    age INT not NULL,
     is_admin BOOLEAN NOT NULL,
     phone CHAR(10) NOT NULL,
     email TEXT not NULL,
     sex TEXT,
     password TEXT not NULL,
+
     PRIMARY KEY(user_id),
     CONSTRAINT chk_phone CHECK (phone not like '%[^0-9]%')
 );
 
 CREATE TABLE Station(
     station_id TEXT,
-    station_name TEXT,
+    station_name TEXT NOT NULL,
     location POINT,
     zone TEXT,
     city TEXT,
@@ -31,11 +31,12 @@ CREATE TABLE Station(
 
 CREATE TABLE Train(
     train_no INT,
-    train_name TEXT,
-    capacity INT,
-    num_stations INT,
+    train_name TEXT NOT NULL,
+    capacity INT DEFAULT 100,
+    num_stations INT NOT NULL,
     source_id TEXT NOT NULL,
     dest_id TEXT NOT NULL,
+
     PRIMARY KEY(train_no),
     FOREIGN KEY(source_id) references station(station_id),
     FOREIGN KEY(dest_id) references station(station_id)
@@ -66,26 +67,28 @@ CREATE TABLE Train_instance(
 
 
 CREATE TABLE Booking(
-    booking_id INT,
+    booking_id  SERIAL,
     train_no INT NOT NULL,
     journey_date DATE NOT NULL,
     user_id INT NOT NULL,
     start_station INT NOT NULL,
     end_station INT NOT NULL,
+
     PRIMARY KEY(booking_id),
     FOREIGN KEY(train_no) references train,
     FOREIGN KEY(user_id) references users,
-    FOREIGN KEY(start_station,train_no) references paths(path_id,train_no),
-    FOREIGN KEY(end_station,train_no) references paths(path_id,train_no)
+    FOREIGN KEY(journey_date,start_station,train_no) references Train_instance(journey_date,path_id,train_no),
+    FOREIGN KEY(journey_date,end_station,train_no) references Train_instance(journey_date,path_id,train_no),
+    CONSTRAINT stat_check CHECK (start_station < end_station)
 );
 
 CREATE TABLE Passenger(
-    passenger_id INT,
+    passenger_id SERIAL,
     booking_id INT NOT NULL,
-    name TEXT,
+    name TEXT NOT NULL,
     seat_no INT NOT NULL,
-    age INT,
-    sex TEXT,
+    age INT NOT NULL,
+    sex TEXT NOT NULL,
     waiting_pref_no INT NOT NULL,
     PRIMARY KEY(passenger_id,booking_id),
     FOREIGN KEY(booking_id) references booking
