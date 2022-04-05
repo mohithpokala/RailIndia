@@ -14,7 +14,6 @@ CREATE TABLE users(
     email TEXT not NULL,
     sex TEXT,
     password TEXT not NULL,
-
     PRIMARY KEY(user_id),
     CONSTRAINT chk_phone CHECK (phone not like '%[^0-9]%')
 );
