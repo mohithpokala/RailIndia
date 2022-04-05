@@ -5,13 +5,14 @@ DROP TABLE  if exists paths cascade;
 DROP TABLE  if exists Train_instance cascade;
 DROP TABLE  if exists booking cascade;
 DROP TABLE  if exists passenger cascade;
-CREATE TABLE users(
+
+CREATE TABLE Users(
     user_id  SERIAL ,
-    name TEXT NOT NULL,
+    name TEXT UNIQUE NOT NULL,
     age INT not NULL,
     is_admin BOOLEAN NOT NULL,
     phone CHAR(10) NOT NULL,
-    email TEXT not NULL,
+    email TEXT UNIQUE not NULL,
     sex TEXT,
     password TEXT not NULL,
     PRIMARY KEY(user_id),
@@ -93,3 +94,11 @@ CREATE TABLE Passenger(
     FOREIGN KEY(booking_id) references booking
 );
 
+DROP INDEX  IF EXISTS index1;
+DROP INDEX  IF EXISTS index4;
+DROP INDEX  IF EXISTS index2;
+DROP INDEX  IF EXISTS index3;
+CREATE INDEX index1 ON paths (station_id);
+CREATE INDEX index2 on Booking (train_no,journey_date,user_id);
+CREATE INDEX index3 on station(station_name);
+CREATE INDEX index4 on train(train_name);
