@@ -5,13 +5,14 @@ DROP TABLE  if exists paths cascade;
 DROP TABLE  if exists Train_instance cascade;
 DROP TABLE  if exists booking cascade;
 DROP TABLE  if exists passenger cascade;
-CREATE TABLE users(
+
+CREATE TABLE Users(
     user_id  SERIAL ,
-    name TEXT NOT NULL,
+    name TEXT UNIQUE NOT NULL,
     age INT not NULL,
     is_admin BOOLEAN NOT NULL,
     phone CHAR(10) NOT NULL,
-    email TEXT not NULL,
+    email TEXT UNIQUE not NULL,
     sex TEXT,
     password TEXT not NULL,
     PRIMARY KEY(user_id),
