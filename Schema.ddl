@@ -24,8 +24,8 @@ CREATE TABLE Station(
     station_name TEXT NOT NULL,
     location POINT,
     zone TEXT,
-    city TEXT,
     state TEXT,
+    city TEXT,
     PRIMARY KEY(station_id)
 );
 
