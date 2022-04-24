@@ -1,0 +1,10 @@
+.animate {
+  animation-name: example;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes example {
+  0%   {transform:rotateY(0deg)}
+  100% {transform:rotateY(360deg)}
+}

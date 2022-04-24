@@ -1,0 +1,33 @@
+
+
+.App-link {
+  color: #61dafb;
+}
+.home_page{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: absolute;background-color: red;
+  height: 100%;
+  width: 100%;
+}
+.routing_part{
+  background-color:red;
+  position:fixed;
+  width:100%;
+  height:90%;
+  top:10%;
+  overflow-y:scroll;
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.bkg{
+  background-image: url('./Assets/download.jpg');
+  background-size: cover;
+}

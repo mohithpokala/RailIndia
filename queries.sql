@@ -1,32 +1,32 @@
 -- 1) Sign up for RailIndia - 
 INSERT INTO USER (name, email, number, log_password, age,sex) 
-VALUES ($name, $email, $number, $log_password, $age, $sex);
+VALUES ($user_name, $email, $number, $log_password, $age,$sex);
 
 -- 2) Logging into RailIndia -
-SELECT is_admin FROM USER WHERE name = $name AND password = $log_password;
+SELECT is_admin FROM USER WHERE name = $user_name AND password = $log_password;
 
 -- 3) Book Ticket -
-INSERT INTO BOOKING (train_no, journey_date, start_station, end_station, user_id) 
-VALUES ($train_no, $journey_date, $start_station, $end_station, $user_id) returning booking_id;
+INSERT INTO BOOKING (train_no,journey_date,start_station,end_station,user_id) 
+VALUES ($train_no,$journey_date,$start_station,$end_station,$user_id) returning booking_id;
 
 
 UPDATE TRAIN_INSTANCE
 SET
 available_seats = available_seats - $num_seats
 WHERE
-train_no=$train_no and journey_date = $date and path_id>=$start_index and path_id <= $end_index 
+train_no=$train_no and journey_date = $date and path_id>=$start_index and path_id<=$end_index 
 AND EXISTS
 (SELECT * FROM USER WHERE user_id = $user_id and is_admin =True );
 
---Find seat availability and add wc,seat_no accordingly to passengers entry,the first insert gives booking id
-INSERT INTO Passenger(booking_id, name, seat_no, age, sex, waiting_pref_no) 
-VALUES ( $bid, $name, $seatno, $age, $sex, $wc_no);
+--Find seat availability and add wc,seat_no accoringly to passengers entry,the first insert gives booking id
+INSERT INTO Passenger(booking_id,name,seat_no,age,sex,waiting_pref_no) 
+VALUES ( $bid,$name,$seatno,$age,$sex,$wc_no);
 
 -- 4) View Available trains -
 --Multipath
-with f(train1,train2,d1,d2,total_dist,halt_station, deptime, arrtime) as (
+with f(train1,train2,d1,d2,total_dist,halt_station,deptime,arrtime) as (
 select  B.train_no,C.train_no ,B.Distance_from_source-A.Distance_from_source ,D.Distance_from_source-C.Distance_from_source,B.Distance_from_source-A.Distance_from_source +D.Distance_from_source-C.Distance_from_source as l,B.station_id,C.expected_departure_time,B.expected_arrival_time,  EXTRACT(EPOCH FROM (C.expected_departure_time - B.expected_arrival_time)) AS difference
-from paths as B, paths as A,paths as C,paths as D
+from paths as B ,paths as A,paths as C,paths as D
 where 
 B.train_no = A.train_no 
 and 
@@ -53,37 +53,38 @@ where
 total_dist < (select min(total_dist) from f)*1.1
 order by total_dist desc limit 3
 
-– 5) single train info
+--single train
+
 SELECT 
 A.train_no ,Train_name,source_id,dest_id,B.distance_from_source-A.distance_from_source as dist,B.expected_arrival_time,A.expected_departure_time
 FROM
 paths as A,train as C,
 paths as B where A.train_no=B.train_no and A.station_id = $1 and B.station_id = $2
-and A.train_no = C.train_no
+and A.train_no=C.train_no
 
--- 6) View Trains passing through a Station -
+-- 5) View Stations -
 SELECT train_no FROM PATHs WHERE station_id = $station_id
 
--- 7) Add a new train -
+-- 6) Add a new train -
 INSERT INTO TRAIN (train_no,train_name,capcity,num_stations,source_id,dest_id)
 VALUE
 ($train_no, $train_name, $capcity, $num_stations, $source_id, $dest_id)
 WHERE EXISTS
-(SELECT * FROM USER WHERE user_id = $user_id and is_admin = True);
+(SELECT * FROM USER WHERE user_id = $user_id and is_admin =True );
 
-– 8) for each train in the path
+--for each train in the path
 INSERT INTO paths(path_id,train_no,station_id,distance_from_source,price,expected_arrival_time,expected_departure_time)
  VALUES($path_id,$train_no,$sc,$dist,$price_from_source,$eat,$edt);
 
 
--- 9) View Train Schedule -
-SELECT train_no, path_id, STATION.station_name, expected_arrival_time, expected_departure_time, distance_from_source
+-- 7) View Train Schedule -
+SELECT train_no, path_id, STATION.station_name ,expected_arrival_time,expected_departure_time,distance_from_source
 FROM PATHs
 JOIN STATION on STATION.station_id = PATHs.station_id
 and train_no=$train
 order by path_id asc
 
--- 10) Find Nearest Railway Station -
+-- 8) Find Nearest Railway Station -
 SELECT *
 FROM (SELECT *, 
  RANK() OVER (
@@ -92,12 +93,12 @@ ORDER BY distance(location, $location)  ASC
 FROM STATION) as Ranked_stations
 WHERE location_rank == 1
 
--- 11) View ticket -
+-- 9) View ticket -
 SELECT * 
 FROM BOOKING
 WHERE booking_id = $PNR
 
--- 12) Statistics -
+-- 10) Statistics -
 Number of trains in each zone:-
  SELECT zone, count(train_no)
      FROM
@@ -115,11 +116,11 @@ SELECT state, count(train_no)
      JOIN STATION on STATION.station_id = PATHs.station_id)  as temp_zones
      GROUP BY state
   
--- 13) Add a Station - 
+-- 11) Add a Station - 
 INSERT INTO STATION ( station_id, name,location, city, station, zone) 
 VALUES ( $station_id, $name, POINT($latitude, $longitude), $city, $station, $zone);
 
--- 14) Cancel Ticket - 
+-- 12) Cancel Ticket - 
 update Train_instance
 set 
 available_seats = available_seats - (select count(*) from passenger where booking_id=$bid);
@@ -144,7 +145,7 @@ A.pid=passenger.passenger_id;
 select * from passenger
 
 
--- 15) Release Tickets
+-- 13) Release Tickets
 INSERT into 
 Train_instance(
 	journey_date,
@@ -162,7 +163,7 @@ FROM
 paths
 where train_no = $train_no
 
--- 16) Seat Availability
+-- 14) Seat Availability
 select min(available_seats) 
 from 
 Train_instance 
@@ -174,4 +175,10 @@ and
 path_id <=$end_index
 and 
 journey_date = $date
+
+
+
+
+
+
 
