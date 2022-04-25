@@ -1,5 +1,5 @@
 const express = require('express');
-const {schedule,train_finder,get_all_stations,get_all_trains,book_tickets,view_trains_from_station,train_finder_multipath} = require('../Controllers');
+const {schedule,train_finder,get_all_stations,get_all_trains,book_tickets,view_trains_from_station,train_finder_multipath,find_user} = require('../Controllers');
 const routes = express.Router();
 routes.get('/train/schedule/:train_no',schedule);
 routes.get('/train/find/:start_station/:end_station',train_finder);
