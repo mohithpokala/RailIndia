@@ -1,7 +1,7 @@
-const { rel_tckt } = require("../Models/release_tickets.models.js");
+const { rel_tckt } = require("../Models/release_ticket.models.js");
 
 const release_tickets = async (req,res) => {
-    const data = await cancel_ticket(
+    const data = await rel_tckt(
         req.params.date,
         req.params.seats,
         req.params.train_no

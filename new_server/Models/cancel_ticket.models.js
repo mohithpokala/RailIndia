@@ -19,7 +19,7 @@ const cancel_ticket = async(bid) => {
         const query2 = `
             update Train_instance
             set 
-            available_seats = available_seats - (select count(*) from passenger where booking_id=$5)
+            available_seats = available_seats + (select count(*) from passenger where booking_id=$5)
             where
             train_no = $1 and journey_date = $2 and path_id>=$3 and path_id<=$4;
         `;
