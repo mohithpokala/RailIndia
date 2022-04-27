@@ -6,6 +6,7 @@ const get_stations = async() => {
             select * from station
         `;
     const res = await pool.query(query);
+    console.log(res);
     return  res.rows;
 }
 

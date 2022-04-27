@@ -2,7 +2,9 @@ const { search_train_multipath} = require('../Models/train_finder_multipath.mode
 
 
 const train_finder_multipath = async (req,res) => {
-    const data = await search_train_multipath(req.params.start_id,req.params.end_id);
+    console.log(req.params);
+    const data = await search_train_multipath(req.params.start_station,req.params.end_station);
+    console.log(data);
     return res.status(200).json(data);
 }
 

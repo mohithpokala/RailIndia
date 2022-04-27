@@ -10,22 +10,23 @@ import Venues from "./pages/Venues"
 import Venue  from "./pages/Venue"
 import Pointstable from "./pages/Pointstable"
 import Navbar from './Components/Navbar';
-import Player_filter from "./pages/Player_filter";
 import ADD_VENUE from "./pages/ADD_VENUE";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Example from "./pages/Support";
+import Scorecard from "./pages/Scorecard";
 export default function App() {
 
   const navlinks=[
     {text:"HOME",link:"/"},
-    {text:"MATCHES",link:"/matches"},
+    {text:"SCHEDULE",link:"/summary"},
     {text:"POINTS TABLE",link:"/pointstable/2011"},
     {text:"VENUES",link:"/venues"},
     {text:"PLAYERS",link:"/players"},
     {text:"MAP",link:"/example"}
+    
   ]
   return (
     <div className="home_page">
@@ -34,13 +35,13 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />}/>
-            <Route path="matches" element={<Blogs />} />
+            <Route path="summary" element={<Scorecard />} />
             <Route path="/matches/:match_id" element={<Match />}/>
             <Route path="/players/:player_id" element={<Player />}/>
             <Route path="/pointstable/:year" element={<Pointstable />}/>
             <Route path="/venues/" element={<Venues />}/>
             <Route path="/venue/:venue_id" element={<Venue />}/>
-            <Route path="/players/" element={<Player_filter />}/>
+            <Route path="/schedule/" element={<schedule_page />}/>
             <Route path="/venue/add" element={<ADD_VENUE />}/>
             <Route path="/example" element={<Example />}/>
           </Routes>

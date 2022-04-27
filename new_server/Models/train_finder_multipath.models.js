@@ -1,7 +1,8 @@
 const pool = require("./database");
 
 const search_train_multipath = async(start_id,end_id) => {
-
+    console.log(start_id);
+    console.log(end_id);
     const query =
         `
             with f(train1,train2,d1,d2,total_dist,halt_station,deptime,arrtime) as (
@@ -34,6 +35,7 @@ const search_train_multipath = async(start_id,end_id) => {
             order by total_dist desc limit 3    
         `;
     const res = await pool.query(query,[start_id,end_id]);
+    console.log(res);
     return  res.rows;
 }
 

@@ -1,7 +1,8 @@
 const pool = require("./database");
 
 const search_train = async(start_id,end_id) => {
-
+    console.log(start_id)
+    console.log(end_id);
     const query =
         `
         SELECT 
@@ -9,7 +10,7 @@ const search_train = async(start_id,end_id) => {
         FROM
         paths as A,train as C,
         paths as B where A.train_no=B.train_no and A.station_id = $1 and B.station_id = $2
-        and A.train_no=C.train_no     
+        and A.train_no=C.train_no     and A.path_id < B.path_id
         `;
     const res = await pool.query(query,[start_id,end_id]);
     return  res.rows;

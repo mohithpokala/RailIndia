@@ -1,6 +1,6 @@
 const pool = require("./database");
 
-const view_ticket = async(pnr) => {
+const view_tickets = async(pnr) => {
     const query =
         `
             SELECT * from booking where booking_id = $1
@@ -10,4 +10,4 @@ const view_ticket = async(pnr) => {
 }
 
 
-module.exports = {view_ticket};
+module.exports = {view_tickets};

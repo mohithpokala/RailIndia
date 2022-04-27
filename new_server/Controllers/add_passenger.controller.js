@@ -1,4 +1,4 @@
-const {add_passenger} = require("../Models/add_path_to_train.models.js");
+const {add_passenger} = require("../Models/add_passenger.models.js");
 
 const Passenger_entry = async (req,res) => {
     const data = await add_passenger(

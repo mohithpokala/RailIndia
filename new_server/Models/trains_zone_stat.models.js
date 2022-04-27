@@ -3,7 +3,7 @@ const pool = require("./database");
 const zone_stat = async() => {
     const query =
         `
-            SELECT zone, count(train_no)
+            SELECT zone, count(distinct train_no)
             FROM
             (SELECT TRAIN.train_no as train_no,zone
             FROM  Paths

@@ -1,9 +1,8 @@
 const pool = require("./database");
 
 const view_trains_from_stations = async(station)=>{
-  console.log(train_no)
     const query=`
-        SELECT train_no FROM PATHs WHERE station_id = $1
+        SELECT train.train_no,train_name,source_id,dest_id FROM PATHs,train WHERE station_id = $1 and paths.train_no=train.train_no
     `;
     const res = await pool.query(query,[station]);
 
