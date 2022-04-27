@@ -4,16 +4,20 @@ import 'chart.js/auto';
 
 import '../CSS/Match.css'
 import Select from 'react-select';
-import Summary from './Summary';
+import Schedules from './Schedules';
 import '../CSS/rotateimage.css'
-
-const Scorecard = (props) => {
+const renderOption = (x)=>{
+    return (<option style={{cursor:"pointer"}} value={x.f}>{x.f}</option>);
+}
+const SchedulePage = (props) => {
   const [trainName,setTrainName] = useState(false);
     const [train,setTrain]=useState("0000");
-    
+    const [train_num,setTrainNum]=useState("0000");
+
     useEffect(() => {
         setTimeout(() => {
             let data1 = [];
+            let data2 = [];
             fetch("http://localhost:5000/all_trains")
                 .then((res) => res.json())
                 .then(
@@ -22,13 +26,20 @@ const Scorecard = (props) => {
                             data1.push({
                                 "label":json[i]["train_name"] ,
                                 "value":json[i]["train_no"]});
+                            data2.push({
+                                "value":json[i]["train_no"] ,
+                                "label":json[i]["train_no"]});
                         } 
                     } 
                 );
             setTrainName(data1);
-        }, 0);
+            setTrainNum(data2);
+        }, 1000);
     },[] );
-
+    const trainNameChanged = (e)=>{
+        setTrainName(e.target.value);
+    }
+    console.log(train);
 
     return (
         <>
@@ -46,19 +57,31 @@ const Scorecard = (props) => {
                             <Select
                                 options={trainName}
                                 search
-                                onChange={train=>{
-                                        setTrain(train.value);
+                      
+                                onChange={trains=>{
+                                        setTrain(trains.value);
                                         console.log(train);
                                     }}
                                 
-                                placeholder="Select train name or number"
+                                placeholder="Select train name"
                             />
-                            <Summary train_no={train }/>
-                                                    </div>
+                             <Select
+                                options={train_num}
+                                search
+                      
+                                onChange={trains=>{
+                                        setTrain(trains.value);
+                                        console.log(train);
+                                    }}
+                                
+                                placeholder="Select train number"
+                            />
+                        </div>
+                        {train!="0000" && <Schedules train_no={train} key={train}/>}
                     </React.Fragment>
                 )
             }
         </>);
 }
 
-export default Scorecard;
+export default SchedulePage;

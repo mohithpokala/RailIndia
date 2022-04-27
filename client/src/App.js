@@ -16,7 +16,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Example from "./pages/Support";
-import Scorecard from "./pages/Scorecard";
+import SchedulePage from "./pages/SchedulePage";
 export default function App() {
 
   const navlinks=[
@@ -35,7 +35,7 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />}/>
-            <Route path="summary" element={<Scorecard />} />
+            <Route path="summary" element={<SchedulePage />} />
             <Route path="/matches/:match_id" element={<Match />}/>
             <Route path="/players/:player_id" element={<Player />}/>
             <Route path="/pointstable/:year" element={<Pointstable />}/>
