@@ -11,31 +11,75 @@ const Schedules2 = (props) => {
     const [top5inflow,setTop5inflow] = useState(false);
     const [top5outflow,setTop5outflow] = useState(false);
     const [zonestat1,setzonestat1] = useState(false);
-    const [zonestat2,zonestat1] = useState(false);
-    const [top5inflow,setTop5inflow] = useState(false);
+    const [zonestat2,setzonestat2] = useState(false);
+    const [LongestTrains,setLongestTrains] = useState(false);
     
-    var train_no1 = useParams().train_no;
-    var train_no2 = props.train_no;
-    const train_no = train_no1?train_no1:train_no2;
-    console.log(train_no);
+    
     useEffect(() => {
         setTimeout(() => {
-            fetch("http://localhost:" + port + "/train/schedule/"+train_no+"/")
+            fetch("http://localhost:" + port + "/inflow_top5/")
                 .then((res) => res.json())
                 .then(
                     (json) => {
-                        setScheduled(json);
+                        setTop5inflow(json);
                     } 
                 );
         }, 100);
     },[] );
-    console.log(props.train_no);
-    console.log(scheduled);
+
+    useEffect(() => {
+        setTimeout(() => {
+            fetch("http://localhost:" + port + "/outflow_top5/")
+                .then((res) => res.json())
+                .then(
+                    (json) => {
+                        setTop5outflow(json);
+                    } 
+                );
+        }, 100);
+    },[] );
+
+    useEffect(() => {
+        setTimeout(() => {
+            fetch("http://localhost:" + port + "/trains_zone_stat1/")
+                .then((res) => res.json())
+                .then(
+                    (json) => {
+                        setzonestat1(json);
+                    } 
+                );
+        }, 100);
+    },[] );
+
+    useEffect(() => {
+        setTimeout(() => {
+            fetch("http://localhost:" + port + "/LongestTrains/")
+                .then((res) => res.json())
+                .then(
+                    (json) => {
+                        setLongestTrains(json);
+                    } 
+                );
+        }, 100);
+    },[] );
+
+    useEffect(() => {
+        setTimeout(() => {
+            fetch("http://localhost:" + port + "/trains_zone_stat2/")
+                .then((res) => res.json())
+                .then(
+                    (json) => {
+                        setzonestat2(json);
+                    } 
+                );
+        }, 100);
+    },[] );
+    
     
     return (
         <>
         {
-            !(scheduled && train_no!="abcd" ) 
+            !(top5inflow && top5outflow && zonestat1 && zonestat2 && LongestTrains) 
             ? 
                 (
                     <></>
@@ -45,15 +89,15 @@ const Schedules2 = (props) => {
                 <React.Fragment>
                     <div style={{position:"absolute",width:"100%",top:"25%",left:"0%",height:"100%",}}>
                         <h4>
-                            Schedule for Train { train_no }
+                            TOP 5 stations with highest inflow
                         </h4>
 
                         <table>
                             <tr>
                                 <td><b>S.No</b></td>
                                 <td><b>Station Name</b></td>
-                                <td><b>Expected Arrival Time</b></td>
-                                <td><b>Expected Departure Time</b></td>
+                                <td><b>Station Code</b></td>
+                                <td><b></b></td>
                                 <td><b>Distance from Source</b></td>
                             </tr>
                             {
