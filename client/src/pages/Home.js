@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Carousel from 'react-bootstrap/Carousel';
 import srh from '../Assets/srh.png'
@@ -30,6 +30,7 @@ import h9 from '../Assets/h9.jpg'
 import h10 from '../Assets/h10.jpg'
 
 import '../CSS/rotateimage.css'
+import { port } from './port';
 export default function Home() {
   console.log("ngujyjuy");
   const hdim=[{im:h1},{im:h2},{im:h3},{im:h4},{im:h5},{im:h6},{im:h7},{im:h8},{im:h9},{im:h10}];

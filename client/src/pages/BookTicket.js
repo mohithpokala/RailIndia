@@ -5,13 +5,31 @@ import Button from 'react-bootstrap/Button';
 import 'chart.js/auto';
 import '../CSS/Match.css';
 import { useParams } from 'react-router';
-import { port } from './port'
 
 import Select from 'react-select';
-
+import { port } from './port';
 const BookTicket = (props) => {
+    const [scheduled,setScheduled]=useState(false);
+    const [train_no,setTrain]=useState(props.train_no);
+    const [token,setToken]=useState(localStorage.getItem("token"));
+    
+    console.log(train_no);
+    useEffect(() => {
+        setTimeout(() => {
+            fetch("http://localhost:"+port+"/train/schedule/"+train_no+"/")
+                .then((res) => res.json())
+                .then(
+                    (json) => {
+                        setScheduled(json);
+                    } 
+                );
+        }, 100);
+    },[] );
+    console.log(props.train_no);
+    console.log(scheduled);
+    console.log("hi iuhuihgvf ");
     const [formValues, setFormValues] = useState([{ name: "", age : "", sex : ""}])
-    const [train_no, setTrain] = useState("");
+    
     const [date, setDate] = useState("");
 
     let handleChange = (i, e) => {

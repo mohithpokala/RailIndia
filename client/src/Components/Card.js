@@ -18,9 +18,6 @@ const Card_comp = (props) => {
      </Link>
     )
   };
-  
-
-
   export default Card_comp;
   
   

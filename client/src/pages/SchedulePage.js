@@ -13,6 +13,9 @@ const renderOption = (x)=>{
 }
 const SchedulePage = (props) => {
   const [trainName,setTrainName] = useState(false);
+    
+    const [token,setToken]=useState(localStorage.getItem("token"));
+    
     const [train,setTrain]=useState("12797");
     const [train_num,setTrainNum]=useState(false);
 

@@ -10,27 +10,44 @@ import {port} from './port';
 const renderOption = (x)=>{
     return (<option style={{cursor:"pointer"}} value={x.f}>{x.f}</option>);
 }
+
+    
 const StationSchedulePage = (props) => {
-  const [stationName,setStationName] = useState(false);
+    const [stationName,setStationName] = useState(false);
     const [station,setStation]=useState("KCG");
     const [station_num,setStationNum]=useState(false);
-
+    const [token,setToken]=useState(localStorage.getItem("token"));
     useEffect(() => {
         setTimeout(() => {
+            const jsonData={"token":token};
             let data1 = [];
             let data2 = [];
-            fetch("http://localhost:" + port + "/all_stations")
+            
+            fetch("http://localhost:" + port + "/all_stations",{
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body:JSON.stringify(jsonData)
+            })
                 .then((res) => res.json())
                 .then(
                     (json) => {
-                        for(var i=0;i<json.length;i++){ 
-                            data1.push({
-                                "label":json[i]["station_name"] ,
-                                "value":json[i]["station_id"]});
-                            data2.push({
-                                "value":json[i]["station_id"] ,
-                                "label":json[i]["station_id"]});
-                        } 
+                        if(!(json.hasOwnProperty('token') )){
+                            
+                            for(var i=0;i<json.length;i++){ 
+                                data1.push({
+                                    "label":json[i]["station_name"] ,
+                                    "value":json[i]["station_code"]});
+                                data2.push({
+                                    "value":json[i]["station_code"] ,
+                                    "label":json[i]["station_code"]});
+                            } 
+                        }
+                        else{
+                            setToken("");
+                            // localStorage.setItem("token","");
+                            window.location="/login";
+                        }
+                        
                     } 
                 );
             setStationName(data1);
