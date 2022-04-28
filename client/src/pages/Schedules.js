@@ -14,9 +14,9 @@ const Schedules =  (props) => {
     var train_no2 = props.train_no;
     const train_no = train_no1?train_no1:train_no2;
     const [token,setToken]=useState(localStorage.getItem("token"));
-    const jsonData={"token":token};
     useEffect(() => {
-        setTimeout(() => {
+        const jsonData={"token":token};
+        
     const temp1=  fetch("http://localhost:" + port + "/train/schedule/"+train_no+"/",{
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -24,7 +24,6 @@ const Schedules =  (props) => {
         })
         .then((res) => res.json())
         .then((json) => {
-            console.log(json);
             if(!(json.hasOwnProperty('token') )){
                 setScheduled(json);
                 
@@ -35,7 +34,6 @@ const Schedules =  (props) => {
                 window.location="/login";
             }
         });
-    }, 100);
     });
     return (
   

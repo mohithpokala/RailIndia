@@ -15,7 +15,7 @@ const SchedulePage = (props) => {
   const [trainName,setTrainName] = useState(false);
     
     const [token,setToken]=useState(localStorage.getItem("token"));
-    
+    const jsonData={"token":token};
     const [train,setTrain]=useState("12797");
     const [train_num,setTrainNum]=useState(false);
 
@@ -23,10 +23,15 @@ const SchedulePage = (props) => {
         setTimeout(() => {
             let data1 = [];
             let data2 = [];
-            fetch("http://localhost:" + port + "/all_trains")
+            fetch("http://localhost:" + port + "/all_trains",{
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body:JSON.stringify(jsonData)
+            })
                 .then((res) => res.json())
                 .then(
                     (json) => {
+                        if(!(json.hasOwnProperty('token') )){
                         for(var i=0;i<json.length;i++){ 
                             data1.push({
                                 "label":json[i]["train_name"] ,
@@ -35,6 +40,12 @@ const SchedulePage = (props) => {
                                 "value":json[i]["train_no"] ,
                                 "label":json[i]["train_no"]});
                         } 
+                    }
+                    else{
+                        setToken("");
+                        // localStorage.setItem("token","");
+                        window.location="/login";
+                    }
                     } 
                 );
             setTrainName(data1);
