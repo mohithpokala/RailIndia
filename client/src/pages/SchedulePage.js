@@ -6,6 +6,8 @@ import '../CSS/Match.css'
 import Select from 'react-select';
 import Schedules from './Schedules';
 import '../CSS/rotateimage.css'
+import {port} from './port';
+
 const renderOption = (x)=>{
     return (<option style={{cursor:"pointer"}} value={x.f}>{x.f}</option>);
 }
@@ -18,7 +20,7 @@ const SchedulePage = (props) => {
         setTimeout(() => {
             let data1 = [];
             let data2 = [];
-            fetch("http://localhost:5000/all_trains")
+            fetch("http://localhost:" + port + "/all_trains")
                 .then((res) => res.json())
                 .then(
                     (json) => {
@@ -77,7 +79,7 @@ const SchedulePage = (props) => {
                                 placeholder="Select train number"
                             />
                         </div>
-                        {train!="0000" && <Schedules train_no={train} key={train}/>}
+                        {train!="0000" && <Schedules train_no={train} key={train} train_name={trainName}/>}
                     </React.Fragment>
                 )
             }

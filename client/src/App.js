@@ -8,7 +8,12 @@ import FindTrainsPage from "./pages/FindTrainsPage";
 import FindTrains from "./pages/FindTrains";
 import 'bootstrap/dist/css/bootstrap.css';
 import SchedulePage from "./pages/SchedulePage";
+<<<<<<< HEAD
 import Example from "./pages/Support";
+=======
+import BookingPage from "./pages/book_ticket";
+
+>>>>>>> 334a1ada04caaca60a3088b6a35b6e29165d07e2
 export default function App() {
 
   const navlinks=[

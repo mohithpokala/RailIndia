@@ -3,17 +3,20 @@ import React, {useState, useEffect} from 'react';
 import 'chart.js/auto';
 import '../CSS/Match.css';
 import { useParams } from 'react-router';
-
+import { port } from './port';
 
 import Select from 'react-select';
 
 const Schedules = (props) => {
-  const [scheduled,setScheduled]=useState(false);
-    const [train_no,setTrain]=useState(props.train_no);
+  const [scheduled,setScheduled] = useState(false);
+    const [train_no,  setTrain] = useState(props.train_no);
+    const [train_name,  setTrainName] = useState(props.train_name);
+
     console.log(train_no);
+    console.log(train_name);
     useEffect(() => {
         setTimeout(() => {
-            fetch("http://localhost:5000/train/schedule/"+train_no+"/")
+            fetch("http://localhost:" + port + "/train/schedule/"+train_no+"/")
                 .then((res) => res.json())
                 .then(
                     (json) => {
@@ -24,7 +27,7 @@ const Schedules = (props) => {
     },[] );
     console.log(props.train_no);
     console.log(scheduled);
-    console.log("hi iuhuihgvf ");
+    
     return (
         <>
         {
@@ -37,6 +40,10 @@ const Schedules = (props) => {
             (
                 <React.Fragment>
                     <div style={{position:"absolute",width:"100%",top:"25%",left:"0%",height:"100%",}}>
+                        <h4>
+                            Schedule for Train { train_no }
+                        </h4>
+
                         <table>
                             <tr>
                                 <td><b>S.No</b></td>
