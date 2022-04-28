@@ -9,12 +9,14 @@ import Select from 'react-select';
 
 const Schedules =  (props) => {
     const [scheduled,setScheduled] = useState(false);
-    const [train_no,  setTrain] = useState(props.train_no);
-    const [train_name,  setTrainName] = useState(props.train_name);
+    
+    var train_no1 = useParams().train_no;
+    var train_no2 = props.train_no;
+    const train_no = train_no1?train_no1:train_no2;
     const [token,setToken]=useState(localStorage.getItem("token"));
     const jsonData={"token":token};
     useEffect(() => {
-        
+        setTimeout(() => {
     const temp1=  fetch("http://localhost:" + port + "/train/schedule/"+train_no+"/",{
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -33,6 +35,7 @@ const Schedules =  (props) => {
                 window.location="/login";
             }
         });
+    }, 100);
     });
     return (
   
