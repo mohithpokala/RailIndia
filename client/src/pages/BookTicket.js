@@ -5,7 +5,6 @@ import Button from 'react-bootstrap/Button';
 import 'chart.js/auto';
 import '../CSS/Match.css';
 import { useParams } from 'react-router';
-import { port } from './port'
 
 import Select from 'react-select';
 import { port } from './port';

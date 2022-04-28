@@ -22,7 +22,7 @@ const Schedules =  (props) => {
         })
         .then((res) => res.json())
         .then((json) => {
-            // console.log(json);
+            console.log(json);
             if(!(json.hasOwnProperty('token') )){
                 setScheduled(json);
                 

@@ -11,7 +11,6 @@ import FindTrains from "./pages/FindTrains";
 import 'bootstrap/dist/css/bootstrap.css';
 import SchedulePage from "./pages/SchedulePage";
 import Example from "./pages/Support";
-import BookingPage from "./pages/book_ticket";
 import Login from "./pages/login";
 import Logout from "./pages/logout";
 import Schedules from "./pages/Schedules";
@@ -23,7 +22,7 @@ export default function App() {
 
   const navlinks=[
     {text:"HOME",link:"/login"},
-    {text:"SCHEDULE",link:"/summary"},
+    {text:"SCHEDULE",link:"/train_schedule"},
     {text:"FIND TRAINS",link:"/view_trains"},
     {text:"VIEW STATIONS",link:"/support"},
     {text:"BOOK TICKET",link:"/book_ticket"},
@@ -45,7 +44,8 @@ export default function App() {
             <Route path="/Station_schedule//" element={<StationSchedulePage />}/>
             <Route path="/support" element={<Example />}/>
             <Route path="/book_ticket" element={<BookingTicket />}/>
-
+            <Route path="/login" element={<Login />}/>
+            <Route path="/logout" element={<Logout />}/>
           </Routes>
         </BrowserRouter>
       </div>
