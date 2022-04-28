@@ -9,5 +9,5 @@ app.use(routes);
 const port = 8000;
 
 app.listen(port, () => {
-    console.log("server has started on port 5000");
+    console.log("server has started on port " + port);
 });

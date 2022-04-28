@@ -2,7 +2,7 @@ const pool = require("./database");
 
 const get_schedule = async(train_no)=>{
   const query=`
-      SELECT train_no, path_id, STATION.station_name ,expected_arrival_time,expected_departure_time,distance_from_source
+      SELECT train_no, path_id,STATION.station_id, STATION.station_name ,expected_arrival_time,expected_departure_time,distance_from_source
       FROM PATHS
       JOIN STATION on STATION.station_id = PATHs.station_id
       and train_no=$1

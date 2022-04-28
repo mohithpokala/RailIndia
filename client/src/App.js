@@ -14,6 +14,10 @@ import Example from "./pages/Support";
 import BookingPage from "./pages/book_ticket";
 import Login from "./pages/login";
 import Logout from "./pages/logout";
+import Schedules from "./pages/Schedules";
+import Station_info from "./pages/Station_info";
+import StationSchedulePage from "./pages/StationSchedules";
+import BookingTicket from './pages/BookTicket';
 
 export default function App() {
 
@@ -23,7 +27,8 @@ export default function App() {
     {text:"FIND TRAINS",link:"/view_trains"},
     {text:"VIEW STATIONS",link:"/support"},
     {text:"BOOK TICKET",link:"/book_ticket"},
-    {text:"LOGOUT",link:"/logout"}
+    {text:"LOGOUT",link:"/logout"},
+    {text:"Station SCHEDULE",link:"/station_schedule"}   
   ]
   return (
     <div className="home_page">
@@ -32,13 +37,15 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />}/>
-            <Route path="summary" element={<SchedulePage />} />
+            <Route path="/train_schedule" element={<SchedulePage />} />
+            <Route path="/train_schedule/:train_no" element={<Schedules />} />
             <Route path="/view_trains" element={<FindTrainsPage />}/>
             <Route path="/find_trains/:station1/:station2" element={<FindTrains />}/>
+            <Route path="/station_schedule/:station_name/" element={<Station_info />}/>
+            <Route path="/Station_schedule//" element={<StationSchedulePage />}/>
             <Route path="/support" element={<Example />}/>
-            <Route path="/book_ticket" element={<BookingPage />}/>
-            <Route path="/login" element={<Login />}/>
-            <Route path="/logout" element={<Logout />}/>
+            <Route path="/book_ticket" element={<BookingTicket />}/>
+
           </Routes>
         </BrowserRouter>
       </div>
