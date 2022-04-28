@@ -20,12 +20,24 @@ const FindTrains = (props) => {
     
     console.log(start_id,dest_id);
     useEffect(() => {
+        const jsonData={"token":token};
         setTimeout(() => {
-            fetch("http://localhost:"+port+"/train/find/"+start_id+"/"+dest_id)
+                fetch("http://localhost:"+port+"/train/find/"+start_id+"/"+dest_id,{
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body:JSON.stringify(jsonData)
+                })
                 .then((res) => res.json())
                 .then(
                     (json) => {
+                        if(!(json.hasOwnProperty('token') )){
                         setSingleTrains(json);
+                        }
+                        else{
+                            setToken("");
+                            // localStorage.setItem("token","");
+                            window.location="/login";
+                        }
                     } 
                 );
 
