@@ -18,14 +18,18 @@ const add_stations = async (req,res) => {
   }
 
 
+  
+  const { sid,sname,lat,long,city,state,zone } = req.body;
+
     const data = await add_station(
-        req.params.sid,
-        req.params.sname,
-        req.params.lat,
-        req.params.long,
-        req.params.city,
-        req.params.state,
-        req.params.zone
+      req.user['user_name'],
+      sid,
+        sname,
+        lat,
+        long,
+        city,
+        state,
+        zone
     );
     return res.status(200).json(data);
 }

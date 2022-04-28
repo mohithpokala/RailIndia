@@ -19,6 +19,7 @@ import StationSchedulePage from "./pages/StationSchedules";
 import BookingTicket from './pages/BookTicket';
 import CancelTicket from "./pages/CancelTicket";
 import RegisterUser from "./pages/RegisterUser";
+import AddStation from "./pages/AddStation";
 import Logistics from './pages/Logistics'
 import Schedule_on_map from "./pages/Schedule_on_map";
 import AllSchedules from "./pages/All_schedules";
@@ -36,6 +37,7 @@ export default function App() {
     {text:"Logout",link:"/logout"},
     {text:"All Trains",link:"/all_Schedule"},
     {text:"Register-User",link:"/register_user"},
+    {text:"Add New Station",link:"/add_station"}
   ]
   return (
     <div className="home_page">
@@ -59,6 +61,7 @@ export default function App() {
             <Route path="/login" element={<Login />}/>
             <Route path="/logout" element={<Logout />}/>
             <Route path="/register_user" element={<RegisterUser />}/>
+            <Route path="/add_station" element={<AddStation />}/>
           </Routes>
         </BrowserRouter>
       </div>

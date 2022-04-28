@@ -25,7 +25,7 @@ const get_user = async(user_name,password) => {
 
     if (check) {
         const token = jwt.sign(
-            { foo:'bar' },
+            {user_name:user_name },
             '}Z{C&dFwZ_ j9CI^Tp=-1I[|)]3|4a>7`$SSgNPe,5`b_1RjrB&+=erO@{t09RK:',
             {
               expiresIn: "2h",
