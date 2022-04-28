@@ -28,7 +28,7 @@ const Schedules =  (props) => {
                 
             }
             else{
-                setToken("");
+                //setToken("");
                 localStorage.setItem("token","");
                 window.location="/login";
             }

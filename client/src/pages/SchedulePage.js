@@ -43,8 +43,8 @@ const SchedulePage = (props) => {
                         } 
                     }
                     else{
-                        setToken("");
-                        // localStorage.setItem("token","");
+                        //setToken("");
+                        localStorage.setItem("token","");
                         window.location="/login";
                     }
                     } 
@@ -52,7 +52,7 @@ const SchedulePage = (props) => {
             setTrainName(data1);
             setTrainNum(data2);
         }, 1000);
-    },[] );
+    },[token] );
     const trainNameChanged = (e)=>{
         setTrainName(e.target.value);
     }

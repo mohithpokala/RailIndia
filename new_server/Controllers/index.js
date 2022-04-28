@@ -25,6 +25,35 @@ const {top5_outflow}=require('./outflow_top5.controller');
 const {get_id}=require('./get_station_id.controller');
 const {big_city} =require('./big_cities.controller');
 const {station_schedule} =require('./station_schedule.controller')
-module.exports = {big_city,get_id,top5_inflow,top5_outflow,schedule,train_finder,get_all_stations,get_all_trains,book_tickets,view_trains_from_station,train_finder_multipath,find_user,Passenger_entry,
-get_passenger,cancel_tickets,book_tickets,find_user,add_stations,add_trains,add_path_to_train,get_num_seats
-,release_tickets,trains_state_stat,trains_zone_stat,view_ticket,trains_state_stat2,trains_zone_stat2,station_schedule} 
+const {available_dates} =require('./available_dates.controller')
+module.exports = 
+{
+    big_city,
+    get_id,
+    top5_inflow,
+    top5_outflow,
+    schedule,
+    train_finder,
+    get_all_stations,
+    get_all_trains,
+    book_tickets,
+    view_trains_from_station,
+    train_finder_multipath,
+    find_user,Passenger_entry,
+    get_passenger,
+    cancel_tickets,
+    book_tickets,
+    find_user,
+    add_stations,
+    add_trains,
+    add_path_to_train,
+    get_num_seats,
+    release_tickets,
+    trains_state_stat,
+    trains_zone_stat,
+    view_ticket,
+    trains_state_stat2,
+    trains_zone_stat2,
+    station_schedule,
+    available_dates
+} 
