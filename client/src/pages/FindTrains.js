@@ -5,12 +5,12 @@ import '../CSS/Match.css';
 import "../CSS/Card.css";
 import { Card } from "react-bootstrap";
 import { Link, useParams } from 'react-router-dom';
-
+import { port } from './port';
 
 const FindTrains = (props) => {
     const [singleTrains,setSingleTrains]=useState([]);
     const [multiPathTrains,setMultiPathTrains]=useState([]);
-
+    const [token,setToken]=useState(localStorage.getItem("token"));
     const start_id=useParams().station1;
     const dest_id=useParams().station2;
     console.log(props);
@@ -21,7 +21,7 @@ const FindTrains = (props) => {
     console.log(start_id,dest_id);
     useEffect(() => {
         setTimeout(() => {
-            fetch("http://localhost:5000/train/find/"+start_id+"/"+dest_id)
+            fetch("http://localhost:"+port+"/train/find/"+start_id+"/"+dest_id)
                 .then((res) => res.json())
                 .then(
                     (json) => {
@@ -34,7 +34,7 @@ const FindTrains = (props) => {
 
     useEffect(() => {
         setTimeout(() => {
-            fetch("http://localhost:5000/train/find_multipath/"+start_id+"/"+dest_id)
+            fetch("http://localhost:"+port+"/train/find_multipath/"+start_id+"/"+dest_id)
                 .then((res) => res.json())
                 .then(
                     (json) => {

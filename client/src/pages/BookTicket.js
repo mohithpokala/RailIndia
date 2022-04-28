@@ -6,14 +6,16 @@ import { useParams } from 'react-router';
 
 
 import Select from 'react-select';
-
+import { port } from './port';
 const BookTicket = (props) => {
     const [scheduled,setScheduled]=useState(false);
     const [train_no,setTrain]=useState(props.train_no);
+    const [token,setToken]=useState(localStorage.getItem("token"));
+    
     console.log(train_no);
     useEffect(() => {
         setTimeout(() => {
-            fetch("http://localhost:5000/train/schedule/"+train_no+"/")
+            fetch("http://localhost:"+port+"/train/schedule/"+train_no+"/")
                 .then((res) => res.json())
                 .then(
                     (json) => {

@@ -15,23 +15,38 @@ const BookingPage = (props) => {
     const [trainName, setTrainName] = useState(false);
     const [train, setTrain] = useState("0000");
     const [train_num,setTrainNum]=useState("0000");
-
+    const [token,setToken]=useState(localStorage.getItem("token"));
+    
     useEffect(() => {
         setTimeout(() => {
+            const jsonData={"token":token};
             let data1 = [];
             let data2 = [];
-            fetch("http://localhost:" + port + "/all_trains")
+            fetch("http://localhost:" + port + "/all_trains",{
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body:JSON.stringify(jsonData)
+            })
                 .then((res) => res.json())
                 .then(
                     (json) => {
-                        for(var i=0;i<json.length;i++){ 
-                            data1.push({
-                                "label":json[i]["train_name"] ,
-                                "value":json[i]["train_no"]});
-                            data2.push({
-                                "value":json[i]["train_no"] ,
-                                "label":json[i]["train_no"]});
-                        } 
+                        if(!(json.hasOwnProperty('token') )){
+                            
+                            for(var i=0;i<json.length;i++){ 
+                                data1.push({
+                                    "label":json[i]["train_name"] ,
+                                    "value":json[i]["train_no"]});
+                                data2.push({
+                                    "value":json[i]["train_no"] ,
+                                    "label":json[i]["train_no"]});
+                            } 
+                        }
+                        else{
+                            setToken("");
+                            // localStorage.setItem("token","");
+                            window.location="/login";
+                        }
+                       
                     } 
                 );
             setTrainName(data1);

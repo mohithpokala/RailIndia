@@ -15,7 +15,8 @@ const SchedulePage = (props) => {
   const [trainName,setTrainName] = useState(false);
     const [train,setTrain]=useState("0000");
     const [train_num,setTrainNum]=useState("0000");
-
+    const [token,setToken]=useState(localStorage.getItem("token"));
+    
     useEffect(() => {
         setTimeout(() => {
             let data1 = [];

@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import { ComposableMap, Geographies, Geography, Marker,Markers } from 'react-simple-maps';
 import { scaleQuantile } from 'd3-scale';
 import ReactTooltip from 'react-tooltip';
-
+import { port } from './port';
 /**
 * Courtesy: https://rawgit.com/Anujarya300/bubble_maps/master/data/geography-data/india.topo.json
 * Looking topojson for other countries/world? 
@@ -78,7 +78,7 @@ const Example=()=> {
   useEffect(() => {
     setTimeout(() => {
         let data1 = [];
-        fetch("http://localhost:5000/big_cities")
+        fetch("http://localhost:"+port+"/big_cities")
             .then((res) => res.json())
             .then(
                 (json) => {

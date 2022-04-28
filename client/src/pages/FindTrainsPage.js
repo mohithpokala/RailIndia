@@ -7,6 +7,7 @@ import '../CSS/rotateimage.css';
 import FindTrains from './FindTrains';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
+import { port } from './port';
 
 const renderOption = (x)=>{
     return (<option style={{cursor:"pointer"}} value={x.f}>{x.f}</option>);
@@ -15,11 +16,11 @@ const FindTrainsPage = (props) => {
   const [stationName,setstationName] = useState(false);
     const [station1,setstation1]=useState("KACHEGUDA");
     const [station2,setstation2]=useState("TIRUPATI MAIN");
-
+    const [token,setToken]=useState(localStorage.getItem("token"));
     useEffect(() => {
         setTimeout(() => {
             let data1 = [];
-            fetch("http://localhost:5000/all_stations")
+            fetch("http://localhost:"+port+"/all_stations")
                 .then((res) => res.json())
                 .then(
                     (json) => {
