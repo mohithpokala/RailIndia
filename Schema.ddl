@@ -58,7 +58,6 @@ CREATE TABLE Paths(
 CREATE TABLE Train_instance(
     journey_date DATE ,
     available_seats INT DEFAULT 0,
-    cumulative_seats INT DEFAULT 0,
     path_id INT NOT NULL,
     train_no INT NOT NULL,
     FOREIGN KEY(train_no,path_id) references paths(train_no,path_id),
@@ -86,11 +85,11 @@ CREATE TABLE Passenger(
     passenger_id SERIAL,
     booking_id INT NOT NULL,
     name TEXT NOT NULL,
-    seat_no INT NOT NULL,
     age INT NOT NULL,
     sex TEXT NOT NULL,
     waiting_pref_no INT NOT NULL,
     PRIMARY KEY(passenger_id,booking_id),
+    UNIQUE (booking_id, waiting_pref_no),
     FOREIGN KEY(booking_id) references booking
 );
 
