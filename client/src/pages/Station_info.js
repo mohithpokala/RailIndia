@@ -11,13 +11,26 @@ const Station_info = (props) => {
     var station_name1 = useParams().station_name;
     var station_name2 = props.station_name;
     const station_name = station_name1?station_name1:station_name2;
+    const [token,setToken]=useState(localStorage.getItem("token"));
     useEffect(() => {
         setTimeout(() => {
-            fetch("http://localhost:" + port + "/station/schedule/"+station_name+"/")
+            const jsonData={"token":token};
+            fetch("http://localhost:" + port + "/station/schedule/"+station_name+"/",{
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body:JSON.stringify(jsonData)
+            })
                 .then((res) => res.json())
                 .then(
                     (json) => {
+                        if(!(json.hasOwnProperty('token') )){
                         setScheduled(json);
+                        }
+                        else{
+                            setToken("");
+                            // localStorage.setItem("token","");
+                            window.location="/login";
+                        }
                     } 
                 );
         }, 100);
