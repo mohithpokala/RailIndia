@@ -1,7 +1,10 @@
 const pool = require("./database");
 
-const add_passenger = async(bid, name, age, sex) => {
-   
+const add_passenger = async(req) => {
+    let bid = req.bid;
+    let list = req.vals;
+    console.log(bid);
+
     const bid_query = 
     `
         -- We get a booking, and we need to add passengers and update available seats
@@ -10,33 +13,6 @@ const add_passenger = async(bid, name, age, sex) => {
         where booking_id = $1
     `;
 
-    const res1 = await pool.query(bid_query, [bid]);
-    
-    const query0 = 
-    `
-        -- We get a booking, and we need to add passengers and update available seats
-        update train_instance
-        set available_seats = available_seats - 1
-        where train_no = $1 and journey_date = $2
-            and path_id >= $3 and path_id <= $4
-    `;
-    const res0 = await pool.query(query0, [res1.rows[0]['tn'], res1.rows[0]['d'], res1.rows[0]['s'], res1.rows[0]['e']]);
-  
-    const av_q = 
-    `
-        select available_seats
-        from train_instance
-        where train_no = $1 and journey_date = $2
-            and path_id >= $3 and path_id <= $4
-    `
-    const seats = await pool.query(av_q, [res1.rows[0]['tn'], res1.rows[0]['d'], res1.rows[0]['s'], res1.rows[0]['e']]);
-    console.log(seats.rows);
-    
-    if (res0.length == 0)
-    {
-        return -1;
-    }
-    console.log(res0.rows);
     const query =
         `
             select case 
@@ -50,16 +26,47 @@ const add_passenger = async(bid, name, age, sex) => {
         `
     ;
 
-    const res = await pool.query(query, [res1.rows[0]['tn'], res1.rows[0]['d'], res1.rows[0]['s'], res1.rows[0]['e']]);
-    console.log(res.rows);
+    const av_q = 
+    `
+        select available_seats
+        from train_instance
+        where train_no = $1 and journey_date = $2
+            and path_id >= $3 and path_id <= $4
+    `
+    ;
+    const query0 = 
+    `
+        -- We get a booking, and we need to add passengers and update available seats
+        update train_instance
+        set available_seats = available_seats - $5
+        where train_no = $1 and journey_date = $2
+            and path_id >= $3 and path_id <= $4
+    `;
 
     const query2 =
             `
             INSERT INTO Passenger(booking_id, name, age, sex, waiting_pref_no) 
             VALUES ($1, $2, $3, $4, $5);
-        `;
-    const res2 = await pool.query(query2,[bid, name, age, sex, res.rows[0]['x']]);
-    console.log(res2.rows);
-    return  res2.rows;
+        `
+    ;
+
+    const res1 = await pool.query(bid_query, [bid]);
+    const res0 = await pool.query(query0, [res1.rows[0]['tn'], res1.rows[0]['d'], res1.rows[0]['s'], res1.rows[0]['e'], list.length])
+    .then(
+        (res) => {
+            const res3 = pool.query(av_q, [res1.rows[0]['tn'], res1.rows[0]['d'], res1.rows[0]['s'], res1.rows[0]['e']])
+            .then((seats) => {
+                var seats = seats.rows[0]['available_seats'];
+                console.log(seats);
+                var promises = [];
+                for (var i = list.length - 1; i >= 0; i--) {
+                    let seat = 0;
+                    if (seats + list.length - i <= 0) seat = i - list.length - seats + 1;
+                    promises.push(
+                        pool.query(query2, [bid, list[i].name, list[i].age, list[i].sex, seat])
+                    )}
+                return Promise.all(promises);
+            });
+    });
 }
 module.exports = { add_passenger };

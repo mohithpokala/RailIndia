@@ -116,7 +116,7 @@ const BookTicket = (props) => {
         // "age" : f['age'],
         // "sex" : f['sex']      
         // };
-        var json = f;
+        var json = {"bid": bid, "vals" : f};
         const response2 = await fetch("http://localhost:" + port + "/add_passenger", {
             method: "POST",
             headers: { "Content-Type": "application/json" },

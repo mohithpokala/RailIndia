@@ -6,9 +6,9 @@ const pool = require("./database");
 const cancel_ticket = async(bid) => {
     const query =
         `
-            select * from train_instance where booking_id = $1
+            select * from booking where booking_id = $1
         `;
-    const res = await pool.query(query,[bid]);
+    const res = await pool.query(query, [bid]);
     if(res.rows.length==0) return -1;
     else{
         const train_no = res.rows[0]['train_no'];
@@ -22,6 +22,8 @@ const cancel_ticket = async(bid) => {
         `;
 
         const seats_res = await pool.query(seats_query, [bid]);
+        if (seats_res < 0) return -1;
+        
         const query2 = `
             update Train_instance
             set 
