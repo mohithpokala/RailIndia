@@ -39,7 +39,7 @@ const CancelTicket = (props) => {
                 <h4 style={{width:"100%",textAlign:"center"}}>Cancel your ticket :(</h4><br></br><br></br>
                 <Form  onSubmit={handleSubmit}>
                     <Form.Group>
-                        <Form.Label>Bookinh ID</Form.Label>
+                        <Form.Label>Booking ID</Form.Label>
                         <Form.Control type="number" 
                                         placeholder="Enter booking ID/PNR" value={bookingID}
                                         onChange={e => {
@@ -49,6 +49,7 @@ const CancelTicket = (props) => {
                     </Form.Group>
                     
                 <div className="row button-section">
+                    <br></br>
                 <div class="col">
                     <Button variant="primary" type="submit">
                         Cancel Ticket

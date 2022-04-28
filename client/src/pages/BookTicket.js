@@ -13,9 +13,9 @@ import 'react-dropdown/style.css';
 import Select from 'react-select';
 
 const BookTicket = (props) => {
-    const [scheduled,setScheduled]=useState(false);
-    const [train_no,setTrain]=useState(props.train_no);
-    const [token,setToken]=useState(localStorage.getItem("token"));
+    const [scheduled, setScheduled]=useState(false);
+    const [train_no, setTrain]=useState(props.train_no);
+    const [token, setToken]=useState(localStorage.getItem("token"));
     
     console.log(train_no);
     useEffect(() => {
@@ -33,6 +33,37 @@ const BookTicket = (props) => {
     const [formValues, setFormValues] = useState([{ name: "", age : "", sex : ""}])
     
     const [date, setDate] = useState("");
+    const [trains, setTrains] = useState(false);
+    
+    const jsonData = {"token" : token};
+    useEffect(() => {
+        setTimeout(() => {
+            let data2 = [];
+            fetch("http://localhost:" + port + "/all_trains",{
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body:JSON.stringify(jsonData)
+            })
+                .then((res) => res.json())
+                .then(
+                    (json) => {
+                        if(!(json.hasOwnProperty('token') )){
+                        for(var i = 0; i < json.length; i++){ 
+                            data2.push({
+                                "value":json[i]["train_no"] ,
+                                "label":json[i]["train_no"]});
+                        } 
+                    }
+                    else{
+                        setToken("");
+                        window.location="/login";
+                    }
+                    } 
+                );
+            setTrains(data2);
+        }, 1000);
+    },[] );
+
     const [start_station, setStartStation] = useState("");
     const [end_station, setEndStation] = useState("");
     const sex_options = [{value:'M', label:'M'},  
@@ -77,9 +108,10 @@ const BookTicket = (props) => {
             var form_data = JSON.stringify(formValues);
             var jsonData = {
             "train_no" : train_no,
-            "date" : date,
-            "start_station" : start_station,
-            "end_station" : end_station,
+            "journey_date" : date,
+            "start_id" : start_station,
+            "end_id" : end_station,
+            "user_id" : localStorage.getItem("username")
             };
             console.log(form_data);
             console.log(jsonData);
@@ -102,7 +134,7 @@ const BookTicket = (props) => {
         try{
             const response = await fetch("http://localhost:5000/train/schedule/" + train_no);
             const json = response.json;
-            for(var i=0;i<json.length;i++){ 
+            for(var i=0; i < json.length; i++){ 
                 data1.push({label: json[i]["station_name"], value: i});
             } 
             setStations(data1);
@@ -111,15 +143,6 @@ const BookTicket = (props) => {
             console.error(err.message);
           }
     }
-
-    // useEffect(() => {
-    //     const delayDebounceFn = setTimeout(() => {
-    //         console.log(train_no);
-    //         get_stations(train_no);
-    //     }, 2000)
-    
-    //     return () => clearTimeout(delayDebounceFn)
-    //   }, [train_no])
     
     return (
         <Fragment>
@@ -128,12 +151,12 @@ const BookTicket = (props) => {
                 <Form  onSubmit={handleSubmit}>
                     <Form.Group>
                         <Form.Label>Train ID</Form.Label>
-                        <Form.Control id="train_no_input" type="number" 
-                                        placeholder="Enter train number" value={train_no}
-                                        onChange={e => {
-                                            setTrain(e.target.value);
+                        <Select type="number" options={trains}
+                                        placeholder="Enter train number" 
+                                        onselect ={e => {
+                                            setTrain(e.value);
                                         }} 
-                                        default="" />
+                                        />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Date</Form.Label>
@@ -147,7 +170,7 @@ const BookTicket = (props) => {
                     <Form.Group>
                         <Form.Label>Start Station</Form.Label>
                         <Select options={stations} onChange={s=>{
-                                        // get_end_stations(s.value);
+                                        get_end_stations(s.value);
                                         // console.log(stations);
                                         // console.log("Empty?", end_stations);   
                                         setStartStation(s.label);
