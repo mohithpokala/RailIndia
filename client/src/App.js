@@ -17,17 +17,19 @@ import Schedules from "./pages/Schedules";
 import Station_info from "./pages/Station_info";
 import StationSchedulePage from "./pages/StationSchedules";
 import BookingTicket from './pages/BookTicket';
+import CancelTicket from "./pages/CancelTicket";
 
 export default function App() {
 
   const navlinks=[
-    {text:"HOME",link:"/login"},
-    {text:"SCHEDULE",link:"/train_schedule"},
-    {text:"FIND TRAINS",link:"/view_trains"},
-    {text:"VIEW STATIONS",link:"/support"},
-    {text:"BOOK TICKET",link:"/book_ticket"},
-    {text:"LOGOUT",link:"/logout"},
-    {text:"Station SCHEDULE",link:"/station_schedule"}   
+    {text:"Home",link:"/"},
+    {text:"Schedule",link:"/train_schedule"},
+    {text:"Find Trains",link:"/view_trains"},
+    {text:"View Stations",link:"/support"},
+    {text:"Book Ticket",link:"/book_ticket"},
+    {text:"Cancel Ticket",link:"/cancel_ticket"},
+    {text:"Station SCHEDULE",link:"/station_schedule"},  
+    {text:"Logout",link:"/logout"},
   ]
   return (
     <div className="home_page">
@@ -44,6 +46,7 @@ export default function App() {
             <Route path="/Station_schedule//" element={<StationSchedulePage />}/>
             <Route path="/support" element={<Example />}/>
             <Route path="/book_ticket" element={<BookingTicket />}/>
+            <Route path="/cancel_ticket" element={<CancelTicket />}/>
             <Route path="/login" element={<Login />}/>
             <Route path="/logout" element={<Logout />}/>
           </Routes>
