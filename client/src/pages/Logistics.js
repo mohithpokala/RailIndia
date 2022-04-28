@@ -7,75 +7,137 @@ import { port } from './port';
 
 import Select from 'react-select';
 
-const Schedules2 = (props) => {
+const Logistics = (props) => {
     const [top5inflow,setTop5inflow] = useState(false);
     const [top5outflow,setTop5outflow] = useState(false);
     const [zonestat1,setzonestat1] = useState(false);
     const [zonestat2,setzonestat2] = useState(false);
     const [LongestTrains,setLongestTrains] = useState(false);
+    const [token,setToken]=useState(localStorage.getItem("token"));
     
     
     useEffect(() => {
+        const jsonData={"token":token};
         setTimeout(() => {
-            fetch("http://localhost:" + port + "/inflow_top5/")
+            fetch("http://localhost:" + port + "/inflow_top5/",{
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body:JSON.stringify(jsonData)
+            })
                 .then((res) => res.json())
                 .then(
                     (json) => {
-                        setTop5inflow(json);
+                        if(!(json.hasOwnProperty('token') )){
+                            setTop5inflow(json);                            
+                        }
+                        else{
+                            localStorage.setItem("token","");
+                            window.location="/login";
+                        }
                     } 
+                    
                 );
         }, 100);
     },[] );
 
     useEffect(() => {
+        const jsonData={"token":token};
         setTimeout(() => {
-            fetch("http://localhost:" + port + "/outflow_top5/")
+            fetch("http://localhost:" + port + "/outflow_top5/",{
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body:JSON.stringify(jsonData)
+            })
                 .then((res) => res.json())
                 .then(
                     (json) => {
-                        setTop5outflow(json);
+                        if(!(json.hasOwnProperty('token') )){
+                            setTop5outflow(json);                            
+                        }
+                        else{
+                            localStorage.setItem("token","");
+                            window.location="/login";
+                        }
                     } 
+                    
                 );
         }, 100);
     },[] );
 
+
     useEffect(() => {
+        const jsonData={"token":token};
         setTimeout(() => {
-            fetch("http://localhost:" + port + "/trains_zone_stat1/")
+            fetch("http://localhost:" + port + "/trains_zone_stat/",{
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body:JSON.stringify(jsonData)
+            })
                 .then((res) => res.json())
                 .then(
                     (json) => {
-                        setzonestat1(json);
+                        if(!(json.hasOwnProperty('token') )){
+                            setzonestat1(json);                            
+                        }
+                        else{
+                            localStorage.setItem("token","");
+                            window.location="/login";
+                        }
                     } 
+                    
                 );
         }, 100);
     },[] );
 
+
     useEffect(() => {
+        const jsonData={"token":token};
         setTimeout(() => {
-            fetch("http://localhost:" + port + "/LongestTrains/")
+            fetch("http://localhost:" + port + "/top5_trains/",{
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body:JSON.stringify(jsonData)
+            })
                 .then((res) => res.json())
                 .then(
                     (json) => {
-                        setLongestTrains(json);
+                        if(!(json.hasOwnProperty('token') )){
+                            setLongestTrains(json);                            
+                        }
+                        else{
+                            localStorage.setItem("token","");
+                            window.location="/login";
+                        }
                     } 
+                    
                 );
         }, 100);
     },[] );
 
-    useEffect(() => {
-        setTimeout(() => {
-            fetch("http://localhost:" + port + "/trains_zone_stat2/")
-                .then((res) => res.json())
-                .then(
-                    (json) => {
-                        setzonestat2(json);
-                    } 
-                );
-        }, 100);
-    },[] );
     
-    
+    useEffect(() => {
+        const jsonData={"token":token};
+        setTimeout(() => {
+            fetch("http://localhost:" + port + "/trains_zone_stat2/",{
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body:JSON.stringify(jsonData)
+            })
+                .then((res) => res.json())
+                .then(
+                    (json) => {
+                        if(!(json.hasOwnProperty('token') )){
+                            setzonestat2(json);                            
+                        }
+                        else{
+                            localStorage.setItem("token","");
+                            window.location="/login";
+                        }
+                    } 
+                    
+                );
+        }, 100);
+    },[] );
     return (
         <>
         {
@@ -87,7 +149,7 @@ const Schedules2 = (props) => {
             : 
             (
                 <React.Fragment>
-                    <div style={{position:"absolute",width:"100%",top:"25%",left:"0%",height:"100%",}}>
+                    <div style={{position:"absolute",width:"100%",top:"25%",left:"0%",height:"100%"}}>
                         <h4>
                             TOP 5 stations with highest inflow
                         </h4>
@@ -108,8 +170,7 @@ const Schedules2 = (props) => {
                                 ))
                             }
                         </table>
-                        <br></br><br></br>
-
+                        </div><div>
                         <h4>
                             TOP 5 stations with highest outflow
                         </h4>
@@ -130,7 +191,7 @@ const Schedules2 = (props) => {
                                 ))
                             }
                         </table>
-
+                        </div><div>
                         <br></br><br></br>
 
                         <h4>
@@ -152,6 +213,7 @@ const Schedules2 = (props) => {
                             }
                         </table>
 
+                        </div><div><br></br><br></br>
                         <h4>
                             Zone wise station count
                         </h4>
@@ -171,6 +233,7 @@ const Schedules2 = (props) => {
                             }
                         </table>
 
+                        </div><div><br></br><br></br>
                         <h4>
                             Longest trains
                         </h4>
@@ -185,7 +248,7 @@ const Schedules2 = (props) => {
                             </tr>
                             {
                                 zonestat1.map((row) => (
-                                    <tr>stat1,stat2,dist,train_no,train_name
+                                    <tr>
                                         <td><b>{row.stat1}</b></td>
                                         <td>{row.stat2}</td>
                                         <td><b>{row.dist}</b></td>
@@ -195,10 +258,12 @@ const Schedules2 = (props) => {
                                 ))
                             }
                         </table>
-                    </div>
+                        
+                        </div>
+                    
                 </React.Fragment>
     )}</>
   );
   
 }
-export default Schedules2;
+export default Logistics;
