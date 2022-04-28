@@ -12,7 +12,7 @@ routes.post('/inflow_top5',top5_inflow);
 routes.post('/outflow_top5',top5_outflow);
 routes.post('/top5_trains',top5_trains);
 routes.post('/big_cities',big_city);
-routes.post('/book_ticket/:train_no/:journey_date/:start_id/:end_id/:user_id/:num_seats',book_tickets);
+routes.post('/book_ticket/',book_tickets);
 routes.post('/view_trains_from_station/:station',view_trains_from_station);
 routes.post('/get_station_id/:station',get_id);
 routes.post('/get_station_info/:station',get_station_info);
@@ -30,6 +30,6 @@ routes.post('/add_stations/:sid/:sname/:lat/:long/:city/:state/:zone',add_statio
 routes.post('/add_trains/:train_no/:train_name/:capacity/:num_stations/:source_id/:dest_id',add_trains);
 routes.post('/find_user',find_user);
 routes.post('/add_path_to_train/:train_no/:station_code/:distance/:price_from_source/:eat/:edt',add_path_to_train);
-routes.post('/add_passenger/:bid/:name/:age/:sex',Passenger_entry);
+routes.post('/add_passenger/',Passenger_entry);
 routes.post('/get_num_seats/:train/:start_index/:end_index/:date',get_num_seats);
 module.exports = {routes};

@@ -14,9 +14,9 @@ const Schedules =  (props) => {
     var train_no2 = props.train_no;
     const train_no = train_no1?train_no1:train_no2;
     const [token,setToken]=useState(localStorage.getItem("token"));
+   
     useEffect(() => {
         const jsonData={"token":token};
-        
     const temp1=  fetch("http://localhost:" + port + "/train/schedule/"+train_no+"/",{
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -29,12 +29,12 @@ const Schedules =  (props) => {
                 
             }
             else{
-                setToken("");
+                //setToken("");
                 localStorage.setItem("token","");
                 window.location="/login";
             }
         });
-    });
+    },[token] );
     return (
   
         !(scheduled && train_no!="abcd" ) 

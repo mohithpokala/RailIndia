@@ -35,7 +35,8 @@ const Login =()=>{
                 console.log(json);
                 if((json.check != "INVALID USERID")&&(json.check!="INVALID PASSWORD")){
                     token = json.token;
-                    localStorage.setItem("token",token);
+                    localStorage.setItem("token", token);
+                    localStorage.setItem("username", user_name);
                     console.log("random");
                     setAuth(true);
                     window.location="/";
