@@ -27,8 +27,8 @@ const Station_info = (props) => {
                         setScheduled(json);
                         }
                         else{
-                            setToken("");
-                            // localStorage.setItem("token","");
+                            // setToken("");
+                            localStorage.setItem("token","");
                             window.location="/login";
                         }
                     } 

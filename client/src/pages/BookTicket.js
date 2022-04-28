@@ -29,14 +29,14 @@ const BookTicket = (props) => {
                         setScheduled(json);
                         }
                         else{
-                            setToken("");
-                            // localStorage.setItem("token","");
+                            // setToken("");
+                            localStorage.setItem("token","");
                             window.location="/login";
                         }
                     } 
                 );
         }, 100);
-    },[] );
+    },[token] );
     console.log(props.train_no);
     console.log(scheduled);
     console.log("hi iuhuihgvf ");

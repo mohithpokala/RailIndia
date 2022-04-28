@@ -34,15 +34,15 @@ const FindTrains = (props) => {
                         setSingleTrains(json);
                         }
                         else{
-                            setToken("");
-                            // localStorage.setItem("token","");
+                            // setToken("");
+                            localStorage.setItem("token","");
                             window.location="/login";
                         }
                     } 
                 );
 
         }, 0);
-    },[] );
+    },[token] );
 
     useEffect(() => {
         setTimeout(() => {

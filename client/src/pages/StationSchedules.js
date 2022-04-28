@@ -43,8 +43,8 @@ const StationSchedulePage = (props) => {
                             } 
                         }
                         else{
-                            setToken("");
-                            // localStorage.setItem("token","");
+                            // setToken("");
+                            localStorage.setItem("token","");
                             window.location="/login";
                         }
                         

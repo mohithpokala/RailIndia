@@ -41,18 +41,19 @@ const SchedulePage = (props) => {
                                 "value":json[i]["train_no"] ,
                                 "label":json[i]["train_no"]});
                         } 
+
+            setTrainName(data1);
+            setTrainNum(data2);
                     }
                     else{
-                        setToken("");
-                        // localStorage.setItem("token","");
+                        // setToken("");
+                        localStorage.setItem("token","");
                         window.location="/login";
                     }
                     } 
                 );
-            setTrainName(data1);
-            setTrainNum(data2);
         }, 1000);
-    },[] );
+    },[token] );
     const trainNameChanged = (e)=>{
         setTrainName(e.target.value);
     }
