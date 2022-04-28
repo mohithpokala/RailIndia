@@ -10,42 +10,41 @@ import {port} from './port';
 const renderOption = (x)=>{
     return (<option style={{cursor:"pointer"}} value={x.f}>{x.f}</option>);
 }
-const SchedulePage = (props) => {
-  const [trainName,setTrainName] = useState(false);
-    const [train,setTrain]=useState("12797");
-    const [train_num,setTrainNum]=useState("12797");
+const StationSchedulePage = (props) => {
+  const [stationName,setStationName] = useState(false);
+    const [station,setStation]=useState("KCG");
+    const [station_num,setStationNum]=useState(false);
 
     useEffect(() => {
         setTimeout(() => {
             let data1 = [];
             let data2 = [];
-            fetch("http://localhost:" + port + "/all_trains")
+            fetch("http://localhost:" + port + "/all_stations")
                 .then((res) => res.json())
                 .then(
                     (json) => {
                         for(var i=0;i<json.length;i++){ 
                             data1.push({
-                                "label":json[i]["train_name"] ,
-                                "value":json[i]["train_no"]});
+                                "label":json[i]["station_name"] ,
+                                "value":json[i]["station_code"]});
                             data2.push({
-                                "value":json[i]["train_no"] ,
-                                "label":json[i]["train_no"]});
+                                "value":json[i]["station_code"] ,
+                                "label":json[i]["station_code"]});
                         } 
                     } 
                 );
-            setTrainName(data1);
-            setTrainNum(data2);
+            setStationName(data1);
+            setStationNum(data2);
         }, 1000);
     },[] );
-    const trainNameChanged = (e)=>{
-        setTrainName(e.target.value);
+    const stationNameChanged = (e)=>{
+        setStationName(e.target.value);
     }
-    console.log(train);
 
     return (
         <>
             {
-            !(trainName) 
+            !(stationName && station_num) 
                 ? 
                     (
                         <></>
@@ -56,28 +55,28 @@ const SchedulePage = (props) => {
                         <div style={{position:"absolute",width:"100%",height:"90%"}}>
                             
                             <Select
-                                options={trainName}
+                                options={stationName}
                                 search
                       
-                                onChange={trains=>{
-                                        setTrain(trains.value);
-                                        console.log(train);
+                                onChange={stations=>{
+                                        setStation(stations.value);
+                                        console.log(station);
                                     }}
                                 
-                                placeholder="Select train name"
+                                placeholder="Select station name"
                             />
                              <Select
-                                options={train_num}
+                                options={station_num}
                                 search
                       
-                                onChange={trains=>{
-                                        setTrain(trains.value);
-                                        console.log(train);
+                                onChange={stations=>{
+                                        setStation(stations.value);
+                                        console.log(station);
                                     }}
                                 
-                                placeholder="Select train number"
+                                placeholder="Select station code"
                             />
-                            <a  href={"/train_schedule/"+train}><h1>Submit</h1></a>
+                            <a  href={"/station_schedule/"+station}><h1>Submit</h1></a>
                         </div>
 
                     </React.Fragment>
@@ -86,4 +85,4 @@ const SchedulePage = (props) => {
         </>);
 }
 
-export default SchedulePage;
+export default StationSchedulePage;

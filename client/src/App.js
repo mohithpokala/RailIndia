@@ -8,17 +8,18 @@ import FindTrainsPage from "./pages/FindTrainsPage";
 import FindTrains from "./pages/FindTrains";
 import 'bootstrap/dist/css/bootstrap.css';
 import SchedulePage from "./pages/SchedulePage";
-<<<<<<< HEAD
 import Example from "./pages/Support";
-=======
+import Schedules from "./pages/Schedules";
+import Station_info from "./pages/Station_info";
+import StationSchedulePage from "./pages/StationSchedules";
 import BookingPage from "./pages/book_ticket";
 
->>>>>>> 334a1ada04caaca60a3088b6a35b6e29165d07e2
 export default function App() {
 
   const navlinks=[
     {text:"HOME",link:"/"},
-    {text:"SCHEDULE",link:"/summary"},
+    {text:"SCHEDULE",link:"/train_schedule"},
+    {text:"Station SCHEDULE",link:"/station_schedule"},
     {text:"FIND TRAINS",link:"/view_trains"},
     {text:"VIEW STATIONS",link:"/support"}
     
@@ -30,9 +31,12 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />}/>
-            <Route path="summary" element={<SchedulePage />} />
+            <Route path="/train_schedule" element={<SchedulePage />} />
+            <Route path="/train_schedule/:train_no" element={<Schedules />} />
             <Route path="/view_trains" element={<FindTrainsPage />}/>
             <Route path="/find_trains/:station1/:station2" element={<FindTrains />}/>
+            <Route path="/station_schedule/:station_name/" element={<Station_info />}/>
+            <Route path="/Station_schedule//" element={<StationSchedulePage />}/>
             <Route path="/support" element={<Example />}/>
 
           </Routes>

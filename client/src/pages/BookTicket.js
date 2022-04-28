@@ -13,7 +13,7 @@ const BookTicket = (props) => {
     console.log(train_no);
     useEffect(() => {
         setTimeout(() => {
-            fetch("http://localhost:5000/train/schedule/"+train_no+"/")
+            fetch("http://localhost:8000/train/schedule/"+train_no+"/")
                 .then((res) => res.json())
                 .then(
                     (json) => {

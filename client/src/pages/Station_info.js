@@ -5,16 +5,14 @@ import '../CSS/Match.css';
 import { useParams } from 'react-router';
 import { port } from './port';
 
-import Select from 'react-select';
 
-const Schedules = (props) => {
-  const [scheduled,setScheduled] = useState(false);
-    const train_no = useParams().train_no;
+const Station_info = () => {
+    const [scheduled,setScheduled] = useState(false);
+    const station_name= useParams().station_name;
 
-    console.log(train_no);
     useEffect(() => {
         setTimeout(() => {
-            fetch("http://localhost:" + port + "/train/schedule/"+train_no+"/")
+            fetch("http://localhost:" + port + "/station/schedule/"+station_name+"/")
                 .then((res) => res.json())
                 .then(
                     (json) => {
@@ -23,13 +21,12 @@ const Schedules = (props) => {
                 );
         }, 100);
     },[] );
-    console.log(props.train_no);
     console.log(scheduled);
     
     return (
         <>
         {
-            !(scheduled && train_no!="abcd" ) 
+            !(scheduled ) 
             ? 
                 (
                     <></>
@@ -39,25 +36,23 @@ const Schedules = (props) => {
                 <React.Fragment>
                     <div style={{position:"absolute",width:"100%",top:"25%",left:"0%",height:"100%",}}>
                         <h4>
-                            Schedule for Train { train_no }
+                            Schedule for Station { station_name }
                         </h4>
 
                         <table>
                             <tr>
-                                <td><b>S.No</b></td>
-                                <td><b>Station Name</b></td>
+                                <td><b>Train Number</b></td>
+                                <td><b>Train Name</b></td>
                                 <td><b>Expected Arrival Time</b></td>
                                 <td><b>Expected Departure Time</b></td>
-                                <td><b>Distance from Source</b></td>
                             </tr>
                             {
                                 scheduled.map((row) => (
                                     <tr>
-                                        <td><b>{row.path_id}</b></td>
-                                        <td><a href={"/station_schedule/"+row.station_id}>{row.station_name}</a></td>
+                                        <td><a href={"/train_schedule/"+row.train_no}><b>{row.train_no}</b></a></td>
+                                        <td>{row.train_name}</td>
                                         <td>{row.expected_arrival_time}</td>
                                         <td>{row.expected_departure_time}</td>
-                                        <td>{row.distance_from_source}</td>
                                     </tr>
                                 ))
                             }
@@ -68,4 +63,4 @@ const Schedules = (props) => {
   );
   
 }
-export default Schedules;
+export default Station_info;

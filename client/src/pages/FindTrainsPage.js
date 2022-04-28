@@ -19,7 +19,7 @@ const FindTrainsPage = (props) => {
     useEffect(() => {
         setTimeout(() => {
             let data1 = [];
-            fetch("http://localhost:5000/all_stations")
+            fetch("http://localhost:8000/all_stations")
                 .then((res) => res.json())
                 .then(
                     (json) => {

@@ -21,7 +21,7 @@ const FindTrains = (props) => {
     console.log(start_id,dest_id);
     useEffect(() => {
         setTimeout(() => {
-            fetch("http://localhost:5000/train/find/"+start_id+"/"+dest_id)
+            fetch("http://localhost:8000/train/find/"+start_id+"/"+dest_id)
                 .then((res) => res.json())
                 .then(
                     (json) => {
@@ -34,7 +34,7 @@ const FindTrains = (props) => {
 
     useEffect(() => {
         setTimeout(() => {
-            fetch("http://localhost:5000/train/find_multipath/"+start_id+"/"+dest_id)
+            fetch("http://localhost:8000/train/find_multipath/"+start_id+"/"+dest_id)
                 .then((res) => res.json())
                 .then(
                     (json) => {
@@ -60,7 +60,7 @@ const FindTrains = (props) => {
                     <div style={{position:"absolute",width:"100%",top:"25%",left:"0%",height:"100%",}}>
                         {
                             singleTrains.map((row) => (
-                                <Link to="/" href={""} style={{textDecoration:"none"}}>
+                                <Link to={"/train_schedule/"+row.train_no} style={{textDecoration:"none"}}>
                                     <Card key={row.train_name} className="box" >
                                         <div style={{display:"block",opacity:0.9,width:"100%",height:"10vh",borderRadius:"4px",backgroundColor:props.color}}></div>
                                         <Card.Body className='boxheader'>
