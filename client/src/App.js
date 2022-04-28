@@ -3,29 +3,24 @@ import React from 'react';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Blogs from "./pages/Blogs";
-import Match from "./pages/Match_details"
-import Player from "./pages/Player"
-import Venues from "./pages/Venues"
-import Venue  from "./pages/Venue"
-import Pointstable from "./pages/Pointstable"
 import Navbar from './Components/Navbar';
-import ADD_VENUE from "./pages/ADD_VENUE";
-
+import FindTrainsPage from "./pages/FindTrainsPage";
+import FindTrains from "./pages/FindTrains";
 import 'bootstrap/dist/css/bootstrap.css';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import SchedulePage from "./pages/SchedulePage";
+<<<<<<< HEAD
 import Example from "./pages/Support";
-import Scorecard from "./pages/Scorecard";
+=======
+import BookingPage from "./pages/book_ticket";
+
+>>>>>>> 334a1ada04caaca60a3088b6a35b6e29165d07e2
 export default function App() {
 
   const navlinks=[
     {text:"HOME",link:"/"},
     {text:"SCHEDULE",link:"/summary"},
-    {text:"POINTS TABLE",link:"/pointstable/2011"},
-    {text:"VENUES",link:"/venues"},
-    {text:"PLAYERS",link:"/players"},
-    {text:"MAP",link:"/example"}
+    {text:"FIND TRAINS",link:"/view_trains"},
+    {text:"VIEW STATIONS",link:"/support"}
     
   ]
   return (
@@ -35,15 +30,11 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />}/>
-            <Route path="summary" element={<Scorecard />} />
-            <Route path="/matches/:match_id" element={<Match />}/>
-            <Route path="/players/:player_id" element={<Player />}/>
-            <Route path="/pointstable/:year" element={<Pointstable />}/>
-            <Route path="/venues/" element={<Venues />}/>
-            <Route path="/venue/:venue_id" element={<Venue />}/>
-            <Route path="/schedule/" element={<schedule_page />}/>
-            <Route path="/venue/add" element={<ADD_VENUE />}/>
-            <Route path="/example" element={<Example />}/>
+            <Route path="summary" element={<SchedulePage />} />
+            <Route path="/view_trains" element={<FindTrainsPage />}/>
+            <Route path="/find_trains/:station1/:station2" element={<FindTrains />}/>
+            <Route path="/support" element={<Example />}/>
+
           </Routes>
         </BrowserRouter>
       </div>

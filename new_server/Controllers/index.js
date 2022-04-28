@@ -20,6 +20,8 @@ const {trains_zone_stat}=require('./trains_zone_stat.controller');
 const {view_ticket}= require('./view_ticket.controller');
 const {top5_inflow}=require('./inflow_top5.controller');
 const {top5_outflow}=require('./outflow_top5.controller');
-module.exports = {top5_inflow,top5_outflow,schedule,train_finder,get_all_stations,get_all_trains,book_tickets,view_trains_from_station,train_finder_multipath,find_user,Passenger_entry,
+const {get_id}=require('./get_station_id.controller');
+const {big_city} =require('./big_cities.controller');
+module.exports = {big_city,get_id,top5_inflow,top5_outflow,schedule,train_finder,get_all_stations,get_all_trains,book_tickets,view_trains_from_station,train_finder_multipath,find_user,Passenger_entry,
 get_passenger,cancel_tickets,book_tickets,find_user,add_stations,add_trains,add_path_to_train,get_num_seats
 ,release_tickets,trains_state_stat,trains_zone_stat,view_ticket} 

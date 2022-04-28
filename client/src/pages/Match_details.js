@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Scorecard from './Scorecard';
+import Scorecard from './SchedulePage';
 import Score_comp  from './Score_Comparision';
 import { useParams } from 'react-router';
-import Summary from './Summary'
+import Summary from './Schedules'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import '../CSS/Navbar.css';
 const Match=()=>{

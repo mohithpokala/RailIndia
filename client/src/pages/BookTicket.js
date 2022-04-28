@@ -7,13 +7,10 @@ import { useParams } from 'react-router';
 
 import Select from 'react-select';
 
-
-
-
-const Summary = () => {
-  const [scheduled,setScheduled]=useState(false);
-    const train_no=useParams().train_no;
-    console.log("http://localhost:5000/train/schedule/"+train_no+"/");
+const BookTicket = (props) => {
+    const [scheduled,setScheduled]=useState(false);
+    const [train_no,setTrain]=useState(props.train_no);
+    console.log(train_no);
     useEffect(() => {
         setTimeout(() => {
             fetch("http://localhost:5000/train/schedule/"+train_no+"/")
@@ -23,11 +20,11 @@ const Summary = () => {
                         setScheduled(json);
                     } 
                 );
-        }, 0);
+        }, 100);
     },[] );
+    console.log(props.train_no);
     console.log(scheduled);
     console.log("hi iuhuihgvf ");
-    console.log(train_no);
     return (
         <>
         {
@@ -39,7 +36,7 @@ const Summary = () => {
             : 
             (
                 <React.Fragment>
-                    <div style={{position:"absolute",width:"100%",top:"5%",left:"0%",height:"100%",}}>
+                    <div style={{position:"absolute",width:"100%",top:"25%",left:"0%",height:"100%",}}>
                         <table>
                             <tr>
                                 <td><b>S.No</b></td>
@@ -50,7 +47,7 @@ const Summary = () => {
                             </tr>
                             {
                                 scheduled.map((row) => (
-                                    <tr key={row.train_no}>
+                                    <tr>
                                         <td><b>{row.path_id}</b></td>
                                         <td>{row.station_name}</td>
                                         <td>{row.expected_arrival_time}</td>
@@ -66,4 +63,4 @@ const Summary = () => {
   );
   
 }
-export default Summary;
+export default BookTicket;
