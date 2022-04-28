@@ -20,11 +20,23 @@ const BookTicket = (props) => {
     console.log(train_no);
     useEffect(() => {
         setTimeout(() => {
-            fetch("http://localhost:"+port+"/train/schedule/"+train_no+"/")
+            const jsonData={"token":token};
+            fetch("http://localhost:"+port+"/train/schedule/"+train_no+"/",{
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body:JSON.stringify(jsonData)
+            })
                 .then((res) => res.json())
                 .then(
                     (json) => {
+                        if(!(json.hasOwnProperty('token') )){
                         setScheduled(json);
+                        }
+                        else{
+                            setToken("");
+                            // localStorage.setItem("token","");
+                            window.location="/login";
+                        }
                     } 
                 );
         }, 100);

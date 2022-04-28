@@ -15,12 +15,13 @@ const SchedulePage = (props) => {
   const [trainName,setTrainName] = useState(false);
     
     const [token,setToken]=useState(localStorage.getItem("token"));
-    const jsonData={"token":token};
+    
     const [train,setTrain]=useState("12797");
     const [train_num,setTrainNum]=useState(false);
 
     useEffect(() => {
         setTimeout(() => {
+            const jsonData={"token":token};
             let data1 = [];
             let data2 = [];
             fetch("http://localhost:" + port + "/all_trains",{
