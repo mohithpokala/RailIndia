@@ -2,9 +2,10 @@
 const pool = require("./database");
 
 const available_date = async(train_no) => {
+
     const query =
         `
-            select journey_date
+            select distinct journey_date::varchar as d
             from train_instance
             where train_no = $1
         `;

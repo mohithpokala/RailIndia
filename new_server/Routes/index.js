@@ -53,7 +53,7 @@ routes.post('/add_stations/:sid/:sname/:lat/:long/:city/:state/:zone',add_statio
 routes.post('/add_trains/:train_no/:train_name/:capacity/:num_stations/:source_id/:dest_id',add_trains);
 routes.post('/find_user',find_user);
 routes.post('/add_path_to_train/:train_no/:station_code/:distance/:price_from_source/:eat/:edt',add_path_to_train);
-routes.post('/add_passenger/',Passenger_entry);
+routes.post('/add_passenger/', Passenger_entry);
 routes.post('/get_num_seats/:train/:start_index/:end_index/:date',get_num_seats);
-routes.post('/get_avaiable_dates/:train_no', available_dates);
+routes.post('/get_available_dates/:train_no', available_dates);
 module.exports = {routes};

@@ -108,12 +108,25 @@ const BookTicket = (props) => {
         newFormValues.splice(i, 1);
         setFormValues(newFormValues)
     }
-    
+
+    let addPassengers = async (bid, f) =>
+    {
+        var json = {"bid": bid,
+        "name" : f['name'],
+        "age" : f['age'],
+        "sex" : f['sex']      
+        };
+        const response2 = await fetch("http://localhost:" + port + "/add_passenger", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(json)
+        }); 
+    }
+
     let handleSubmit = async (event) => {
         event.preventDefault();
         
         try {
-            var form_data = JSON.stringify(formValues);
             var jsonData = {
             "train_no" : train_no,
             "journey_date" : date,
@@ -130,12 +143,16 @@ const BookTicket = (props) => {
             .then((res) => res.json())
             .then((json) => 
             {
-                console.log(json);
                 if(!(json.hasOwnProperty('token') ))
                 {
-                    const res = response.json();
+                    const res = json;
                     const booking_id = res['booking_id'];
-                    console.log(booking_id);
+                    // console.log(res, formValues, formValues.length);
+                    for(let i = 0; i < formValues.length; i++)
+                    {
+                        console.log(booking_id);
+                        const res = addPassengers(booking_id, formValues[i]);
+                    }
                 } 
                 else
                 {
@@ -153,7 +170,6 @@ const BookTicket = (props) => {
     const get_stations = async (train_no) => {
         let data1 = [];
         try{
-            console.log(JSON.stringify(jsonData));
             const response = await fetch("http://localhost:" + port + "/train/schedule/" + train_no, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -163,7 +179,6 @@ const BookTicket = (props) => {
             .then((json) => {
        
             if(!(json.hasOwnProperty('token') )){
-                setScheduled(json);
                 for(var i = 0; i < json.length; i++){ 
                     data1.push({label: json[i]["station_name"], value: json[i]["path_id"]});
                 } 
@@ -184,8 +199,7 @@ const BookTicket = (props) => {
     const get_dates = async (train_no) => {
         let data1 = [];
         try{
-            console.log(JSON.stringify(jsonData));
-            const response = await fetch("http://localhost:" + port + "/get_available_dates" + train_no, {
+            const response = await fetch("http://localhost:" + port + "/get_available_dates/" + train_no, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(jsonData)
@@ -194,11 +208,12 @@ const BookTicket = (props) => {
             .then((json) => {
        
             if(!(json.hasOwnProperty('token') )){
-                setScheduled(json);
                 for(var i = 0; i < json.length; i++){ 
-                    data1.push({label: json[i]["date"], value: json[i]["date"]});
+                    console.log(json[i]["d"], train_no);
+                    data1.push({label: json[i]["d"].split("T")[0], value: json[i]["d"]});
                 } 
                 setDates(data1);
+                console.log(dates);
             }
             else{
                 setToken("");
@@ -231,7 +246,7 @@ const BookTicket = (props) => {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Date</Form.Label>
-                        <Select type="date" 
+                        <Select options={dates} type="date" 
                                         placeholder="Enter date of travel" 
                                         onChange={e => {
                                             setDate(e.value);
