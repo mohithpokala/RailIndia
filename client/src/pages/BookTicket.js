@@ -1,9 +1,11 @@
 
-import React, {useState, useEffect} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import 'chart.js/auto';
 import '../CSS/Match.css';
 import { useParams } from 'react-router';
-
+import { port } from './port'
 
 import Select from 'react-select';
 
@@ -28,18 +30,18 @@ const BookTicket = (props) => {
         setFormValues(newFormValues)
     }
     
-    let handleSubmit = (event) => {
+    let handleSubmit = async (event) => {
         event.preventDefault();
         
         try {
-            let form_data = JSON.stringify(formValues);
+            var form_data = JSON.stringify(formValues);
             var jsonData = {
             "train_no" : train_no,
             "date" : date,
             "passengers" : form_data
-            }
+            };
             console.log(jsonData);
-            const response = await fetch("http://localhost:5000/book_ticket", {
+            const response = await fetch("http://localhost:" + port + "/book_ticket", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(jsonData)
@@ -58,7 +60,7 @@ const BookTicket = (props) => {
                     <Form.Group>
                         <Form.Label>Train ID</Form.Label>
                         <Form.Control type="number" 
-                                        placeholder="Enter train number" value={venue}
+                                        placeholder="Enter train number" value={train_no}
                                         onChange={e => {
                                             setTrain(e.target.value);
                                         }} default="" />
@@ -66,26 +68,29 @@ const BookTicket = (props) => {
                     <Form.Group>
                         <Form.Label>Date</Form.Label>
                         <Form.Control type="text" 
-                                        placeholder="Enter date of travel" value={city}
+                                        placeholder="Enter date of travel" value={date}
                                         onChange={e => {
                                             setDate(e.target.value);
                                         }} default="" />
                     </Form.Group>
                 {formValues.map((element, index) => (
-                    <div className="form-inline" key={index}>
-                    <label>Name</label>
-                    <input type="text" name="name" value={element.name || ""} onChange={e => handleChange(index, e)} />
-                    <label>Age</label>
-                    <input type="number" name="age" value={element.age || ""} onChange={e => handleChange(index, e)} />
-                    <label>Age</label>
-                    <input type="number" name="sex" value={element.sex || ""} onChange={e => handleChange(index, e)} />
+                <div class="container">
+                    <Form.Group className="form-inline" key={index}>
+                    <Form.Label> Passenger {index} </Form.Label> <br></br>
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control type="text" name="name" value={element.name || ""} onChange={e => handleChange(index, e)} />
+                    <Form.Label>Age</Form.Label>
+                    <Form.Control type="number" name="age" value={element.age || ""} onChange={e => handleChange(index, e)} />
+                    <Form.Label>Sex</Form.Label>
+                    <Form.Control type="text" name="sex" value={element.sex || ""} onChange={e => handleChange(index, e)} />
                     
                     {
                         index ? 
                         <button type="button"  className="error" onClick={() => removeFormFields(index)}>Remove</button> 
                         : null
                     }
-                    </div>
+                    </Form.Group>
+                </div>
                 ))}
                 <div className="button-section">
                 <Button variant="secondary" type="button" onClick={() => addFormFields()}>
