@@ -1,11 +1,14 @@
 
 import React, {Fragment, useState, useEffect} from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import {Form, Button} from 'react-bootstrap';
 import 'chart.js/auto';
 import '../CSS/Match.css';
 import { useParams } from 'react-router';
 import { port } from './port'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 
 import Select from 'react-select';
 
@@ -13,6 +16,37 @@ const BookTicket = (props) => {
     const [formValues, setFormValues] = useState([{ name: "", age : "", sex : ""}])
     const [train_no, setTrain] = useState("");
     const [date, setDate] = useState("");
+    const [start_station, setStartStation] = useState("");
+    const [end_station, setEndStation] = useState("");
+    const sex_options = [{value:'M', label:'M'},  
+                        {value:'F', label:'F'},
+                        {value:'other', label:'other'}
+                        ];
+    const [stations, setStations] = useState([]);
+    const [end_stations, setEndStations] = useState([]);
+
+
+    const get_stations = async (train_no) => {
+        let data1 = [];
+        try{
+            const response = await fetch("http://localhost:5000/train/schedule/" + train_no);
+            const json = response.json;
+            for(var i=0;i<json.length;i++){ 
+                data1.push({label: json[i]["station_name"], value: i});
+            } 
+            setStations(data1);
+        } catch (err) {
+            console.error(err.message);
+          }
+    }
+
+    let get_end_stations = (j) => {
+        let data1 = [];
+        for(var i = j + 1; i < stations.length; i++){ 
+            data1.push({label: stations[i], value: i});
+        }
+        setEndStations(data1);
+    }
 
     let handleChange = (i, e) => {
         let newFormValues = [...formValues];
@@ -55,13 +89,14 @@ const BookTicket = (props) => {
     return (
         <Fragment>
             <div className="home_page" style={{width:"60%",left:"20%",position:"absolute",top:"20%"}}>
-                <h4 style={{width:"100%",textAlign:"center"}}>Hurrah IPL is coming to your city</h4><br></br><br></br>
+                <h4 style={{width:"100%",textAlign:"center"}}>Book your ticket!</h4><br></br><br></br>
                 <Form  onSubmit={handleSubmit}>
                     <Form.Group>
                         <Form.Label>Train ID</Form.Label>
                         <Form.Control type="number" 
                                         placeholder="Enter train number" value={train_no}
                                         onChange={e => {
+                                            get_stations(e.target.value);
                                             setTrain(e.target.value);
                                         }} default="" />
                     </Form.Group>
@@ -73,32 +108,50 @@ const BookTicket = (props) => {
                                             setDate(e.target.value);
                                         }} default="" />
                     </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Start Station</Form.Label>
+                        <Dropdown options={stations} onChange={stations=>{
+                                        get_end_stations(stations.index);
+                                        setStartStation(stations.value);
+                                    }}  placeholder="Select Source station" value ={start_station} />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>End Station</Form.Label>
+                        <Dropdown options={end_stations} onChange={stations=>{
+                                        setEndStation(stations.value);
+                                    }}  placeholder="Select Destination station" value ={end_station} />
+                    </Form.Group>
+                    <br></br>
                 {formValues.map((element, index) => (
-                <div class="container">
+                <div class="p-5 mb-4 bg-light rounded-3">
                     <Form.Group className="form-inline" key={index}>
-                    <Form.Label> Passenger {index} </Form.Label> <br></br>
+                    <Form.Label> Passenger {index + 1} </Form.Label> <br></br>
                     <Form.Label>Name</Form.Label>
                     <Form.Control type="text" name="name" value={element.name || ""} onChange={e => handleChange(index, e)} />
                     <Form.Label>Age</Form.Label>
                     <Form.Control type="number" name="age" value={element.age || ""} onChange={e => handleChange(index, e)} />
                     <Form.Label>Sex</Form.Label>
-                    <Form.Control type="text" name="sex" value={element.sex || ""} onChange={e => handleChange(index, e)} />
-                    
+                    <Select options={sex_options} search onChange={e => handleChange(index, e)}  value ={element.sex || ""} />
+                    <br></br>
                     {
                         index ? 
-                        <button type="button"  className="error" onClick={() => removeFormFields(index)}>Remove</button> 
+                        <button type="button" class="btn btn-danger" onClick={() => removeFormFields(index)}>Remove</button> 
                         : null
                     }
                     </Form.Group>
                 </div>
                 ))}
-                <div className="button-section">
-                <Button variant="secondary" type="button" onClick={() => addFormFields()}>
-                  Add Passenger
-                 </Button>
-                <Button variant="primary" type="submit">
-                   Book Ticket
-                </Button>
+                <div className="row button-section">
+                <div class="col">
+                    <Button variant="secondary" type="button" onClick={() => addFormFields()}>
+                    Add Passenger
+                    </Button>
+                </div>
+                <div class="col">
+                    <Button variant="primary" type="submit">
+                    Book Ticket
+                    </Button>
+                </div>
                 </div>
             </Form>
         </div>
