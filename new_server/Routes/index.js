@@ -29,6 +29,7 @@ const {
         get_station_info,
         get_train_info,
         top5_trains,
+        add_user,
 } = require('../Controllers');
 
 const routes = express.Router();
@@ -55,7 +56,7 @@ routes.post('/view_ticket/:pnr',view_ticket);
 routes.post('/release_tickets/:date/:seats/:train_no',release_tickets);
 routes.post('/get_passenger/:pnr',get_passenger);
 routes.post('/cancel_tickets/',cancel_tickets);
-routes.post('/add_stations/:sid/:sname/:lat/:long/:city/:state/:zone',add_stations);
+routes.post('/add_stations',add_stations);
 routes.post('/add_trains/:train_no/:train_name/:capacity/:num_stations/:source_id/:dest_id',add_trains);
 routes.post('/find_user',find_user);
 routes.post('/add_user',add_user);

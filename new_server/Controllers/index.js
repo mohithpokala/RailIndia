@@ -62,5 +62,6 @@ module.exports =
     available_dates,
     get_station_info,
     get_train_info,
-    add_user
+    add_user,
+    top5_trains,
 } 

@@ -22,25 +22,27 @@ const cancel_ticket = async(bid) => {
         `;
 
         const seats_res = await pool.query(seats_query, [bid]);
+        console.log(seats_res.rows[0].cnt);
+
         if (seats_res < 0) return -1;
-        
+
         const query2 = `
             update Train_instance
             set 
             available_seats = available_seats + $5
             where
-            train_no = $1 and journey_date = $2 and path_id>=$3 and path_id<=$4;
+            train_no = $1 and journey_date = $2 and path_id >= $3 and path_id <= $4;
         `;
 
         const query3 = `
-            DELETE FROM booking where booking_id=$1;
+            DELETE FROM passenger where booking_id = $1;
         `;
 
-        const query4 = `
-            DELETE FROM passenger where booking_id=$1;
+        const query4 = ` 
+            DELETE FROM booking where booking_id = $1;
         `;
 
-        const res2 = await pool.query(query2,[train_no, journey_date, start_station, end_station, seats_res[0]['cnt']]);
+        const res2 = await pool.query(query2,[train_no, journey_date, start_station, end_station, seats_res.rows[0].cnt]);
 
         const query5 = `
         -- someone cancelled, and we need to update all waiting lists
@@ -53,9 +55,14 @@ const cancel_ticket = async(bid) => {
             when waiting_pref_no > $2 then waiting_pref_no - $2
             end
         `;
-        const res5 = await pool.query(query5,[train_no, seats_res[0]['cnt']]);
+
+        console.log(res2.rows, "here");
+        const res5 = await pool.query(query5,[train_no, seats_res.rows[0].cnt]);
+        console.log(res5.rows, "here1");
         const res3 = await pool.query(query3,[bid]);
+        console.log(res3.rows, "here2");
         const res4 = await pool.query(query4,[bid]);
+        console.log(res4.rows, "here3");
     }
     return  res.rows;
 }
