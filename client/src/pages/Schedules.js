@@ -14,7 +14,9 @@ const Schedules =  (props) => {
     var train_no2 = props.train_no;
     const train_no = train_no1?train_no1:train_no2;
     const [token,setToken]=useState(localStorage.getItem("token"));
-   
+    if((token==null)||(token=="")){
+        window.location= "/login";
+      }
     useEffect(() => {
         const jsonData={"token":token};
     const temp1=  fetch("http://localhost:" + port + "/train/schedule/"+train_no+"/",{
