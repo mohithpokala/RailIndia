@@ -18,6 +18,7 @@ import Station_info from "./pages/Station_info";
 import StationSchedulePage from "./pages/StationSchedules";
 import BookingTicket from './pages/BookTicket';
 import CancelTicket from "./pages/CancelTicket";
+import RegisterUser from "./pages/RegisterUser";
 
 export default function App() {
 
@@ -30,6 +31,7 @@ export default function App() {
     {text:"Cancel Ticket",link:"/cancel_ticket"},
     {text:"Station SCHEDULE",link:"/station_schedule"},  
     {text:"Logout",link:"/logout"},
+    {text:"Register-User",link:"/register_user"},
   ]
   return (
     <div className="home_page">
@@ -49,6 +51,7 @@ export default function App() {
             <Route path="/cancel_ticket" element={<CancelTicket />}/>
             <Route path="/login" element={<Login />}/>
             <Route path="/logout" element={<Logout />}/>
+            <Route path="/register_user" element={<RegisterUser />}/>
           </Routes>
         </BrowserRouter>
       </div>

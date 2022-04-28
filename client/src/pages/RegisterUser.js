@@ -5,27 +5,35 @@ import Button from 'react-bootstrap/Button';
 import {port} from './port';
 
 const bcrypt = require('bcryptjs');
-
-const Login =()=>{
+const crypt = require("crypto-js");
+const RegisterUser =()=>{
     
   const [user_name, setUsername] = useState("");
   const [text,setText] = useState("");
+  const [age, setAge] = useState("");
+  const [tel, setTel] = useState("");
+  const [email, setEmail] = useState("");
+  const [sex, setSex] = useState("");
   const [password, setPassword] = useState("");
   const [auth, setAuth] = useState(false);
-  const temp_err = "asdas";
+  
   var token = "";
   const onSubmitForm = async e => {
     e.preventDefault();
     try {
-        const encrypt_password = await bcrypt.hash(password, 10);
+        const encrypt_password = crypt.AES.encrypt(password,"10").toString();
+
         var jsonData = {
-            
             "user_name":user_name,
+            "age":age,
+            "phone":tel,
+            "email":email,
+            "sex":sex,
             "password":encrypt_password
             }
         console.log(jsonData);
         const response = await fetch(
-            "http://localhost:"+port+"/find_user",{
+            "http://localhost:"+port+"/register_user",{
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body:JSON.stringify(jsonData)
@@ -55,8 +63,7 @@ const Login =()=>{
   //console.log(user_name,password);
 return (
     <Fragment>
-    <div className="home_page" style={{width:"60%",left:"20%",position:"absolute",top:"20%"}}>
-      <h4 style={{width:"100%",textAlign:"center"}}>Hurrah IPL is coming to your city</h4><br></br><br></br>
+    <div className="home_page" style={{width:"60%",left:"20%",position:"absolute",top:"5%"}}>
       <Form onSubmit={onSubmitForm}>
       <Form.Group>
           <Form.Label>User Name</Form.Label>
@@ -64,6 +71,38 @@ return (
                         placeholder="Enter the user name" value={user_name}
                         onChange={e => {
                             setUsername(e.target.value);
+                          }} default="" />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Age</Form.Label>
+          <Form.Control type="number" 
+                        placeholder="Enter Age" value={age}
+                        onChange={e => {
+                            setAge(e.target.value);
+                          }} default="" />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Phone</Form.Label>
+          <Form.Control type="tel" 
+                        placeholder="Enter Phone Number" value={tel}
+                        onChange={e => {
+                            setTel(e.target.value);
+                          }} default="" />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Email</Form.Label>
+          <Form.Control type="email" 
+                        placeholder="Enter Email ID" value={email}
+                        onChange={e => {
+                            setEmail(e.target.value);
+                          }} default="" />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Gender</Form.Label>
+          <Form.Control type="gender" 
+                        placeholder="Enter Gender" value={sex}
+                        onChange={e => {
+                            setSex(e.target.value);
                           }} default="" />
         </Form.Group>
         <Form.Group>
@@ -91,8 +130,7 @@ return (
       </Form></div>
     </Fragment>
   );
-//   else return <Redirect to="/home"/>;
 
 };
 
-export default Login;
+export default RegisterUser;
