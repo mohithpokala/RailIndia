@@ -87,19 +87,16 @@ const BookTicket = (props) => {
                         {value:'F', label:'F'},
                         {value:'other', label:'other'}
                         ];
-    const [stations, setStations] = useState([{label: "KCG", value: 0}, {label: "PAK", value: 1}]);
-    let [end_stations, setEndStations] = useState([]);
+    const [stations, setStations] = useState([]);
+    const [dates, setDates] = useState([]);
+    const [stations1, setEndStations] = useState([]);
 
     let get_end_stations = (j) => {
         let data1 = [];
         for(var i = j + 1; i < stations.length; i++){ 
-            // console.log("hello", i);
             data1.push({label: stations[i].label, value: i});
-            // console.log(data1);
         }
-        end_stations = data1;
-        // setEndStations(data1);
-        console.log("here", data1, end_stations);
+        setEndStations(data1);
     }
 
     let handleChange = (i, e) => {
@@ -117,12 +114,26 @@ const BookTicket = (props) => {
         newFormValues.splice(i, 1);
         setFormValues(newFormValues)
     }
-    
+
+    let addPassengers = async (bid, f) =>
+    {
+        // var json = {"bid": bid,
+        // "name" : f['name'],
+        // "age" : f['age'],
+        // "sex" : f['sex']      
+        // };
+        var json = {"bid": bid, "vals" : f};
+        const response2 = await fetch("http://localhost:" + port + "/add_passenger", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(json)
+        }); 
+    }
+
     let handleSubmit = async (event) => {
         event.preventDefault();
         
         try {
-            var form_data = JSON.stringify(formValues);
             var jsonData = {
             "train_no" : train_no,
             "journey_date" : date,
@@ -130,16 +141,34 @@ const BookTicket = (props) => {
             "end_id" : end_station,
             "user_id" : localStorage.getItem("username")
             };
-            console.log(form_data);
-            console.log(jsonData);
+           
             const response = await fetch("http://localhost:" + port + "/book_ticket", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(jsonData)
+            })
+            .then((res) => res.json())
+            .then((json) => 
+            {
+                if(!(json.hasOwnProperty('token') ))
+                {
+                    const res = json;
+                    const booking_id = res['booking_id'];
+                    // console.log(res, formValues, formValues.length);
+                    
+                    // for(let i = 0; i < formValues.length; i++)
+                    // {
+                        // console.log(booking_id);
+                        const res1 = addPassengers(booking_id, formValues);
+                    // }
+                } 
+                else
+                {
+                    setToken("");
+                    localStorage.setItem("token","");
+                    window.location="/login";
+                }
             });
-            const res = response.json();
-            const booking_id = res['booking_id'];
-            console.log(booking_id);
     
         } catch (err) {
           console.error(err.message);
@@ -149,18 +178,17 @@ const BookTicket = (props) => {
     const get_stations = async (train_no) => {
         let data1 = [];
         try{
-            const response = await fetch("http://localhost:5000/train/schedule/" + train_no, {
+            const response = await fetch("http://localhost:" + port + "/train/schedule/" + train_no, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(jsonData)
             })
             .then((res) => res.json())
             .then((json) => {
-            console.log(json);
+       
             if(!(json.hasOwnProperty('token') )){
-                setScheduled(json);
-                for(var i=0; i < json.length; i++){ 
-                    data1.push({label: json[i]["station_name"], value: i});
+                for(var i = 0; i < json.length; i++){ 
+                    data1.push({label: json[i]["station_name"], value: json[i]["path_id"]});
                 } 
                 setStations(data1);
             }
@@ -172,7 +200,37 @@ const BookTicket = (props) => {
             });
             
         } catch (err) {
-            // setStations([{label: "0000", value: 0}, {label: "0001", value: 1}]);
+            console.error(err.message);
+          }
+    }
+    
+    const get_dates = async (train_no) => {
+        let data1 = [];
+        try{
+            const response = await fetch("http://localhost:" + port + "/get_available_dates/" + train_no, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(jsonData)
+            })
+            .then((res) => res.json())
+            .then((json) => {
+       
+            if(!(json.hasOwnProperty('token') )){
+                for(var i = 0; i < json.length; i++){ 
+                    console.log(json[i]["d"], train_no);
+                    data1.push({label: json[i]["d"].split("T")[0], value: json[i]["d"]});
+                } 
+                setDates(data1);
+                console.log(dates);
+            }
+            else{
+                setToken("");
+                localStorage.setItem("token","");
+                window.location="/login";
+            }
+            });
+            
+        } catch (err) {
             console.error(err.message);
           }
     }
@@ -189,18 +247,19 @@ const BookTicket = (props) => {
                                         onChange ={e => {
                                             setTrain(e.value);
                                             console.log(e.value);
+                                            get_dates(e.value);
                                             get_stations(e.value);
                                         }} 
                                         />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Date</Form.Label>
-                        <Form.Control type="date" 
-                                        placeholder="Enter date of travel" value={date}
+                        <Select options={dates} type="date" 
+                                        placeholder="Enter date of travel" 
                                         onChange={e => {
-                                            setDate(e.target.value);
+                                            setDate(e.value);
                                         }} 
-                                        default="" />
+                                        />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Start Station</Form.Label>
@@ -208,13 +267,13 @@ const BookTicket = (props) => {
                                         get_end_stations(s.value);
                                         // console.log(stations);
                                         // console.log("Empty?", end_stations);   
-                                        setStartStation(s.label);
+                                        setStartStation(s.value);
                                     }}  placeholder="Select Source station" />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>End Station</Form.Label>
-                        <Select options={stations} onChange={s=>{
-                                        setEndStation(s.label);
+                        <Select options={stations1} onChange={s=>{
+                                        setEndStation(s.value);
                                     }}  placeholder="Select Destination station"/>
                     </Form.Group>
                     <br></br>
