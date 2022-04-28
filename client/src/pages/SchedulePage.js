@@ -18,7 +18,10 @@ const SchedulePage = (props) => {
     
     const [train,setTrain]=useState("12797");
     const [train_num,setTrainNum]=useState(false);
-
+    if((token==null)||(token=="")){
+        window.location= "/login";
+    }
+    console.log(token);
     useEffect(() => {
         setTimeout(() => {
             const jsonData={"token":token};
@@ -41,6 +44,9 @@ const SchedulePage = (props) => {
                                 "value":json[i]["train_no"] ,
                                 "label":json[i]["train_no"]});
                         } 
+
+            setTrainName(data1);
+            setTrainNum(data2);
                     }
                     else{
                         //setToken("");
@@ -49,8 +55,6 @@ const SchedulePage = (props) => {
                     }
                     } 
                 );
-            setTrainName(data1);
-            setTrainNum(data2);
         }, 1000);
     },[token] );
     const trainNameChanged = (e)=>{

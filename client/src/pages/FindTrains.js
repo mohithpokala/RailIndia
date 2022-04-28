@@ -19,6 +19,11 @@ const FindTrains = (props) => {
     console.log(useParams().station2);
     
     console.log(start_id,dest_id);
+
+    if((token==null)||(token=="")){
+        window.location= "/login";
+    }
+    
     useEffect(() => {
         const jsonData={"token":token};
         setTimeout(() => {
@@ -34,15 +39,15 @@ const FindTrains = (props) => {
                         setSingleTrains(json);
                         }
                         else{
-                            setToken("");
-                            // localStorage.setItem("token","");
+                            // setToken("");
+                            localStorage.setItem("token","");
                             window.location="/login";
                         }
                     } 
                 );
 
         }, 0);
-    },[] );
+    },[token] );
 
     useEffect(() => {
         setTimeout(() => {

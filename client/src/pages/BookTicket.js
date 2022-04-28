@@ -16,7 +16,10 @@ const BookTicket = (props) => {
     const [scheduled, setScheduled]=useState(false);
     const [train_no, setTrain]=useState(props.train_no);
     const [token, setToken]=useState(localStorage.getItem("token"));
-    
+    if((token==null)||(token=="")){
+        console.log(token)
+        window.location= "/login";
+    }
     useEffect(() => {
         setTimeout(() => {
             const jsonData={"token":token};
@@ -32,15 +35,18 @@ const BookTicket = (props) => {
                         setScheduled(json);
                         }
                         else{
-                            setToken("");
-                            // localStorage.setItem("token","");
+                            // setToken("");
+                            localStorage.setItem("token","");
+                            // console.log("Why here")
                             window.location="/login";
                         }
                     } 
                 );
         }, 100);
-    },[] );
-    
+    },[token] );
+    console.log(props.train_no);
+    console.log(scheduled);
+    console.log("hi iuhuihgvf ");
     const [formValues, setFormValues] = useState([{ name: "", age : "", sex : ""}])
     
     const [date, setDate] = useState("");
@@ -73,7 +79,7 @@ const BookTicket = (props) => {
                 );
             setTrains(data2);
         }, 1000);
-    },[] );
+    },[token] );
 
     const [start_station, setStartStation] = useState("");
     const [end_station, setEndStation] = useState("");

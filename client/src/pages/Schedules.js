@@ -9,12 +9,52 @@ import Select from 'react-select';
 
 const Schedules =  (props) => {
     const [scheduled,setScheduled] = useState(false);
-    const [train_no,  setTrain] = useState(props.train_no);
-    const [train_name,  setTrainName] = useState(props.train_name);
+    
+    var train_no1 = useParams().train_no;
+    var train_no2 = props.train_no;
+    const train_no = train_no1?train_no1:train_no2;
     const [token,setToken]=useState(localStorage.getItem("token"));
+    const [trainname,setTrainName] = useState("");
+    const [capacity,setCapacity]=useState("");
+    const [numstations,setNum] = useState("");
+    const [from,setFrom] = useState("");
+    const [to,setTo] = useState("");
+
+    if((token==null)||(token=="")){
+        window.location= "/login";
+      }
+    
+      useEffect(() => {
+        const jsonData={"token":token};
+    const temp1=  fetch("http://localhost:" + port + "/get_train_info/"+train_no,{
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body:JSON.stringify(jsonData)
+        })
+        .then((res) => res.json())
+        .then((json) => {
+            if(!(json.hasOwnProperty('token') )){
+                setTrainName(json[0]["train_name"]);
+                setCapacity(json[0]["capacity"]);
+                setNum(json[0]["num_stations"]);
+                setFrom(json[0]["source_id"]);
+                setTo(json[0]["dest_id"]);
+
+
+                
+                
+            }
+            else{
+                //setToken("");
+                localStorage.setItem("token","");
+                window.location="/login";
+            }
+        });
+    },[token] );
+
+
     useEffect(() => {
         const jsonData={"token":token};
-        
     const temp1=  fetch("http://localhost:" + port + "/train/schedule/"+train_no+"/",{
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -22,7 +62,6 @@ const Schedules =  (props) => {
         })
         .then((res) => res.json())
         .then((json) => {
-            console.log(json);
             if(!(json.hasOwnProperty('token') )){
                 setScheduled(json);
                 
@@ -33,7 +72,7 @@ const Schedules =  (props) => {
                 window.location="/login";
             }
         });
-    });
+    },[token] );
     return (
   
         !(scheduled && train_no!="abcd" ) 
@@ -47,6 +86,22 @@ const Schedules =  (props) => {
             <div style={{position:"absolute",width:"100%",top:"25%",left:"0%",height:"100%",}}>
                 <h4>
                     Schedule for Train { train_no }
+                    {
+            (trainname!="") 
+                ? 
+                    (
+                        <h3>
+                            <h2>Train Name: {trainname}
+                            </h2>
+                            <h2>From {from} to {to} through {numstations} stations</h2>
+                            <h2>Capacity: {capacity}</h2>
+                        </h3>
+                    ) 
+                : 
+                (
+                    <></>
+                )
+            }
                 </h4>
 
                 <table>

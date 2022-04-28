@@ -17,6 +17,9 @@ const StationSchedulePage = (props) => {
     const [station,setStation]=useState("KCG");
     const [station_num,setStationNum]=useState(false);
     const [token,setToken]=useState(localStorage.getItem("token"));
+    if((token==null)||(token=="")){
+        window.location= "/login";
+      }
     useEffect(() => {
         setTimeout(() => {
             const jsonData={"token":token};
@@ -43,8 +46,8 @@ const StationSchedulePage = (props) => {
                             } 
                         }
                         else{
-                            setToken("");
-                            // localStorage.setItem("token","");
+                            // setToken("");
+                            localStorage.setItem("token","");
                             window.location="/login";
                         }
                         

@@ -14,20 +14,36 @@ import Select from 'react-select';
 
 const CancelTicket = (props) => {
     const [bookingID, setBookingID] = useState(false);
+    const [token,setToken]=useState(localStorage.getItem("token"));
+    if((token==null)||(token=="")){
+        window.location= "/login";
+      }
     let handleSubmit = async (event) => {
         event.preventDefault();
         
         try {
             var jsonData = {
-            "bid" : bookingID
+            "bid" : bookingID,
+            "token":token
             };
             console.log(jsonData);
             const response = await fetch("http://localhost:" + port + "/cancel_tickets", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(jsonData)
-            });
-            const res = response.json();
+            }).then((res) => res.json())
+            .then(
+                (json) => {
+                  if(!(json.hasOwnProperty('token') )){
+                    const res = json;
+                  }
+                  else{
+                    // setToken("");
+                    localStorage.setItem("token","");
+                    window.location="/login";
+                }
+                } 
+            );
     
         } catch (err) {
           console.error(err.message);

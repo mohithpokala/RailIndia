@@ -18,6 +18,8 @@ import Station_info from "./pages/Station_info";
 import StationSchedulePage from "./pages/StationSchedules";
 import BookingTicket from './pages/BookTicket';
 import CancelTicket from "./pages/CancelTicket";
+import RegisterUser from "./pages/RegisterUser";
+import Logistics from './pages/Logistics'
 
 export default function App() {
 
@@ -29,7 +31,9 @@ export default function App() {
     {text:"Book Ticket",link:"/book_ticket"},
     {text:"Cancel Ticket",link:"/cancel_ticket"},
     {text:"Station SCHEDULE",link:"/station_schedule"},  
+    {text:"Stats",link:"/stats"},  
     {text:"Logout",link:"/logout"},
+    {text:"Register-User",link:"/register_user"},
   ]
   return (
     <div className="home_page">
@@ -44,11 +48,13 @@ export default function App() {
             <Route path="/find_trains/:station1/:station2" element={<FindTrains />}/>
             <Route path="/station_schedule/:station_name/" element={<Station_info />}/>
             <Route path="/Station_schedule//" element={<StationSchedulePage />}/>
+            <Route path="/stats/" element={<Logistics />}/>
             <Route path="/support" element={<Example />}/>
             <Route path="/book_ticket" element={<BookingTicket />}/>
             <Route path="/cancel_ticket" element={<CancelTicket />}/>
             <Route path="/login" element={<Login />}/>
             <Route path="/logout" element={<Logout />}/>
+            <Route path="/register_user" element={<RegisterUser />}/>
           </Routes>
         </BrowserRouter>
       </div>

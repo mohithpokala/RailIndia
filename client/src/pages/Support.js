@@ -75,14 +75,23 @@ const Example=()=> {
   const [y,setY] = useState(0);
   const [A,setA] = useState(false);
   const [markers,setMarkers]=useState(false);
-  
+  const [token,setToken]=useState(localStorage.getItem("token"));
+  if((token==null)||(token=="")){
+    window.location= "/login";
+  }
   useEffect(() => {
     setTimeout(() => {
+      const jsonData={"token":token};
         let data1 = [];
-        fetch("http://localhost:"+port+"/big_cities")
+        fetch("http://localhost:"+port+"/big_cities",{
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body:JSON.stringify(jsonData)
+      })
             .then((res) => res.json())
             .then(
                 (json) => {
+                  if(!(json.hasOwnProperty('token') )){
                     for(var i=0;i<json.length;i++){ 
                         data1.push({
                           "markerOffset": 0,
@@ -91,6 +100,12 @@ const Example=()=> {
                           "val":json[i]["x"]
                         });
                     } 
+                  }
+                  else{
+                    // setToken("");
+                    localStorage.setItem("token","");
+                    window.location="/login";
+                }
                 } 
             );
         setMarkers(data1);
@@ -98,12 +113,25 @@ const Example=()=> {
   },[] );
   useEffect(() => {
     setTimeout(() => {
+      const jsonData={"token":token};
         let data1 = [];
-        fetch("http://localhost:8000/train_state_stat")
+        fetch("http://localhost:"+port+"/train_state_stat",{
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body:JSON.stringify(jsonData)
+      })
             .then((res) => res.json())
             .then(
                 (json) => {
-                    setData(json);   setData1(json);               } 
+                  if(!(json.hasOwnProperty('token') )){
+                    setData(json);   setData1(json);  
+                  }
+                    else{
+                      // setToken("");
+                      localStorage.setItem("token","");
+                      window.location="/login";
+                  }
+                  } 
             );
         console.log(data1);
         
@@ -114,12 +142,25 @@ const Example=()=> {
 
   useEffect(() => {
     setTimeout(() => {
+      const jsonData={"token":token};
         let data1 = [];
-        fetch("http://localhost:8000/train_state_stat2")
+        fetch("http://localhost:"+port+"/train_state_stat2",{
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body:JSON.stringify(jsonData)
+      })
             .then((res) => res.json())
             .then(
                 (json) => {
-                    setData(json); setData2(json);                 } 
+                  if(!(json.hasOwnProperty('token') )){
+                    setData(json); setData2(json);  
+                               }
+                               else{
+                                // setToken("");
+                                localStorage.setItem("token","");
+                                window.location="/login";
+                            }
+                                        } 
             );
 
     }, 0);

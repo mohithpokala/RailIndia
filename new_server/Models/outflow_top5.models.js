@@ -3,16 +3,18 @@ const pool = require("./database");
 const outflow_top5 = async() => {
     const query =
         `
-            select station_id,count(passenger) as x
+            select station_id,station_name,count(passenger) as x
             from 
             booking 
             natural join 
             passenger 
             natural join 
             paths 
+            natural join
+            station
             where 
             paths.path_id = end_station 
-            group by paths.station_id 
+            group by paths.station_id ,station_name
             order by x desc 
             limit 5     
         `;

@@ -24,7 +24,11 @@ const {top5_inflow}=require('./inflow_top5.controller');
 const {top5_outflow}=require('./outflow_top5.controller');
 const {get_id}=require('./get_station_id.controller');
 const {big_city} =require('./big_cities.controller');
-const {station_schedule} =require('./station_schedule.controller')
+const {station_schedule} =require('./station_schedule.controller');
+const {top5_trains}=require('./LongestTrains.controller');
+const {get_station_info}=require('./get_station_info.controller');
+const {get_train_info}=require('./get_train_info.controller');
+const {add_user}=require('./add_user.controller');
 const {available_dates} =require('./available_dates.controller')
 module.exports = 
 {
@@ -55,5 +59,8 @@ module.exports =
     trains_state_stat2,
     trains_zone_stat2,
     station_schedule,
-    available_dates
+    available_dates,
+    get_station_info,
+    get_train_info,
+    add_user
 } 

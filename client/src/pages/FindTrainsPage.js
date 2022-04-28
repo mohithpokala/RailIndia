@@ -17,21 +17,35 @@ const FindTrainsPage = (props) => {
     const [station1,setstation1]=useState("KACHEGUDA");
     const [station2,setstation2]=useState("TIRUPATI MAIN");
     const [token,setToken]=useState(localStorage.getItem("token"));
+    if((token==null)||(token=="")){
+        window.location= "/login";
+    }
     useEffect(() => {
         setTimeout(() => {
+            const jsonData={"token":token};
             let data1 = [];
-            fetch("http://localhost:"+port+"/all_stations")
+            fetch("http://localhost:"+port+"/all_stations",{
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body:JSON.stringify(jsonData)
+            })
                 .then((res) => res.json())
                 .then(
                     (json) => {
+                        if(!(json.hasOwnProperty('token') )){
                         for(var i=0;i<json.length;i++){ 
                             data1.push(json[i]["station_name"]);
                         } 
+                        }
+                        else{
+                            localStorage.setItem("token","");
+                            window.location="/login";
+                        }
                     } 
                 );
             setstationName(data1);
         }, 1000);
-    },[] );
+    },[token] );
     console.log(station1);
     console.log(stationName);
     return (

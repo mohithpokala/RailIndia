@@ -43,7 +43,7 @@ const Login =()=>{
                 }
                 else{
                     localStorage.setItem("token","");
-                    setText(json.check);
+                    // setText(json.check);
                 }
             });
         
@@ -51,7 +51,6 @@ const Login =()=>{
     } catch (err) {
       console.error(err);
     }
-    console.log(token);
   };
   //console.log(user_name,password);
 return (
