@@ -1,7 +1,7 @@
 
 const pool = require("./database");
 
-const book_ticket = async(train_no,journey_date,start_id,end_id,user_id,num_seats) => {
+const book_ticket = async(train_no, journey_date, start_id, end_id, user_id) => {
     const query =
         `
             INSERT INTO BOOKING (train_no, journey_date, start_station, end_station, user_id) 
@@ -11,8 +11,7 @@ const book_ticket = async(train_no,journey_date,start_id,end_id,user_id,num_seat
     var a;
     if(res.length==0) { a=-1; return -1;}
     else  a = res.rows[0]['booking_id'];
-    console.log(a);
-    return res.rows;
+    return {'booking_id' : a};
 }
 
 

@@ -7,7 +7,6 @@ const book_tickets = async (req,res) => {
         req.params.start_id,
         req.params.end_id,
         req.params.user_id,
-        req.params.passengers
     );
     return res.status(200).json(data);
 }

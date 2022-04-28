@@ -22,30 +22,19 @@ const BookTicket = (props) => {
                         {value:'F', label:'F'},
                         {value:'other', label:'other'}
                         ];
-    const [stations, setStations] = useState([]);
-    const [end_stations, setEndStations] = useState([]);
-
-
-    const get_stations = async (train_no) => {
-        let data1 = [];
-        try{
-            const response = await fetch("http://localhost:5000/train/schedule/" + train_no);
-            const json = response.json;
-            for(var i=0;i<json.length;i++){ 
-                data1.push({label: json[i]["station_name"], value: i});
-            } 
-            setStations(data1);
-        } catch (err) {
-            console.error(err.message);
-          }
-    }
+    const [stations, setStations] = useState([{label: "KCG", value: 0}, {label: "PAK", value: 1}]);
+    let [end_stations, setEndStations] = useState([]);
 
     let get_end_stations = (j) => {
         let data1 = [];
         for(var i = j + 1; i < stations.length; i++){ 
-            data1.push({label: stations[i], value: i});
+            // console.log("hello", i);
+            data1.push({label: stations[i].label, value: i});
+            // console.log(data1);
         }
-        setEndStations(data1);
+        end_stations = data1;
+        // setEndStations(data1);
+        console.log("here", data1, end_stations);
     }
 
     let handleChange = (i, e) => {
@@ -72,20 +61,49 @@ const BookTicket = (props) => {
             var jsonData = {
             "train_no" : train_no,
             "date" : date,
-            "passengers" : form_data
+            "start_station" : start_station,
+            "end_station" : end_station,
             };
+            console.log(form_data);
             console.log(jsonData);
             const response = await fetch("http://localhost:" + port + "/book_ticket", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(jsonData)
             });
+            const res = response.json();
+            const booking_id = res['booking_id'];
+            console.log(booking_id);
     
         } catch (err) {
           console.error(err.message);
         }
     }
 
+    const get_stations = async (train_no) => {
+        let data1 = [];
+        try{
+            const response = await fetch("http://localhost:5000/train/schedule/" + train_no);
+            const json = response.json;
+            for(var i=0;i<json.length;i++){ 
+                data1.push({label: json[i]["station_name"], value: i});
+            } 
+            setStations(data1);
+        } catch (err) {
+            // setStations([{label: "0000", value: 0}, {label: "0001", value: 1}]);
+            console.error(err.message);
+          }
+    }
+
+    // useEffect(() => {
+    //     const delayDebounceFn = setTimeout(() => {
+    //         console.log(train_no);
+    //         get_stations(train_no);
+    //     }, 2000)
+    
+    //     return () => clearTimeout(delayDebounceFn)
+    //   }, [train_no])
+    
     return (
         <Fragment>
             <div className="home_page" style={{width:"60%",left:"20%",position:"absolute",top:"20%"}}>
@@ -93,33 +111,36 @@ const BookTicket = (props) => {
                 <Form  onSubmit={handleSubmit}>
                     <Form.Group>
                         <Form.Label>Train ID</Form.Label>
-                        <Form.Control type="number" 
+                        <Form.Control id="train_no_input" type="number" 
                                         placeholder="Enter train number" value={train_no}
                                         onChange={e => {
-                                            get_stations(e.target.value);
                                             setTrain(e.target.value);
-                                        }} default="" />
+                                        }} 
+                                        default="" />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Date</Form.Label>
-                        <Form.Control type="text" 
+                        <Form.Control type="date" 
                                         placeholder="Enter date of travel" value={date}
                                         onChange={e => {
                                             setDate(e.target.value);
-                                        }} default="" />
+                                        }} 
+                                        default="" />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Start Station</Form.Label>
-                        <Dropdown options={stations} onChange={stations=>{
-                                        get_end_stations(stations.index);
-                                        setStartStation(stations.value);
-                                    }}  placeholder="Select Source station" value ={start_station} />
+                        <Select options={stations} onChange={s=>{
+                                        // get_end_stations(s.value);
+                                        // console.log(stations);
+                                        // console.log("Empty?", end_stations);   
+                                        setStartStation(s.label);
+                                    }}  placeholder="Select Source station" />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>End Station</Form.Label>
-                        <Dropdown options={end_stations} onChange={stations=>{
-                                        setEndStation(stations.value);
-                                    }}  placeholder="Select Destination station" value ={end_station} />
+                        <Select options={stations} onChange={s=>{
+                                        setEndStation(s.label);
+                                    }}  placeholder="Select Destination station"/>
                     </Form.Group>
                     <br></br>
                 {formValues.map((element, index) => (
@@ -129,9 +150,9 @@ const BookTicket = (props) => {
                     <Form.Label>Name</Form.Label>
                     <Form.Control type="text" name="name" value={element.name || ""} onChange={e => handleChange(index, e)} />
                     <Form.Label>Age</Form.Label>
-                    <Form.Control type="number" name="age" value={element.age || ""} onChange={e => handleChange(index, e)} />
+                    <Form.Control type="number" name="age" value={element.age || ""} onChange={e => {handleChange(index, e)}} />
                     <Form.Label>Sex</Form.Label>
-                    <Select options={sex_options} search onChange={e => handleChange(index, e)}  value ={element.sex || ""} />
+                    <Select options={sex_options} onChange={e => {handleChange(index, {target:{name:"sex", value:e.value}})}} />
                     <br></br>
                     {
                         index ? 

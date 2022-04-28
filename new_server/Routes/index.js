@@ -10,7 +10,7 @@ routes.get('/all_trains',get_all_trains);
 routes.get('/inflow_top5',top5_inflow);
 routes.get('/outflow_top5',top5_outflow);
 routes.get('/big_cities',big_city);
-routes.get('/book_ticket/:train_no/:journey_date/:start_id/:end_id/:user_id/:num_seats',book_tickets);
+routes.post('/book_ticket/', book_tickets);
 routes.get('/view_trains_from_station/:station',view_trains_from_station);
 routes.get('/get_station_id/:station',get_id);
 routes.get('/train/find_multipath/:start_station/:end_station',train_finder_multipath);
@@ -24,6 +24,6 @@ routes.get('/add_stations/:sid/:sname/:lat/:long/:city/:state/:zone',add_station
 routes.get('/add_trains/:train_no/:train_name/:capacity/:num_stations/:source_id/:dest_id',add_trains);
 routes.get('/find_user',find_user);
 routes.get('/add_path_to_train/:train_no/:station_code/:distance/:price_from_source/:eat/:edt',add_path_to_train);
-routes.get('/add_passenger/:bid/:name/:age/:sex',Passenger_entry);
+routes.post('/add_passenger/',Passenger_entry);
 routes.get('/get_num_seats/:train/:start_index/:end_index/:date',get_num_seats);
 module.exports = {routes};
