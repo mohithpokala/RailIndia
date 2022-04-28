@@ -82,7 +82,7 @@ const Venue_stat = (props) => {
     
     useEffect(() => {
         setTimeout(() => {
-            fetch("http://localhost:5000/venue/b/"+venue_id)
+            fetch("http://localhost:8000/venue/b/"+venue_id)
                 .then((res) => res.json())
                 .then((json) => {
                     if(json.length==0)

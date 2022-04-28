@@ -10,7 +10,7 @@ const schedule = async (req,res) => {
     
 
   if (!token) {
-    return res.status(403).send("A token is required for authentication");
+    return res.status(403).send({token:"No token"});
   }
   try {
 
@@ -19,7 +19,7 @@ const schedule = async (req,res) => {
     console.log(decoded);
     req.user = decoded;
   } catch (err) {
-    return res.status(401).send("Invalid Token");
+    return res.status(401).send({token:"Invalid token"});
   }
 
  

@@ -1,14 +1,16 @@
 const pool = require("./database");
 
 const state_stat = async() => {
+    console.log("hello babe ");
     const query =
         `
-            SELECT state, count(distinct train_no)
-            FROM  (SELECT state,TRAIN.train_no as train_no
-            FROM  PATHs
-            JOIN TRAIN on TRAIN.train_no = PATHs.train_no
-            JOIN STATION on STATION.station_id = PATHs.station_id)  as temp_zones
-            GROUP BY state
+        SELECT state, count(distinct train_no)
+        FROM  (SELECT state,TRAIN.train_no as train_no
+        FROM  PATHs
+        JOIN TRAIN on TRAIN.train_no = PATHs.train_no
+        JOIN STATION on STATION.station_id = PATHs.station_id)  as temp_zones
+        GROUP BY state
+        having state != ''
      
         `;
     const res = await pool.query(query);
