@@ -1,7 +1,7 @@
 const express = require('express');
 const {top5_inflow,top5_outflow,schedule,train_finder,get_all_stations,get_all_trains,book_tickets,view_trains_from_station,train_finder_multipath,find_user,Passenger_entry,
     get_passenger,cancel_tickets,add_stations,add_trains,add_path_to_train,get_num_seats
-    ,release_tickets,trains_state_stat,trains_zone_stat,view_ticket,get_station_info,get_train_info,top5_trains, get_id, big_city,trains_state_stat2,trains_zone_stat2,station_schedule} = require('../Controllers');
+    ,release_tickets,trains_state_stat,trains_zone_stat,view_ticket,get_station_info,get_train_info,top5_trains, get_id, big_city,trains_state_stat2,trains_zone_stat2,station_schedule, all_schedules} = require('../Controllers');
 const routes = express.Router();
 routes.post('/train/schedule/:train_no',schedule);
 routes.post('/station/schedule/:station_name',station_schedule);
@@ -32,4 +32,5 @@ routes.post('/find_user',find_user);
 routes.post('/add_path_to_train/:train_no/:station_code/:distance/:price_from_source/:eat/:edt',add_path_to_train);
 routes.post('/add_passenger/',Passenger_entry);
 routes.post('/get_num_seats/:train/:start_index/:end_index/:date',get_num_seats);
+routes.post('/all_schedule',all_schedules)
 module.exports = {routes};
