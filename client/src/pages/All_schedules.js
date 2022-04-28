@@ -70,10 +70,10 @@ const All_schedules=()=> {
   const [tooltipContent, setTooltipContent] = useState('');
   const [data, setData] = useState(false);
   const [data1, setData1] = useState(false);
-  const [data2, setData2] = useState(false);
+  const [datax, setData2] = useState(false);
   const [x,setX] = useState('');
   const [y,setY] = useState(0);
-  const [prev_train,setPrevTrain] =useState(0);
+  var prev_train=0;
   const [A,setA] = useState(false);
   const [markers,setMarkers]=useState(false);
   const [token,setToken]=useState(localStorage.getItem("token"));
@@ -100,22 +100,18 @@ const All_schedules=()=> {
                           "markerOffset": 0,
                           "name":json[i]["station_name"],
                           "coordinates": [json[i]["a"], json[i]["b"]],
-                          "val":json[i]["x"]
+                          "val":json[i]["x"],
+                          
                         });
                         data2.push([
                           json[i]["lat"], json[i]["long"]
                         ]);
-                        console.log(json[i]["train_no"]);
-                        console.log(prev_train);
-                        console.log(json[i]["train_no"]!==prev_train);
-
                         if(json[i]["train_no"]!==prev_train){
                             data3.push(data2);
-                            console.log("hello");
-                            console.log(prev_train);
+                            data2=[];
                         }
-                        setPrevTrain(json[i]["train_no"]);
-                        console.log(prev_train);
+                        prev_train=json[i]["train_no"];
+                        
                     } 
                   }
                   else{
@@ -127,45 +123,19 @@ const All_schedules=()=> {
             );
         setMarkers(data1);
         setData2(data3);
-        console.log(data3);
+        console.log(datax);
+        console.log("i am done");
     }, 0);
   },[] );
-  useEffect(() => {
-    setTimeout(() => {
-      const jsonData={"token":token};
-        let data1 = [];
-        fetch("http://localhost:"+port+"/train_state_stat",{
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body:JSON.stringify(jsonData)
-      })
-            .then((res) => res.json())
-            .then(
-                (json) => {
-                  if(!(json.hasOwnProperty('token') )){
-                    setData(json);   setData1(json);  
-                  }
-                    else{
-                      // setToken("");
-                      localStorage.setItem("token","");
-                      window.location="/login";
-                  }
-                  } 
-            );
-        console.log(data1);
-        
-        
-
-    }, 0);
-  },[] );
+ 
 
   
-  console.log(data2);
+  console.log(datax);
   console.log([[1,3],[5,6],[8,9]]);
-
+  console.log(markers);
   return (<>
     {
-    !(markers ) 
+    !(markers && datax ) 
         ? 
             (
                 <></>
@@ -183,7 +153,6 @@ const All_schedules=()=> {
             {({ geographies }) =>
               geographies.map(geo => {
                 //console.log(geo.id);
-                var current;
                 return (
                   <Geography
                     key={geo.rsmKey}
@@ -195,11 +164,12 @@ const All_schedules=()=> {
               })
             }
           </Geographies >
-      <Line
-        coordinates={data2}
-        stroke="#F53"
-        strokeWidth={2}
-      />
+          {console.log("hello mohith")}
+          {console.log(Array.from(datax))}
+          
+      {datax.map((row)=>(
+      console.log(row)
+      ))}
         </ComposableMap>
         {A && <h1>Station Name = {x} Num trains = {A}</h1>}
     </div>
