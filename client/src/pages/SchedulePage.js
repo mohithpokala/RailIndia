@@ -18,7 +18,9 @@ const SchedulePage = (props) => {
     
     const [train,setTrain]=useState("12797");
     const [train_num,setTrainNum]=useState(false);
-
+    if((token==null)||(token=="")){
+        window.location= "/login";
+    }
     useEffect(() => {
         setTimeout(() => {
             const jsonData={"token":token};

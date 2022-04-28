@@ -19,6 +19,11 @@ const FindTrains = (props) => {
     console.log(useParams().station2);
     
     console.log(start_id,dest_id);
+
+    if((token==null)||(token=="")){
+        window.location= "/login";
+    }
+    
     useEffect(() => {
         const jsonData={"token":token};
         setTimeout(() => {

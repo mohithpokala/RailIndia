@@ -10,16 +10,13 @@ const schedule = async (req,res) => {
     
 
   if (!token) {
-    return res.status(403).send({token:"No token"});
+    return res.status(403).send({"token":"No Token"});
   }
   try {
-
-    console.log(token,"N");
     const decoded = jwt.verify(token, '}Z{C&dFwZ_ j9CI^Tp=-1I[|)]3|4a>7`$SSgNPe,5`b_1RjrB&+=erO@{t09RK:');
-    console.log(decoded);
     req.user = decoded;
   } catch (err) {
-    return res.status(401).send({token:"Invalid token"});
+    return res.status(401).send({"token":"Invalid Token"});
   }
 
  

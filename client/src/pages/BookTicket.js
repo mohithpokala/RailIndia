@@ -16,7 +16,9 @@ const BookTicket = (props) => {
     const [scheduled, setScheduled]=useState(false);
     const [train_no, setTrain]=useState(props.train_no);
     const [token, setToken]=useState(localStorage.getItem("token"));
-    
+    if((token==null)||(token=="")){
+        window.location= "/login";
+    }
     useEffect(() => {
         setTimeout(() => {
             const jsonData={"token":token};
