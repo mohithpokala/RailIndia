@@ -12,7 +12,7 @@ import Example from "./pages/Support";
 import Schedules from "./pages/Schedules";
 import Station_info from "./pages/Station_info";
 import StationSchedulePage from "./pages/StationSchedules";
-import BookingPage from "./pages/book_ticket";
+import BookingTicket from './pages/BookTicket';
 
 export default function App() {
 
@@ -21,8 +21,8 @@ export default function App() {
     {text:"SCHEDULE",link:"/train_schedule"},
     {text:"Station SCHEDULE",link:"/station_schedule"},
     {text:"FIND TRAINS",link:"/view_trains"},
-    {text:"VIEW STATIONS",link:"/support"}
-    
+    {text:"VIEW STATIONS",link:"/support"},
+    {text:"Book Ticket",link:"/book_ticket"}    
   ]
   return (
     <div className="home_page">
@@ -38,6 +38,7 @@ export default function App() {
             <Route path="/station_schedule/:station_name/" element={<Station_info />}/>
             <Route path="/Station_schedule//" element={<StationSchedulePage />}/>
             <Route path="/support" element={<Example />}/>
+            <Route path="/book_ticket" element={<BookingTicket />}/>
 
           </Routes>
         </BrowserRouter>
