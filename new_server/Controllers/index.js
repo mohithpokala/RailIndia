@@ -28,6 +28,7 @@ const {station_schedule} =require('./station_schedule.controller')
 const {top5_trains}=require('./LongestTrains.controller')
 const {get_station_info}=require('./get_station_info.controller');
 const {get_train_info}=require('./get_train_info.controller');
+const {add_user}=require('./add_user.controller');
 module.exports = {top5_trains,big_city,get_id,top5_inflow,top5_outflow,schedule,train_finder,get_all_stations,get_all_trains,book_tickets,view_trains_from_station,train_finder_multipath,find_user,Passenger_entry,
 get_passenger,cancel_tickets,book_tickets,find_user,add_stations,add_trains,add_path_to_train,get_num_seats
-,release_tickets,trains_state_stat,trains_zone_stat,view_ticket,trains_state_stat2,trains_zone_stat2,station_schedule,get_station_info,get_train_info} 
+,release_tickets,trains_state_stat,trains_zone_stat,view_ticket,trains_state_stat2,trains_zone_stat2,station_schedule,get_station_info,get_train_info,add_user} 
