@@ -2,13 +2,19 @@
 const pool = require("./database");
 const bcrypt = require('bcrypt');
 var jwt = require("jsonwebtoken");
-const cryptr = require('cryptr');
+const CryptoJS = require("crypto-js")
 
 const get_user = async(user_name,age,phone,email,sex,password) => {
 
 
-   //  const encryptedString = cryptr.encrypt('bacon');
-    const decryptedString = cryptr.decrypt(password);
+    // var ciphertext = CryptoJS.AES.encrypt('my message', 'secret key 123').toString();
+
+    // // Decrypt
+    // var bytes  = CryptoJS.AES.decrypt(ciphertext, 'secret key 123');
+    // var originalText = bytes.toString(CryptoJS.enc.Utf8);
+
+    var bytes  = CryptoJS.AES.decrypt(password, 'secret key 123');
+    const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
      
     const query =
         `
