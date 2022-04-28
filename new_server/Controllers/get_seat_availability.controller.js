@@ -1,5 +1,5 @@
 const { seats } = require("../Models/get_seat_availability.models.js");
-
+jwt = require("jsonwebtoken");
 const get_num_seats = async (req,res) => {
 
     const token =

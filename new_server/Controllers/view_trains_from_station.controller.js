@@ -1,5 +1,5 @@
 const { view_trains_from_stations} = require('../Models/view_train_from_station.models.js');
-
+jwt = require("jsonwebtoken");
 
 const view_trains_from_station = async (req,res) => {
 

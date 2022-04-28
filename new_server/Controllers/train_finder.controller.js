@@ -1,6 +1,6 @@
 const { search_train} = require('../Models/train_finder.models.js');
 
-
+jwt = require("jsonwebtoken");
 const train_finder = async (req,res) => {
     const token =
     req.body.token || req.query.token || req.headers["x-access-token"];

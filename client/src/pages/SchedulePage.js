@@ -21,6 +21,7 @@ const SchedulePage = (props) => {
     if((token==null)||(token=="")){
         window.location= "/login";
     }
+    console.log(token);
     useEffect(() => {
         setTimeout(() => {
             const jsonData={"token":token};
@@ -50,6 +51,7 @@ const SchedulePage = (props) => {
                     else{
                         // setToken("");
                         localStorage.setItem("token","");
+
                         window.location="/login";
                     }
                     } 

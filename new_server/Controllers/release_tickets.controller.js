@@ -1,5 +1,5 @@
 const { rel_tckt } = require("../Models/release_ticket.models.js");
-
+jwt = require("jsonwebtoken");
 const release_tickets = async (req,res) => {
 
     const token =

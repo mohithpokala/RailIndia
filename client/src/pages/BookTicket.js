@@ -17,6 +17,7 @@ const BookTicket = (props) => {
     const [train_no, setTrain]=useState(props.train_no);
     const [token, setToken]=useState(localStorage.getItem("token"));
     if((token==null)||(token=="")){
+        console.log(token)
         window.location= "/login";
     }
     useEffect(() => {
@@ -36,6 +37,7 @@ const BookTicket = (props) => {
                         else{
                             // setToken("");
                             localStorage.setItem("token","");
+                            // console.log("Why here")
                             window.location="/login";
                         }
                     } 
@@ -77,7 +79,7 @@ const BookTicket = (props) => {
                 );
             setTrains(data2);
         }, 1000);
-    },[] );
+    },[token] );
 
     const [start_station, setStartStation] = useState("");
     const [end_station, setEndStation] = useState("");

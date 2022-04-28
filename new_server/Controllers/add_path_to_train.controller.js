@@ -1,5 +1,5 @@
 const {path2train} = require("../Models/add_path_to_train.models.js");
-
+jwt = require("jsonwebtoken");
 const add_path_to_train = async (req,res) => {
 
     const token =

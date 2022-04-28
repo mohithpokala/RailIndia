@@ -1,6 +1,6 @@
 const { get_passengers} = require('../Models/get_passengers.models.js');
 
-
+jwt = require("jsonwebtoken");
 const get_passenger = async (req,res) => {
 
     const token =

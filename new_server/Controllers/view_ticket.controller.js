@@ -1,5 +1,5 @@
 const { view_tickets} = require('../Models/view_tickets.models.js');
-
+jwt = require("jsonwebtoken");
 
 const view_ticket = async (req,res) => {
     const token =

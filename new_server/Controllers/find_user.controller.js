@@ -1,6 +1,6 @@
 const { use } = require("bcrypt/promises");
 const {get_user} = require("../Models/find_user.models.js");
-
+jwt = require("jsonwebtoken");
 const find_user = async (req,res) => {
  
     const { user_name, password } = req.body;
