@@ -9,15 +9,16 @@ import FindTrains from "./pages/FindTrains";
 import 'bootstrap/dist/css/bootstrap.css';
 import SchedulePage from "./pages/SchedulePage";
 import Example from "./pages/Support";
-import BookingPage from "./pages/book_ticket";
+import BookingTicket from './pages/BookTicket';
 
 export default function App() {
 
   const navlinks=[
-    {text:"HOME",link:"/"},
-    {text:"SCHEDULE",link:"/summary"},
-    {text:"FIND TRAINS",link:"/view_trains"},
-    {text:"VIEW STATIONS",link:"/support"}
+    {text:"Home",link:"/"},
+    {text:"Schedule",link:"/summary"},
+    {text:"Find Trains",link:"/view_trains"},
+    {text:"View Stations",link:"/support"},
+    {text:"Book Ticket",link:"/book_ticket"}
     
   ]
   return (
@@ -31,6 +32,7 @@ export default function App() {
             <Route path="/view_trains" element={<FindTrainsPage />}/>
             <Route path="/find_trains/:station1/:station2" element={<FindTrains />}/>
             <Route path="/support" element={<Example />}/>
+            <Route path="/book_ticket" element={<BookingTicket />}/>
 
           </Routes>
         </BrowserRouter>

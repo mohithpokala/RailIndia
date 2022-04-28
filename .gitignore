@@ -1,2 +1,3 @@
-new_server\Models\database.js
+new_server/Models/database.js
 .DS_Store
+new_server/node_modules/
