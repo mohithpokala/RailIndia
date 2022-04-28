@@ -23,7 +23,7 @@ export default function App() {
 
   const navlinks=[
     {text:"Home",link:"/"},
-    {text:"Schedule",link:"/summary"},
+    {text:"Schedule",link:"/train_schedule"},
     {text:"Find Trains",link:"/view_trains"},
     {text:"View Stations",link:"/support"},
     {text:"Book Ticket",link:"/book_ticket"},

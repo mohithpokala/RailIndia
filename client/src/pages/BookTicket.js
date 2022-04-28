@@ -17,11 +17,10 @@ const BookTicket = (props) => {
     const [train_no, setTrain]=useState(props.train_no);
     const [token, setToken]=useState(localStorage.getItem("token"));
     
-    console.log(train_no);
     useEffect(() => {
         setTimeout(() => {
             const jsonData={"token":token};
-            fetch("http://localhost:"+port+"/train/schedule/"+train_no+"/",{
+            fetch("http://localhost:" + port + "/all_trains",{
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body:JSON.stringify(jsonData)
@@ -144,12 +143,28 @@ const BookTicket = (props) => {
     const get_stations = async (train_no) => {
         let data1 = [];
         try{
-            const response = await fetch("http://localhost:5000/train/schedule/" + train_no);
-            const json = response.json;
-            for(var i=0; i < json.length; i++){ 
-                data1.push({label: json[i]["station_name"], value: i});
-            } 
-            setStations(data1);
+            const response = await fetch("http://localhost:5000/train/schedule/" + train_no, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(jsonData)
+            })
+            .then((res) => res.json())
+            .then((json) => {
+            console.log(json);
+            if(!(json.hasOwnProperty('token') )){
+                setScheduled(json);
+                for(var i=0; i < json.length; i++){ 
+                    data1.push({label: json[i]["station_name"], value: i});
+                } 
+                setStations(data1);
+            }
+            else{
+                setToken("");
+                localStorage.setItem("token","");
+                window.location="/login";
+            }
+            });
+            
         } catch (err) {
             // setStations([{label: "0000", value: 0}, {label: "0001", value: 1}]);
             console.error(err.message);
@@ -165,8 +180,10 @@ const BookTicket = (props) => {
                         <Form.Label>Train ID</Form.Label>
                         <Select type="number" options={trains}
                                         placeholder="Enter train number" 
-                                        onselect ={e => {
+                                        onChange ={e => {
                                             setTrain(e.value);
+                                            console.log(e.value);
+                                            get_stations(e.value);
                                         }} 
                                         />
                     </Form.Group>
