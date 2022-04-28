@@ -6,7 +6,7 @@ const zone_stat2 = async() => {
         SELECT zone, count(distinct station_id)
         FROM STATION 
         GROUP BY zone
-        having state != ''
+        having zone != ''
         `;
     const res = await pool.query(query);
     return  res.rows;

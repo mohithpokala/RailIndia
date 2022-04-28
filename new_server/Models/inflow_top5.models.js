@@ -11,10 +11,10 @@ const inflow_top5 = async() => {
             natural join 
             paths 
             natural join
-            stations
+            station
             where 
             paths.path_id = start_station 
-            group by paths.station_id 
+            group by paths.station_id ,station_name
             order by x desc 
             limit 5     
         `;
