@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { ComposableMap, Geographies, Geography, Marker,Markers } from 'react-simple-maps';
+import { ComposableMap, Geographies, Geography, Marker,Markers,Line } from 'react-simple-maps';
 import { scaleQuantile } from 'd3-scale';
 import ReactTooltip from 'react-tooltip';
 import { port } from './port';
@@ -66,13 +66,14 @@ const getRandomInt = () => {
 
 // will generate random heatmap data on every call
 
-const Example=()=> {
+const All_schedules=()=> {
   const [tooltipContent, setTooltipContent] = useState('');
   const [data, setData] = useState(false);
   const [data1, setData1] = useState(false);
   const [data2, setData2] = useState(false);
   const [x,setX] = useState('');
   const [y,setY] = useState(0);
+  const [prev_train,setPrevTrain] =useState(0);
   const [A,setA] = useState(false);
   const [markers,setMarkers]=useState(false);
   const [token,setToken]=useState(localStorage.getItem("token"));
@@ -83,7 +84,9 @@ const Example=()=> {
     setTimeout(() => {
       const jsonData={"token":token};
         let data1 = [];
-        fetch("http://localhost:"+port+"/train/schedule/12797",{
+        let data2 = [];
+        let data3 = [];
+        fetch("http://localhost:"+port+"/all_schedule",{
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body:JSON.stringify(jsonData)
@@ -99,6 +102,20 @@ const Example=()=> {
                           "coordinates": [json[i]["a"], json[i]["b"]],
                           "val":json[i]["x"]
                         });
+                        data2.push([
+                          json[i]["lat"], json[i]["long"]
+                        ]);
+                        console.log(json[i]["train_no"]);
+                        console.log(prev_train);
+                        console.log(json[i]["train_no"]!==prev_train);
+
+                        if(json[i]["train_no"]!==prev_train){
+                            data3.push(data2);
+                            console.log("hello");
+                            console.log(prev_train);
+                        }
+                        setPrevTrain(json[i]["train_no"]);
+                        console.log(prev_train);
                     } 
                   }
                   else{
@@ -109,6 +126,8 @@ const Example=()=> {
                 } 
             );
         setMarkers(data1);
+        setData2(data3);
+        console.log(data3);
     }, 0);
   },[] );
   useEffect(() => {
@@ -140,46 +159,13 @@ const Example=()=> {
     }, 0);
   },[] );
 
-  useEffect(() => {
-    setTimeout(() => {
-      const jsonData={"token":token};
-        let data1 = [];
-        fetch("http://localhost:"+port+"/train_state_stat2",{
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body:JSON.stringify(jsonData)
-      })
-            .then((res) => res.json())
-            .then(
-                (json) => {
-                  if(!(json.hasOwnProperty('token') )){
-                    setData(json); setData2(json);  
-                               }
-                               else{
-                                // setToken("");
-                                localStorage.setItem("token","");
-                                window.location="/login";
-                            }
-                                        } 
-            );
-
-    }, 0);
-  },[] );
-  console.log(data);
-  const onMouseEnter = (geo, current) => {
-    if(current) return () => {
-      setTooltipContent(`${geo.properties.name}: ${current["count"]}`);
-    };
-  };
-
-  const onMouseLeave = () => {
-    setTooltipContent('');
-  };
-
+  
+  console.log(data2);
+  console.log([[1,3],[5,6],[8,9]]);
 
   return (<>
     {
-    !(markers && data) 
+    !(markers ) 
         ? 
             (
                 <></>
@@ -187,10 +173,6 @@ const Example=()=> {
         : 
         (
     <div className="full-width-height container" >
-      <button onClick={()=>{
-          y?setData(data2):setData(data1);
-          setY(1-y);
-        }}>click me to change heatmap</button>
       <ReactTooltip>{tooltipContent}</ReactTooltip>
         <ComposableMap
           projectionConfig={PROJECTION_CONFIG}
@@ -202,48 +184,22 @@ const Example=()=> {
               geographies.map(geo => {
                 //console.log(geo.id);
                 var current;
-                data.map((x) =>{
-                  if(x["state"]==geo["id"])
-                    current = x;
-                });
-                console.log(Array.from(data));
-                const colorScale =
-                  scaleQuantile()
-                  .domain(data.map(d => (d["count"])))
-                  .range(COLOR_RANGE);
-                console.log(colorScale);
-                console.log(colorScale(0));
-                console.log(colorScale(40));
                 return (
                   <Geography
                     key={geo.rsmKey}
                     geography={geo}
-                    fill={current ? colorScale(current.count):DEFAULT_COLOR}
+                    fill={DEFAULT_COLOR}
                     style={geographyStyle}
-                    onMouseEnter={onMouseEnter(geo, current)}
-                    onMouseLeave={onMouseLeave}
                   />
                 );
               })
             }
           </Geographies >
-          {markers.map(({ name, coordinates, markerOffset,val }) => (
-            <Marker key={name} coordinates={coordinates}>
-              <g
-                fill="none"
-                stroke="#FF5533"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                onMouseEnter={()=>{setX(name);setA(val);}}
-                onMouseLeave={()=>{setX('');setA(false);}}
-              >
-                
-            <circle cx="0" cy="0" r="3" />
-              </g>
-          
-        </Marker>
-      ))}
+      <Line
+        coordinates={data2}
+        stroke="#F53"
+        strokeWidth={2}
+      />
         </ComposableMap>
         {A && <h1>Station Name = {x} Num trains = {A}</h1>}
     </div>
@@ -252,4 +208,4 @@ const Example=()=> {
 </>);
 }
 
-export default Example;
+export default All_schedules;

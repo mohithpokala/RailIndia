@@ -64,7 +64,7 @@ const FindTrainsPage = (props) => {
                             <Dropdown options={stationName} onChange={stations=>{
                                     setstation1(stations.value);
                                     console.log(station1);
-                                }}  placeholder="Select source station" value ={station1} />;
+                                }}  placeholder="Select source station" value ={station1} />
                             <Dropdown options={stationName} onChange={stations=>{
                                     setstation2(stations.value);
                                     console.log(station1);

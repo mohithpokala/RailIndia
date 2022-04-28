@@ -16,7 +16,6 @@ const get_train_info = async (req,res) => {
   } catch (err) {
     return res.status(401).send({"token":"Invalid Token"});
   }
-
     const data = await get_train_inf(req.params.train);
     return res.status(200).json(data);
 }

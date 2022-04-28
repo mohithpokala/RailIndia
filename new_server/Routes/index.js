@@ -29,7 +29,8 @@ const {
         get_station_info,
         get_train_info,
         top5_trains,
-        add_user,
+        all_schedules,
+        add_user
 } = require('../Controllers');
 
 const routes = express.Router();
@@ -63,5 +64,6 @@ routes.post('/add_user',add_user);
 routes.post('/add_path_to_train/:train_no/:station_code/:distance/:price_from_source/:eat/:edt',add_path_to_train);
 routes.post('/add_passenger/', Passenger_entry);
 routes.post('/get_num_seats/:train/:start_index/:end_index/:date',get_num_seats);
+routes.post('/all_schedule',all_schedules)
 routes.post('/get_available_dates/:train_no', available_dates);
 module.exports = {routes};

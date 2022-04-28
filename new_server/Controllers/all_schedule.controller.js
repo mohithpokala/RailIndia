@@ -1,23 +1,33 @@
-const {state_stat2} = require("../Models/trains_state_stat2.models.js");
-jwt = require("jsonwebtoken");
-const trains_state_stat2 = async (req,res) => {
+const {all_schedule} = require('../Models/all_schedule.models.js');
+
+var jwt = require("jsonwebtoken");
+
+const all_schedules = async (req,res) => {
+
     const token =
     req.body.token || req.query.token || req.headers["x-access-token"];
 
     
 
   if (!token) {
-    return res.status(403).send({"token":"No Token"});
+    return res.status(403).send({token:"No token"});
   }
   try {
+
     const decoded = jwt.verify(token, '}Z{C&dFwZ_ j9CI^Tp=-1I[|)]3|4a>7`$SSgNPe,5`b_1RjrB&+=erO@{t09RK:');
     req.user = decoded;
   } catch (err) {
-    return res.status(401).send({"token":"Invalid Token"});
+    return res.status(401).send({token:"Invalid token"});
   }
-    const data = await state_stat2();
+
+ 
+
+
+
+
+    const data = await all_schedule();
     console.log(data);
     return res.status(200).json(data);
 }
 
-module.exports = {trains_state_stat2}
+module.exports= {all_schedules}

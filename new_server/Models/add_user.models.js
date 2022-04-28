@@ -14,9 +14,9 @@ const adduser = async(user_name,age,phone,email,sex,password) => {
     // var originalText = bytes.toString(CryptoJS.enc.Utf8);
 
     var bytes  = CryptoJS.AES.decrypt(password, "10");
-    const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
+    const decryptedString = bytes.toString(CryptoJS.enc.Utf8);
 
-     console.log(decryptedString);
+    console.log(decryptedString);
     const query =
         `
         INSERT INTO users(name,age,is_admin,phone,email,sex,password) VALUES ($1,$2,'FALSE',$3,$4,$5,$6);

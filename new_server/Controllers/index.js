@@ -28,7 +28,7 @@ const {station_schedule} =require('./station_schedule.controller');
 const {top5_trains}=require('./LongestTrains.controller');
 const {get_station_info}=require('./get_station_info.controller');
 const {get_train_info}=require('./get_train_info.controller');
-const {add_user}=require('./add_user.controller');
+const {all_schedules} = require('./all_schedule.controller');const {add_user}=require('./add_user.controller');
 const {available_dates} =require('./available_dates.controller')
 module.exports = 
 {
@@ -63,5 +63,6 @@ module.exports =
     get_station_info,
     get_train_info,
     add_user,
-    top5_trains,
+    all_schedules,
+    top5_trains
 } 

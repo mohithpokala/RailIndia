@@ -13,6 +13,21 @@ const Logistics = (props) => {
     const [zonestat1,setzonestat1] = useState(false);
     const [zonestat2,setzonestat2] = useState(false);
     const [LongestTrains,setLongestTrains] = useState(false);
+    const [options,setStat] =useState(1);
+    const statoptions=[
+        
+        {"label":"Inflow" ,
+        "value":1},
+        {"label":"outflow" ,
+        "value":2},
+        {"label":"zone data 1" ,
+        "value":3},
+        {"label":"zonestat2" ,
+        "value":4},
+        {"label":"longest trains" ,
+        "value":5}
+        
+    ]
     const [token,setToken]=useState(localStorage.getItem("token"));
     
     
@@ -149,7 +164,21 @@ const Logistics = (props) => {
             : 
             (
                 <React.Fragment>
+                    <Select
+                                options={statoptions}
+                                search
+                      
+                                onChange={optionsss=>{
+                                        setStat(optionsss.value);
+                                        console.log(optionsss);
+                                        console.log(options);
+                                    }}
+                                value = {options}
+                                placeholder="Select Statistics type"
+                            />
                     <div style={{position:"absolute",width:"100%",top:"25%",left:"0%",height:"100%"}}>
+                        {options==1?
+                        <div>
                         <h4>
                             TOP 5 stations with highest inflow
                         </h4>
@@ -169,8 +198,9 @@ const Logistics = (props) => {
                                     </tr>
                                 ))
                             }
-                        </table>
-                        </div><div>
+                        </table></div>:<div/>}
+                        {options==2?
+                        <div>
                         <h4>
                             TOP 5 stations with highest outflow
                         </h4>
@@ -190,10 +220,9 @@ const Logistics = (props) => {
                                     </tr>
                                 ))
                             }
-                        </table>
-                        </div><div>
-                        <br></br><br></br>
-
+                        </table></div>:<div/>}
+                        {options==3?
+                        <div>
                         <h4>
                             Zone wise train count
                         </h4>
@@ -211,9 +240,9 @@ const Logistics = (props) => {
                                     </tr>
                                 ))
                             }
-                        </table>
-
-                        </div><div><br></br><br></br>
+                        </table></div>:<div/>}
+                        {options==4?
+                        <div>
                         <h4>
                             Zone wise station count
                         </h4>
@@ -231,9 +260,9 @@ const Logistics = (props) => {
                                     </tr>
                                 ))
                             }
-                        </table>
-
-                        </div><div><br></br><br></br>
+                        </table></div>:<div/>}
+                        {options==5?
+                        <div>
                         <h4>
                             Longest trains
                         </h4>
@@ -257,8 +286,7 @@ const Logistics = (props) => {
                                     </tr>
                                 ))
                             }
-                        </table>
-                        
+                        </table></div>:<div/>}
                         </div>
                     
                 </React.Fragment>
