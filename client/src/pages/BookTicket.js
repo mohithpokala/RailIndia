@@ -7,8 +7,8 @@ import { useParams } from 'react-router';
 
 import Select from 'react-select';
 
-const Schedules = (props) => {
-  const [scheduled,setScheduled]=useState(false);
+const BookTicket = (props) => {
+    const [scheduled,setScheduled]=useState(false);
     const [train_no,setTrain]=useState(props.train_no);
     console.log(train_no);
     useEffect(() => {
@@ -63,4 +63,4 @@ const Schedules = (props) => {
   );
   
 }
-export default Schedules;
+export default BookTicket;

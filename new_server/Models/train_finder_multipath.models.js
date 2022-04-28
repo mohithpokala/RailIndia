@@ -4,10 +4,23 @@ const search_train_multipath = async(start_id,end_id) => {
     console.log(start_id);
     console.log(end_id);
     const query =
-        `
-            with f(train1,train2,d1,d2,total_dist,halt_station,deptime,arrtime) as (
-            select  B.train_no,C.train_no ,B.Distance_from_source-A.Distance_from_source ,D.Distance_from_source-C.Distance_from_source,B.Distance_from_source-A.Distance_from_source +D.Distance_from_source-C.Distance_from_source as l,B.station_id,C.expected_departure_time,B.expected_arrival_time,  EXTRACT(EPOCH FROM (C.expected_departure_time - B.expected_arrival_time)) AS difference
-            from paths as B ,paths as A,paths as C,paths as D
+        ` 
+            with
+            h(i) as (select station_id from station where station_name = $1 limit 1 ),
+            g(i) as (select station_id from station where station_name = $2 limit 1 ),
+            f(train1,train2,d1,d2,total_dist,halt_station,deptime2,arrtime1,arrtime2,deptime2) as (
+            select  
+            B.train_no,C.train_no ,
+            B.Distance_from_source-A.Distance_from_source ,
+            D.Distance_from_source-C.Distance_from_source,
+            B.Distance_from_source-A.Distance_from_source +D.Distance_from_source-C.Distance_from_source as l,
+            B.station_id,
+            C.expected_departure_time,
+            B.expected_arrival_time,  
+            C.expected_arrival_time,
+            B.expected_departure_time,
+            EXTRACT(EPOCH FROM (C.expected_departure_time - B.expected_arrival_time)) AS difference
+            from paths as B ,paths as A,paths as C,paths as D,g,h
             where 
             B.train_no = A.train_no 
             and 
@@ -19,7 +32,7 @@ const search_train_multipath = async(start_id,end_id) => {
             and 
             C.station_id=B.station_id
             and 
-            A.station_id=$1 and D.station_id=$2
+            A.station_id=h.i and D.station_id=g.i
             and
             C.train_no!=A.train_no
             and 
