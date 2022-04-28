@@ -29,11 +29,6 @@ const {
         get_station_info,
         get_train_info,
         top5_trains,
-        get_id,
-        big_city,
-        trains_state_stat2,
-        trains_zone_stat2,
-        station_schedule
 } = require('../Controllers');
 
 const routes = express.Router();
