@@ -1,5 +1,5 @@
 const { use } = require("bcrypt/promises");
-const {adduser} = require("../Models/find_user.models.js");
+const {adduser} = require("../Models/add_user.models.js");
 jwt = require("jsonwebtoken");
 const add_user = async (req,res) => {
  

@@ -33,7 +33,7 @@ const RegisterUser =()=>{
             }
         console.log(jsonData);
         const response = await fetch(
-            "http://localhost:"+port+"/register_user",{
+            "http://localhost:"+port+"/add_user",{
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body:JSON.stringify(jsonData)
