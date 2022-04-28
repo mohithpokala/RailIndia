@@ -4,6 +4,7 @@ import 'chart.js/auto';
 
 import '../CSS/Match.css'
 import Select from 'react-select';
+import Schedules from './Schedules';
 import '../CSS/rotateimage.css'
 import {port} from './port';
 
@@ -13,7 +14,7 @@ const renderOption = (x)=>{
 const SchedulePage = (props) => {
   const [trainName,setTrainName] = useState(false);
     const [train,setTrain]=useState("12797");
-    const [train_num,setTrainNum]=useState("12797");
+    const [train_num,setTrainNum]=useState(false);
 
     useEffect(() => {
         setTimeout(() => {
@@ -45,7 +46,7 @@ const SchedulePage = (props) => {
     return (
         <>
             {
-            !(trainName) 
+            !(trainName && train_num) 
                 ? 
                     (
                         <></>
@@ -77,8 +78,8 @@ const SchedulePage = (props) => {
                                 
                                 placeholder="Select train number"
                             />
-                            <a  href={"/train_schedule/"+train}><h1>Submit</h1></a>
                         </div>
+                        {train!="0000" && <Schedules train_no={train} key={train} train_name={trainName}/>}
 
                     </React.Fragment>
                 )

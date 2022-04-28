@@ -26,10 +26,10 @@ const StationSchedulePage = (props) => {
                         for(var i=0;i<json.length;i++){ 
                             data1.push({
                                 "label":json[i]["station_name"] ,
-                                "value":json[i]["station_code"]});
+                                "value":json[i]["station_id"]});
                             data2.push({
-                                "value":json[i]["station_code"] ,
-                                "label":json[i]["station_code"]});
+                                "value":json[i]["station_id"] ,
+                                "label":json[i]["station_id"]});
                         } 
                     } 
                 );
@@ -60,7 +60,7 @@ const StationSchedulePage = (props) => {
                       
                                 onChange={stations=>{
                                         setStation(stations.value);
-                                        console.log(station);
+                                        console.log(stations);
                                     }}
                                 
                                 placeholder="Select station name"

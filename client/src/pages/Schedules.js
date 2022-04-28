@@ -8,9 +8,11 @@ import { port } from './port';
 import Select from 'react-select';
 
 const Schedules = (props) => {
-  const [scheduled,setScheduled] = useState(false);
-    const train_no = useParams().train_no;
-
+    const [scheduled,setScheduled] = useState(false);
+    
+    var train_no1 = useParams().train_no;
+    var train_no2 = props.train_no;
+    const train_no = train_no1?train_no1:train_no2;
     console.log(train_no);
     useEffect(() => {
         setTimeout(() => {

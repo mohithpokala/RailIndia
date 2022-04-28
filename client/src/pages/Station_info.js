@@ -6,9 +6,11 @@ import { useParams } from 'react-router';
 import { port } from './port';
 
 
-const Station_info = () => {
+const Station_info = (props) => {
     const [scheduled,setScheduled] = useState(false);
-    const station_name= useParams().station_name;
+    var station_name1 = useParams().station_name;
+    var station_name2 = props.station_name;
+    const station_name = station_name1?station_name1:station_name2;
 
     useEffect(() => {
         setTimeout(() => {
