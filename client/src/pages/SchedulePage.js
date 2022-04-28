@@ -49,9 +49,8 @@ const SchedulePage = (props) => {
             setTrainNum(data2);
                     }
                     else{
-                        // setToken("");
+                        //setToken("");
                         localStorage.setItem("token","");
-
                         window.location="/login";
                     }
                     } 

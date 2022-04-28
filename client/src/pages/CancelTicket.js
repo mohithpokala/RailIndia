@@ -27,7 +27,7 @@ const CancelTicket = (props) => {
             "token":token
             };
             console.log(jsonData);
-            const response = await fetch("http://localhost:" + port + "/cancel_ticket", {
+            const response = await fetch("http://localhost:" + port + "/cancel_tickets", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(jsonData)

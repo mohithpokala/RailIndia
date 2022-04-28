@@ -19,7 +19,7 @@ const cancel_tickets = async (req,res) => {
 
 
     const data = await cancel_ticket(
-        req.params.bid
+        req.body.bid
     );
     return res.status(200).json(data);
 }

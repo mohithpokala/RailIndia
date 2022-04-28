@@ -105,10 +105,17 @@ const All_schedules=()=> {
                         data2.push([
                           json[i]["lat"], json[i]["long"]
                         ]);
-                        if(json[i]["train_no"]!=prev_train){
-                            setPrevTrain(json[i]["train_no"]);
+                        console.log(json[i]["train_no"]);
+                        console.log(prev_train);
+                        console.log(json[i]["train_no"]!==prev_train);
+
+                        if(json[i]["train_no"]!==prev_train){
                             data3.push(data2);
+                            console.log("hello");
+                            console.log(prev_train);
                         }
+                        setPrevTrain(json[i]["train_no"]);
+                        console.log(prev_train);
                     } 
                   }
                   else{
