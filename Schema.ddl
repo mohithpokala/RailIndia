@@ -90,7 +90,7 @@ CREATE TABLE Passenger(
     waiting_pref_no INT NOT NULL,
     PRIMARY KEY(passenger_id,booking_id),
     UNIQUE (booking_id, waiting_pref_no),
-    FOREIGN KEY(booking_id) references booking
+    FOREIGN KEY(booking_id) references booking on delete cascade 
 );
 
 DROP INDEX  IF EXISTS index1;
