@@ -17,6 +17,7 @@ import Schedules from "./pages/Schedules";
 import Station_info from "./pages/Station_info";
 import StationSchedulePage from "./pages/StationSchedules";
 import BookingTicket from './pages/BookTicket';
+import CancelTicket from "./pages/CancelTicket";
 
 export default function App() {
 

@@ -11,7 +11,7 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
 import Select from 'react-select';
-import { port } from './port';
+
 const BookTicket = (props) => {
     const [scheduled,setScheduled]=useState(false);
     const [train_no,setTrain]=useState(props.train_no);
@@ -29,9 +29,7 @@ const BookTicket = (props) => {
                 );
         }, 100);
     },[] );
-    console.log(props.train_no);
-    console.log(scheduled);
-    console.log("hi iuhuihgvf ");
+    
     const [formValues, setFormValues] = useState([{ name: "", age : "", sex : ""}])
     
     const [date, setDate] = useState("");

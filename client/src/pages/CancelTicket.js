@@ -41,7 +41,7 @@ const CancelTicket = (props) => {
                     <Form.Group>
                         <Form.Label>Bookinh ID</Form.Label>
                         <Form.Control type="number" 
-                                        placeholder="Enter booking ID/PNR" value={booking_id}
+                                        placeholder="Enter booking ID/PNR" value={bookingID}
                                         onChange={e => {
                                             setBookingID(e.target.value);
                                         }} 
