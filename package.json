@@ -1,0 +1,19 @@
+{
+  "name": "railindia",
+  "version": "1.0.0",
+  "description": "The aim of this project is to build a web application that allows users to \r view the information of various trains and stations in the Indian Railway \r network. It also allows users to book seats on a train and view the \r availability.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohithpokala/RailIndia.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mohithpokala/RailIndia/issues"
+  },
+  "homepage": "https://github.com/mohithpokala/RailIndia#readme"
+}
