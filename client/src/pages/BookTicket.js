@@ -111,11 +111,12 @@ const BookTicket = (props) => {
 
     let addPassengers = async (bid, f) =>
     {
-        var json = {"bid": bid,
-        "name" : f['name'],
-        "age" : f['age'],
-        "sex" : f['sex']      
-        };
+        // var json = {"bid": bid,
+        // "name" : f['name'],
+        // "age" : f['age'],
+        // "sex" : f['sex']      
+        // };
+        var json = f;
         const response2 = await fetch("http://localhost:" + port + "/add_passenger", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -148,11 +149,12 @@ const BookTicket = (props) => {
                     const res = json;
                     const booking_id = res['booking_id'];
                     // console.log(res, formValues, formValues.length);
-                    for(let i = 0; i < formValues.length; i++)
-                    {
-                        console.log(booking_id);
-                        const res = addPassengers(booking_id, formValues[i]);
-                    }
+                    
+                    // for(let i = 0; i < formValues.length; i++)
+                    // {
+                        // console.log(booking_id);
+                        const res1 = addPassengers(booking_id, formValues);
+                    // }
                 } 
                 else
                 {
