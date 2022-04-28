@@ -197,7 +197,8 @@ const Example=()=> {
                 onMouseEnter={()=>{setX(name);setA(val);}}
                 onMouseLeave={()=>{setX('');setA(false);}}
               >
-                <circle cx="0" cy="0" r="3" />
+                
+            <circle cx="0" cy="0" r="3" />
               </g>
           
         </Marker>

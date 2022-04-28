@@ -77,7 +77,7 @@ const StationSchedulePage = (props) => {
                       
                                 onChange={stations=>{
                                         setStation(stations.value);
-                                        console.log(station);
+                                        console.log(stations);
                                     }}
                                 
                                 placeholder="Select station name"
