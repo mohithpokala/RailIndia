@@ -7,9 +7,6 @@ import { port } from './port';
 
 import Select from 'react-select';
 
-
-
-
 const Schedules = (props) => {
   const [scheduled,setScheduled] = useState(false);
     const [train_no,  setTrain] = useState(props.train_no);
