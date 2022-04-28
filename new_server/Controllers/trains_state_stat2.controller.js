@@ -1,5 +1,5 @@
 const {state_stat2} = require("../Models/trains_state_stat2.models.js");
-
+jwt = require("jsonwebtoken");
 const trains_state_stat2 = async (req,res) => {
     const data = await state_stat2();
     console.log(data);

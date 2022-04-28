@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Carousel from 'react-bootstrap/Carousel';
 import srh from '../Assets/srh.png'
@@ -94,7 +94,10 @@ export default function Home() {
     {im:rcb}
   ]
   const prop = {}
-
+  const [token,setToken]=useState(localStorage.getItem("token"));
+  if((token==null)||(token=="")){
+    window.location= "/login";
+  }
   return (
     <div style={{backgroundColor:"grey",width:"100%",height:"100%",position:"absolute"}}>
       <Slideshow img={hdim} fade={true} width={"64%"} ml={"18%"} mt={"0%"} ht={"90vh"} />

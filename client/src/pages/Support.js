@@ -76,6 +76,9 @@ const Example=()=> {
   const [A,setA] = useState(false);
   const [markers,setMarkers]=useState(false);
   const [token,setToken]=useState(localStorage.getItem("token"));
+  if((token==null)||(token=="")){
+    window.location= "/login";
+  }
   useEffect(() => {
     setTimeout(() => {
       const jsonData={"token":token};

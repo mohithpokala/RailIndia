@@ -18,7 +18,10 @@ const SchedulePage = (props) => {
     
     const [train,setTrain]=useState("12797");
     const [train_num,setTrainNum]=useState(false);
-
+    if((token==null)||(token=="")){
+        window.location= "/login";
+    }
+    console.log(token);
     useEffect(() => {
         setTimeout(() => {
             const jsonData={"token":token};
@@ -48,6 +51,7 @@ const SchedulePage = (props) => {
                     else{
                         // setToken("");
                         localStorage.setItem("token","");
+
                         window.location="/login";
                     }
                     } 
