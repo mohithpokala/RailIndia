@@ -11,7 +11,7 @@ const get_user = async(user_name,password) => {
             SELECT is_admin,password FROM users WHERE name = $1;       
         `;
     const res = await pool.query(query,[user_name]);
-    if(res['rowCount']==0) return "INVALID USERID";
+    if(res['rowCount']==0) return {check:"INVALID USERID"};
 
     //console.log(res['rows'][0]['password']);
     //return res;
@@ -35,7 +35,7 @@ const get_user = async(user_name,password) => {
 
             return {"check":check,"token":token};
         }
-    else return "INVALID PASSWORD";
+    else return {check:"INVALID PASSWORD"};
 
     const token = jwt.sign(
         { user_id: user._id, email },
