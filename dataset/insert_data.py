@@ -3,24 +3,39 @@ import pandas as pd
 from collections import defaultdict
 import random
 
+"""
+    Reading Trains data from the file
+"""
 data = pd.read_csv('../data/train.csv')
+# Trains having a path lesser than the following distance are eliminated
+min_distance = 200
+
 Total_distance={}
 
 List_of_trains = data["Train No"].unique()
 Accepted_trains = [ ]
+
+"""
+    Filter trains with lesser distance
+"""
+data["included"] = [False]*len(data)
 for i in List_of_trains:
     try:
         Total_distance=max(list(map(int,list(data[data["Train No"]==i]["Distance"]))))
         if(Total_distance>200):
             Accepted_trains.append(i)
+            data["included"][i] = False
     except:
         pass
 
-def f(x):
-    global Accepted_trains
-    return x in Accepted_trains
-data["included"] = data["Train No"].apply(f)
+"""
+    Generator function to iterated on accepted trains
+"""
+# def f(x):
+#     global Accepted_trains
+#     return x in Accepted_trains
 
+# data["included"] = data["Train No"].apply(f)
 data2 = data[data["included"]==True]
 
 text_file = open("../data/stations.json", "r")
