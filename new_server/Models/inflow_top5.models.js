@@ -3,13 +3,15 @@ const pool = require("./database");
 const inflow_top5 = async() => {
     const query =
         `
-            select station_id,count(passenger) as x
+            select station_id,station_name,count(passenger) as x
             from 
             booking 
             natural join 
             passenger 
             natural join 
             paths 
+            natural join
+            stations
             where 
             paths.path_id = start_station 
             group by paths.station_id 

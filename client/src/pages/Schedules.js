@@ -9,8 +9,10 @@ import Select from 'react-select';
 
 const Schedules =  (props) => {
     const [scheduled,setScheduled] = useState(false);
-    const [train_no,  setTrain] = useState(props.train_no);
-    const [train_name,  setTrainName] = useState(props.train_name);
+    
+    var train_no1 = useParams().train_no;
+    var train_no2 = props.train_no;
+    const train_no = train_no1?train_no1:train_no2;
     const [token,setToken]=useState(localStorage.getItem("token"));
     if((token==null)||(token=="")){
         window.location= "/login";
@@ -24,7 +26,6 @@ const Schedules =  (props) => {
         })
         .then((res) => res.json())
         .then((json) => {
-            console.log(json);
             if(!(json.hasOwnProperty('token') )){
                 setScheduled(json);
                 

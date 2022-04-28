@@ -51,7 +51,6 @@ const Login =()=>{
     } catch (err) {
       console.error(err);
     }
-    console.log(token);
   };
   //console.log(user_name,password);
 return (
