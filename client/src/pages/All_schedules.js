@@ -18,29 +18,29 @@ const PROJECTION_CONFIG = {
 // Red Variants
 const COLOR_RANGE = [
   
-  '#57bb8a',
-  '#63b682',
-  '#73b87e',
-  '#84bb7b',
-  '#94bd77',
-  '#a4c073',
-  '#b0be6e',
-  '#c4c56d',
-  '#d4c86a',
-  '#e2c965',
-  '#f5ce62',
-  '#f3c563',
-  '#e9b861',
-  '#e6ad61',
-  '#ecac67',
-  '#e9a268',
-  '#e79a69',
-  '#e5926b',
-  '#e2886c',
-  '#CD5C5C',
-  '#DC143C',
-  '#B22222',
+  '#00FFFF',
+  '#8A2BE2',
   '#A52A2A',
+  '#D2691E',
+  '#DC143C',
+  '#00008B',
+  '#006400',
+  '#9B008B',
+  '#E9967A',
+  '#9400D3',
+  '#FF1493',
+  '#FFD700',
+  '#ADFF2F',
+  '#800000',
+  '#FF4500',
+  '#CD853F',
+  '#800080',
+  '#FF0000',
+  '#8B4513',
+  '#EE82EE',
+  '#FFFF00',
+  '#F4A460',
+  '#FA8072',
   '#FF0000',
   '#8B0000'
 
@@ -77,7 +77,8 @@ const All_schedules=()=> {
   const [A,setA] = useState(false);
   const [markers,setMarkers]=useState(false);
   const [token,setToken]=useState(localStorage.getItem("token"));
-  if((token==null)||(token=="")){
+  console.log(token);
+  if((token==null)||(token=="")||(token=="No Token")){
     window.location= "/login";
   }
   useEffect(() => {
@@ -119,20 +120,49 @@ const All_schedules=()=> {
                     localStorage.setItem("token","");
                     window.location="/login";
                 }
+                console.log(data3);
+                setData2(data3);
+                console.log("pokala mohith");
+                console.log(datax);
                 } 
             );
-        setMarkers(data1);
-        setData2(data3);
-        console.log(datax);
-        console.log("i am done");
     }, 0);
   },[] );
  
 
-  
-  console.log(datax);
-  console.log([[1,3],[5,6],[8,9]]);
-  console.log(markers);
+  useEffect(() => {
+    setTimeout(() => {
+      const jsonData={"token":token};
+        let data1 = [];
+        fetch("http://localhost:"+port+"/big_cities2",{
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body:JSON.stringify(jsonData)
+      })
+            .then((res) => res.json())
+            .then(
+                (json) => {
+                  if(!(json.hasOwnProperty('token') )){
+                    for(var i=0;i<json.length;i++){ 
+                        data1.push({
+                          "markerOffset": 0,
+                          "name":json[i]["station_name"],
+                          "coordinates": [json[i]["a"], json[i]["b"]],
+                          
+                        });
+                    } 
+                  }
+                  else{
+                    // setToken("");
+                    localStorage.setItem("token","");
+                    window.location="/login";
+                }
+                setMarkers(data1);
+                } 
+            );
+    }, 0);
+  },[] );
+
   return (<>
     {
     !(markers && datax ) 
@@ -164,11 +194,31 @@ const All_schedules=()=> {
               })
             }
           </Geographies >
-          {console.log("hello mohith")}
+          {markers.map(({ name, coordinates, markerOffset,val }) => (
+            <Marker key={name} coordinates={coordinates}>
+              <g
+                fill="none"
+                stroke="#FF5533"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                onClick={()=>{setX(name);setA(val);}}
+              >
+                
+            <circle cx="0" cy="0" r="3" />
+              </g>
+          
+        </Marker>
+      ))}
+          {console.log("hello mohith pokala")}
           {console.log(Array.from(datax))}
           
       {datax.map((row)=>(
-      console.log(row)
+      <Line
+      coordinates={row}
+      stroke={COLOR_RANGE[Math.floor(Math.random() * 24)]}
+      strokeWidth={1}
+    />
       ))}
         </ComposableMap>
         {A && <h1>Station Name = {x} Num trains = {A}</h1>}

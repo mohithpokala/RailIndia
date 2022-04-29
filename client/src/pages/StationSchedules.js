@@ -17,9 +17,10 @@ const StationSchedulePage = (props) => {
     const [station,setStation]=useState("KCG");
     const [station_num,setStationNum]=useState(false);
     const [token,setToken]=useState(localStorage.getItem("token"));
-    if((token==null)||(token=="")){
+    
+    if((token==null)||(token=="")||(token=="No Token")){
         window.location= "/login";
-      }
+    }
     useEffect(() => {
         setTimeout(() => {
             const jsonData={"token":token};
@@ -40,7 +41,7 @@ const StationSchedulePage = (props) => {
                                 data1.push({
                                     "label":json[i]["station_name"] ,
                                     "value":json[i]["station_code"]});
-                                data2.push({
+                                data1.push({
                                     "value":json[i]["station_code"] ,
                                     "label":json[i]["station_code"]});
                             } 
@@ -54,7 +55,6 @@ const StationSchedulePage = (props) => {
                     } 
                 );
             setStationName(data1);
-            setStationNum(data2);
         }, 1000);
     },[] );
     const stationNameChanged = (e)=>{
@@ -85,17 +85,7 @@ const StationSchedulePage = (props) => {
                                 
                                 placeholder="Select station name"
                             />
-                             <Select
-                                options={station_num}
-                                search
-                      
-                                onChange={stations=>{
-                                        setStation(stations.value);
-                                        console.log(station);
-                                    }}
-                                
-                                placeholder="Select station code"
-                            />
+                            
                             <a  href={"/station_schedule/"+station}><h1>Submit</h1></a>
                         </div>
 

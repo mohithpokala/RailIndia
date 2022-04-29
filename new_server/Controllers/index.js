@@ -24,6 +24,7 @@ const {top5_inflow}=require('./inflow_top5.controller');
 const {top5_outflow}=require('./outflow_top5.controller');
 const {get_id}=require('./get_station_id.controller');
 const {big_city} =require('./big_cities.controller');
+const {big_city2} =require('./big_cities2.controller');
 const {station_schedule} =require('./station_schedule.controller');
 const {top5_trains}=require('./LongestTrains.controller');
 const {get_station_info}=require('./get_station_info.controller');
@@ -64,5 +65,6 @@ module.exports =
     get_train_info,
     add_user,
     all_schedules,
-    top5_trains
+    top5_trains,
+    big_city2
 } 

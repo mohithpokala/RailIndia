@@ -95,7 +95,7 @@ export default function Home() {
   ]
   const prop = {}
   const [token,setToken]=useState(localStorage.getItem("token"));
-  if((token==null)||(token=="")){
+  if((token==null)||(token=="")||(token=="No Token")){
     window.location= "/login";
   }
   return (

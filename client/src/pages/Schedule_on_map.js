@@ -76,9 +76,10 @@ const Schedule_on_map=()=> {
   const [A,setA] = useState(false);
   const [markers,setMarkers]=useState(false);
   const [token,setToken]=useState(localStorage.getItem("token"));
-  if((token==null)||(token=="")){
+  
+  if((token==null)||(token=="")||(token=="No Token")){
     window.location= "/login";
-  }
+}
   useEffect(() => {
     setTimeout(() => {
       const jsonData={"token":token};

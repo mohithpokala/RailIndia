@@ -20,9 +20,10 @@ const Schedules =  (props) => {
     const [from,setFrom] = useState("");
     const [to,setTo] = useState("");
 
-    if((token==null)||(token=="")){
+    
+    if((token==null)||(token=="")||(token=="No Token")){
         window.location= "/login";
-      }
+    }
     
       useEffect(() => {
         const jsonData={"token":token};

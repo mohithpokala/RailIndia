@@ -17,8 +17,10 @@ const SchedulePage = (props) => {
     const [token,setToken]=useState(localStorage.getItem("token"));
     
     const [train,setTrain]=useState("12797");
+    console.log(token);
     const [train_num,setTrainNum]=useState(false);
-    if((token==null)||(token=="")){
+    
+    if((token==null)||(token=="")||(token=="No Token")){
         window.location= "/login";
     }
     console.log(token);
@@ -40,9 +42,11 @@ const SchedulePage = (props) => {
                             data1.push({
                                 "label":json[i]["train_name"] ,
                                 "value":json[i]["train_no"]});
-                            data2.push({
-                                "value":json[i]["train_no"] ,
-                                "label":json[i]["train_no"]});
+                        } 
+                        for(var i=0;i<json.length;i++){ 
+                            data1.push({
+                                "label":json[i]["train_no"] ,
+                                "value":json[i]["train_no"]});
                         } 
 
             setTrainName(data1);
@@ -65,7 +69,7 @@ const SchedulePage = (props) => {
     return (
         <>
             {
-            !(trainName && train_num) 
+            !(trainName ) 
                 ? 
                     (
                         <></>
@@ -84,18 +88,7 @@ const SchedulePage = (props) => {
                                         console.log(train);
                                     }}
                                 
-                                placeholder="Select train name"
-                            />
-                             <Select
-                                options={train_num}
-                                search
-                      
-                                onChange={trains=>{
-                                        setTrain(trains.value);
-                                        console.log(train);
-                                    }}
-                                
-                                placeholder="Select train number"
+                                placeholder="Select train name or number"
                             />
                         </div>
                         {train!="0000" && <Schedules train_no={train} key={train} train_name={trainName}/>}

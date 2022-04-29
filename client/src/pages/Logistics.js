@@ -31,6 +31,9 @@ const Logistics = (props) => {
     const [token,setToken]=useState(localStorage.getItem("token"));
     
     
+    if((token==null)||(token=="")||(token=="No Token")){
+        window.location= "/login";
+    }
     useEffect(() => {
         const jsonData={"token":token};
         setTimeout(() => {
@@ -54,7 +57,6 @@ const Logistics = (props) => {
                 );
         }, 100);
     },[] );
-
     useEffect(() => {
         const jsonData={"token":token};
         setTimeout(() => {

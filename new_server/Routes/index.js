@@ -30,7 +30,8 @@ const {
         get_train_info,
         top5_trains,
         all_schedules,
-        add_user
+        add_user,
+        big_city2
 } = require('../Controllers');
 
 const routes = express.Router();
@@ -43,6 +44,7 @@ routes.post('/inflow_top5',top5_inflow);
 routes.post('/outflow_top5',top5_outflow);
 routes.post('/top5_trains',top5_trains);
 routes.post('/big_cities',big_city);
+routes.post('/big_cities2',big_city2);
 routes.post('/book_ticket/',book_tickets);
 routes.post('/view_trains_from_station/:station',view_trains_from_station);
 routes.post('/get_station_id/:station',get_id);
