@@ -78,7 +78,7 @@ const Example=()=> {
   const [A,setA] = useState(false);
   const [markers,setMarkers]=useState(false);
   const [token,setToken]=useState(localStorage.getItem("token"));
-  
+  const [type,setType]=useState("Number of stations");
   if((token==null)||(token=="")||(token=="No Token")){
     window.location= "/login";
 }
@@ -193,11 +193,14 @@ const Example=()=> {
             ) 
         : 
         (
-    <div className="full-width-height container" >
+    <div className="full-width-height container" style ={{height:"70%",top:"0%",width:"50%",left:"25%",position:"absolute"}} >
       <button onClick={()=>{
           y?setData(data2):setData(data1);
+          y?setType("Number of trains"):setType("Number of stations");
           setY(1-y);
-        }}>click me to change heatmap</button>
+        }}>Heat map on {type}</button>
+        
+      {x ? <p>Station Name = {x} Num trains = {A}</p>:<p>Hover on the stations to display station info</p>}
       <ReactTooltip>{tooltipContent}</ReactTooltip>
         <ComposableMap
           projectionConfig={PROJECTION_CONFIG}
@@ -248,7 +251,6 @@ const Example=()=> {
         </Marker>
       ))}
         </ComposableMap>
-        <h1>Station Name = {x} Num trains = {A} State = {state} City = {city}</h1>
     </div>
    )
   }
