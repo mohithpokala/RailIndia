@@ -35,8 +35,20 @@ export default function Home() {
         <li>Preetham</li>
         <li>Hitesh</li>
       </ul>
-      We aim to provide a platform for the people to get the information about the trains and their status.
-      
+      We aim to provide a platform for the people to get the information about the trains and their status. 
+      <br></br>
+      The platform has been developed using ReactJS and NodeJS. It allows the user to 
+      <ul>
+        <li>book a train ticket</li>
+        <li>cancel a train ticket</li>
+        <li>view the train schedule</li>
+        <li>view various statistics</li>
+        <li>view trains at a station</li>
+        <li>view user bookings and passengers in each booking</li>
+      </ul>
+      There is also a waitlist for the trains that are not available at the moment.
+
+      An admin can add new stations and release tickets for a train. 
     </div>
   );
 }
