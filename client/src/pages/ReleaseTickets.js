@@ -1,6 +1,10 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, {Fragment, useState, useEffect} from 'react';
+=======
+import React, {Fragment,useState} from 'react';
+>>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
 =======
 import React, {Fragment,useState} from 'react';
 >>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
@@ -13,7 +17,10 @@ import Button from 'react-bootstrap/Button';
 import {port} from './port';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Select from 'react-select';
+=======
+>>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
 =======
 >>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
 =======
@@ -25,6 +32,7 @@ const ReleaseTicket =()=>{
     const [token,setToken]=useState(localStorage.getItem("token"));
     const [date_val,setDate]=useState("");
     const [train_no,setTrain]=useState("");
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     const [trains, setTrains] = useState(false);
@@ -64,6 +72,8 @@ const ReleaseTicket =()=>{
 >>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
 =======
 >>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
+=======
+>>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
   const onSubmitForm = async e => {
     e.preventDefault();
     try {
@@ -84,7 +94,11 @@ const ReleaseTicket =()=>{
                 if((json.hasOwnProperty('check'))){
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                     setMessage("FAILURE: ONLY ADMINS CAN RELEASE TICKETS");
+=======
+                    setMessage("FAILURE: ONLY ADMINS CAN ADD STATIONS");
+>>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
 =======
                     setMessage("FAILURE: ONLY ADMINS CAN ADD STATIONS");
 >>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
@@ -132,8 +146,6 @@ return (
         <br></br><br></br>
         <Form.Group>
           <Form.Label>Train Number</Form.Label>
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 <Select type="number" options={trains}
                                             placeholder="Enter train number" 
@@ -141,31 +153,17 @@ return (
                                                 setTrain(e.value);
                                             }} 
                                             />
-=======
-=======
->>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
           <Form.Control type="number" 
                         placeholder="Enter Train Number" value={train_no}
                         onChange={e => {
                             setTrain(e.target.value);
                           }} default="" />
-<<<<<<< HEAD
->>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
-=======
->>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
         </Form.Group>
         <br></br><br></br>
         <Form.Group>
           <Form.Label>Date of Journey</Form.Label>
-<<<<<<< HEAD
-<<<<<<< HEAD
+
           <Form.Control type="date" 
-=======
-          <Form.Control type="text" 
->>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
-=======
-          <Form.Control type="text" 
->>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
                         placeholder="Enter Date of Journey" value={date_val}
                         onChange={e => {
                             setDate(e.target.value);
