@@ -126,7 +126,7 @@ export default function App() {
             <Route path="/register_user" element={<RegisterUser />}/>
             <Route path="/add_station" element={<AddStation />}/>
             <Route path="/view_bookings/" element={<ViewBooking />}/>
-            <Route path="/view_passenger/:booking_id" element={<ViewPassenger />}/>
+            <Route path="/view_passenger/:booking_id" element={<VIEWTRAIN />}/>
             <Route path="/release_ticket/" element={<ReleaseTicket />}/>
           </Routes>
         </BrowserRouter>
