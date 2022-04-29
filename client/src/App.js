@@ -25,6 +25,7 @@ import Schedule_on_map from "./pages/Schedule_on_map";
 import AllSchedules from "./pages/All_schedules";
 import ViewBooking from "./pages/viewbooking";
 import ViewPassenger from "./pages/ViewPassengers";
+import VIEWTRAIN from "./pages/VIEWTRAIN";
 
 
 export default function App() {
@@ -111,7 +112,7 @@ export default function App() {
             <Route path="/find_trains/:station1/:station2" element={<FindTrains />}/>
             <Route path="/station_schedule/:station_name/" element={<Station_info />}/>
             <Route path="/station_schedule" element={<StationSchedulePage />}/>            
-            <Route path="/view_passenger/:train_no" element={<ViewPassenger />}/>
+            <Route path="/view_passengers/:booking_id" element={<VIEWTRAIN />}/>
             <Route path="/stats/" element={<Logistics />}/>
             <Route path="/support" element={<Example />}/>
             <Route path="/all_Schedule" element={<AllSchedules />}/>

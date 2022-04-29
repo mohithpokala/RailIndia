@@ -75,7 +75,7 @@ const ViewPassenger =  (props) => {
 
     return (
   
-        !(scheduled && train_no!="abcd" && trainname) 
+        !(scheduled && train_no!="abcd" && trainname ) 
 ? 
     (
         <></>

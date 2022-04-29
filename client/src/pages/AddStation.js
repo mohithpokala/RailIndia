@@ -33,7 +33,6 @@ const AddStation =()=>{
             "zone":zone,
             "token":token
             }
-        console.log(jsonData);
         const response = await fetch(
             "http://localhost:"+port+"/add_stations",{
                 method: "POST",
@@ -42,7 +41,6 @@ const AddStation =()=>{
             })
             .then((res) => res.json())
             .then((json) => {
-                console.log(json);
                 if((json.hasOwnProperty('check'))){
                     setMessage("FAILURE: ONLY ADMINS CAN ADD STATIONS");
 
@@ -50,7 +48,6 @@ const AddStation =()=>{
                 }
                 else if((json.hasOwnProperty('token')))
                 {
-                    console.log(json.token);
                         setMessage("INVALID TOKEN");
                         localStorage.setItem("token","");
 
@@ -75,8 +72,6 @@ const AddStation =()=>{
       console.error(err);
     }
   };
-  //console.log(user_name,password);
-  console.log(token);
   if((token==null)||(token=="")||(token=="No Token")){
     window.location= "/login";
  }
