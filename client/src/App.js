@@ -14,7 +14,7 @@ import Example from "./pages/Support";
 import Login from "./pages/login";
 import Logout from "./pages/logout";
 import Schedules from "./pages/Schedules";
-import Station_info from "./pages/Station_info";
+import STATIONINFO from "./pages/Station_info";
 import StationSchedulePage from "./pages/StationSchedules";
 import BookingTicket from './pages/BookTicket';
 import CancelTicket from "./pages/CancelTicket";
@@ -24,9 +24,8 @@ import Logistics from './pages/Logistics'
 import Schedule_on_map from "./pages/Schedule_on_map";
 import AllSchedules from "./pages/All_schedules";
 import ViewBooking from "./pages/viewbooking";
-import ViewPassenger from "./pages/ViewPassengers";
 import VIEWTRAIN from "./pages/VIEWTRAIN";
-
+import STATION_SCHEDULE from "./pages/STATION_SCHEDULE";
 
 export default function App() {
 
@@ -110,7 +109,7 @@ export default function App() {
             <Route path="/schedule_on_map/:train_no" element={<Schedule_on_map />} />
             <Route path="/view_trains" element={<FindTrainsPage />}/>
             <Route path="/find_trains/:station1/:station2" element={<FindTrains />}/>
-            <Route path="/station_schedule/:station_name/" element={<Station_info />}/>
+            <Route path="/abcd/:booking_id/" element={<STATION_SCHEDULE />}/>
             <Route path="/station_schedule" element={<StationSchedulePage />}/>            
             <Route path="/view_passengers/:booking_id" element={<VIEWTRAIN />}/>
             <Route path="/stats/" element={<Logistics />}/>
