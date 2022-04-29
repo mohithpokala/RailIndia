@@ -32,6 +32,7 @@ const {
         all_schedules,
         add_user,
         big_city2,
+        view_booking,
         user_bookings
 } = require('../Controllers');
 
@@ -69,5 +70,6 @@ routes.post('/add_passenger/', Passenger_entry);
 routes.post('/get_num_seats/:train/:start_index/:end_index/:date',get_num_seats);
 routes.post('/all_schedule',all_schedules)
 routes.post('/get_available_dates/:train_no', available_dates);
+routes.post('/view_booking/',view_booking);
 routes.post('/bookings/', user_bookings);
 module.exports = {routes};

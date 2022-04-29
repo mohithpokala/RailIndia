@@ -89,6 +89,7 @@ CREATE TABLE Passenger(
     sex TEXT NOT NULL,
     waiting_pref_no INT NOT NULL,
     PRIMARY KEY(passenger_id,booking_id),
+    UNIQUE (booking_id, waiting_pref_no),
     FOREIGN KEY(booking_id) references booking on delete cascade 
 );
 

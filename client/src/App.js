@@ -23,6 +23,8 @@ import AddStation from "./pages/AddStation";
 import Logistics from './pages/Logistics'
 import Schedule_on_map from "./pages/Schedule_on_map";
 import AllSchedules from "./pages/All_schedules";
+import ViewBooking from "./pages/viewbooking";
+
 export default function App() {
 
   const navlinks=[
@@ -35,8 +37,9 @@ export default function App() {
     {text:"Stats",link:"/stats"},  
     {text:"Logout",link:"/logout"},
     {text:"All Trains",link:"/all_Schedule"},
-    {text:"Register",link:"/register_user"},
-    {text:"Add New Station",link:"/add_station"}
+    {text:"Register-User",link:"/register_user"},
+    {text:"Add New Station",link:"/add_station"},
+    {text:"View Bookings",link:"/view_bookings"},
   ]
   return (
     <div class="home_page">
@@ -77,11 +80,13 @@ export default function App() {
               <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Tickets
+                    Bookings
                   </a>
                   <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                     <li><a class="dropdown-item" href={navlinks[4].link}>{navlinks[4].text}</a></li>
                     <li><a class="dropdown-item" href={navlinks[5].link}>{navlinks[5].text}</a></li>
+                    <li><a class="dropdown-item" href={navlinks[11].link}>{navlinks[11].text}</a></li>
+
                   </ul>
                 </li>
               </ul>
@@ -113,6 +118,7 @@ export default function App() {
             <Route path="/logout" element={<Logout />}/>
             <Route path="/register_user" element={<RegisterUser />}/>
             <Route path="/add_station" element={<AddStation />}/>
+            <Route path="/view_bookings" element={<ViewBooking />}/>
           </Routes>
         </BrowserRouter>
       </div>
