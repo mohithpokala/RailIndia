@@ -32,6 +32,7 @@ const {get_train_info}=require('./get_train_info.controller');
 const {all_schedules} = require('./all_schedule.controller');
 const {add_user}=require('./add_user.controller');
 const {available_dates} =require('./available_dates.controller');
+const {view_booking} =require('./view_booking.controller');
 const {user_bookings} = require('./user_booking.controller');
 
 module.exports = 
@@ -71,5 +72,6 @@ module.exports =
     all_schedules,
     top5_trains,
     big_city2,
+    view_booking,
     user_bookings,
 } 

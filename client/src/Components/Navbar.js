@@ -6,7 +6,7 @@ const Navbar = (props) => {
   const func = (i)=>{
     setX(i);
   }
-  console.log(props);
+  // console.log(props.location.pathname);
   const renderButtons = (card, index) => {
     return (
       <li style={{float:"left"}}><a href={card.link}>{card.text}</a></li>
