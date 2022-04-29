@@ -28,11 +28,12 @@ const CancelTicket = (props) => {
         setTimeout(() => {
             let data2 = [];
             setUser(localStorage.getItem("username"));
+            console.log(user, localStorage.getItem("username")); 
             fetch("http://localhost:" + port + "/bookings/" + user,
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body:JSON.stringify(jsonData)
+                body: JSON.stringify(jsonData)
             })
                 .then((res) => res.json())
                 .then(
@@ -50,7 +51,7 @@ const CancelTicket = (props) => {
                     }
                     } 
                 );
-            setTrains(data2);
+            setUserBookings(data2);
         }, 100);
     },[token] );
 

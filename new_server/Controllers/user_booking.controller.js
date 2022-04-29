@@ -1,6 +1,7 @@
 const { user_booking } = require("../Models/user_bookings.models.js");
+
 jwt = require("jsonwebtoken");
-const user_bookings = async (req,res) => {
+const user_bookings = async (req, res) => {
     const token =
     req.body.token || req.query.token || req.headers["x-access-token"];
 
