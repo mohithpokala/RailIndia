@@ -14,7 +14,6 @@ import Example from "./pages/Support";
 import Login from "./pages/login";
 import Logout from "./pages/logout";
 import TRAIN_SCHEDULE from "./pages/Schedules";
-import STATIONINFO from "./pages/Station_info";
 import StationSchedulePage from "./pages/StationSchedules";
 import BookingTicket from './pages/BookTicket';
 import CancelTicket from "./pages/CancelTicket";
@@ -24,7 +23,6 @@ import Logistics from './pages/Logistics'
 import Schedule_on_map from "./pages/Schedule_on_map";
 import AllSchedules from "./pages/All_schedules";
 import ViewBooking from "./pages/viewbooking";
-import ViewPassenger from "./pages/ViewPassengers";
 import ReleaseTicket from "./pages/ReleaseTickets";
 import VIEWTRAIN from "./pages/VIEWTRAIN";
 import STATION_SCHEDULE from "./pages/STATION_SCHEDULE";
@@ -65,7 +63,6 @@ export default function App() {
                     <li><a class="dropdown-item" href={navlinks[1].link}>{navlinks[1].text}</a></li>
                     <li><a class="dropdown-item" href={navlinks[2].link}>{navlinks[2].text}</a></li>
                     <li><a class="dropdown-item" href={navlinks[8].link}>{navlinks[8].text}</a></li>
-                    <li><a class="dropdown-item" href={navlinks[12].link}>{navlinks[12].text}</a></li>
                   </ul>
                 </li>
               </ul>
@@ -78,7 +75,7 @@ export default function App() {
                   </a>
                   <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                     <li><a class="dropdown-item" href={navlinks[3].link}>{navlinks[3].text}</a></li>
-                    <li><a class="dropdown-item" href={navlinks[10].link}>{navlinks[10].text}</a></li>                  </ul>
+                </ul>
                 </li>
               </ul>
             </li>
@@ -97,9 +94,23 @@ export default function App() {
                 </li>
               </ul>
             </li>
+            <li class="p-2 collapse navbar-collapse" >
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Admin
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                    <li><a class="dropdown-item" href={navlinks[12].link}>{navlinks[12].text}</a></li>
+                    <li><a class="dropdown-item" href={navlinks[10].link}>{navlinks[10].text}</a></li>
+
+                  </ul>
+                </li>
+              </ul>
+            </li>
           </ul>
           <a class="nav-link" href={navlinks[6].link}>{navlinks[6].text}</a>
-          <a class="nav-link" href={navlinks[7].link}>{navlinks[7].text}</a>
+          <a class="nav-link ms-auto mb-2 mb-lg-0" href={navlinks[7].link}>{navlinks[7].text}</a>
           <a class="nav-link" href={navlinks[9].link}>{navlinks[9].text}</a>
 
       </nav>

@@ -191,35 +191,47 @@ const Logistics = (props) => {
                             <h6 style={{textAlign:"center"}}>
                                 TOP 5 stations with highest inflow
                             </h6>
-
-                            <table>
-                                <tr>
-                                    <td><b>Station Code</b></td>
-                                    <td><b>Station Name</b></td>
-                                    <td><b>Inflow</b></td>
-                                </tr>
+                            <div class="col-8 container justify-content-center text-center">
+                            <br></br>
+                            <table class="table table-hover border">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Station Code</th>
+                                        <th scope="col">Station Name</th>
+                                        <th scope="col">Inflow</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                 {
                                     top5inflow.map((row) => (
                                         <tr>
                                             <td>{row.station_id}</td>
-                                            <td><a href={"/station_schedule/"+row.station_id} style={{textDecoration:"none",color:"black"}}>{row.station_name}</a></td>
+                                            <td><a href={"/station_schedule/"+row.station_id} class="primary-text">{row.station_name}</a></td>
                                             <td>{row.x}</td>
                                         </tr>
                                     ))
                                 }
-                            </table></div>:<div/>}
+                                </tbody>
+                            </table>
+                            </div>
+                            
+                            </div>:<div/>}
                             {options==2?
                             <div>
                             <h6 style={{textAlign:"center"}}>
                                 TOP 5 stations with highest outflow
                             </h6>
-
-                            <table>
-                                <tr>
-                                    <td><b>Station Code</b></td>
-                                    <td><b>Station Name</b></td>
-                                    <td><b>Outflow</b></td>
-                                </tr>
+                            <div class="col-8 container justify-content-center text-center">
+                            <br></br>
+                            <table class="table table-hover border">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Station Code</th>
+                                        <th scope="col">Station Name</th>
+                                        <th scope="col">Outflow</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                 {
                                     top5outflow.map((row) => (
                                         <tr>
@@ -229,18 +241,25 @@ const Logistics = (props) => {
                                         </tr>
                                     ))
                                 }
-                            </table></div>:<div/>}
+                                </tbody>
+                            </table>
+                            </div>
+                            </div>:<div/>}
                             {options==3?
                             <div>
                             <h6 style={{textAlign:"center"}}>
                                 Zone wise train count
                             </h6>
-
-                            <table>
-                                <tr>
-                                    <td><b>Zone </b></td>
-                                    <td><b>Count</b></td>
-                                </tr>
+                            <div class="col-8 container justify-content-center text-center">
+                            <br></br>
+                            <table class="table table-hover border">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Zone</th>
+                                        <th scope="col">Count</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                 {
                                     zonestat1.map((row) => (
                                         <tr>
@@ -249,18 +268,25 @@ const Logistics = (props) => {
                                         </tr>
                                     ))
                                 }
-                            </table></div>:<div/>}
+                                </tbody>
+                            </table>
+                            </div>
+                            </div>:<div/>}
                             {options==4?
                             <div>
                             <h6 style={{textAlign:"center"}}>
                                 Zone wise station count
                             </h6>
-
-                            <table>
-                                <tr>
-                                    <td><b>Zone </b></td>
-                                    <td><b>Count</b></td>
-                                </tr>
+                            <div class="col-8 container justify-content-center text-center">
+                            <br></br>
+                            <table class="table table-hover border">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Zone</th>
+                                        <th scope="col">Count</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                 {
                                     zonestat2.map((row) => (
                                         <tr>
@@ -269,22 +295,30 @@ const Logistics = (props) => {
                                         </tr>
                                     ))
                                 }
-                            </table></div>:<div/>}
+                                </tbody>
+                            </table>
+                            </div>
+                            </div>:<div/>}
                             {options==5?
                             <div>
                             <h6 style={{textAlign:"center"}}>
                                 Longest trains
                             </h6>
+                            <div class="col-8 container justify-content-center text-center">
+                            <br></br>
+                            <table class="table table-hover border">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Source</th>
+                                        <th scope="col">Destination</th>
+                                        <th scope="col">Distance</th>
+                                        <th scope="col">Train Number</th>
+                                        <th scope="col">Train Name</th>
 
-                            <table>
-                                <tr>
-                                    <td><b>Source</b></td>
-                                    <td><b>Destination</b></td>
-                                    <td><b>Distance</b></td>
-                                    <td><b>Train Number </b></td>
-                                    <td><b>Train Name</b></td>
-                                </tr>
-                                { 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {
                                     LongestTrains.map((row) => (
                                         <tr>
                                             <td><a href={"/station_schedule/"+row.s1} style={{textDecoration:"none",color:"black"}}>{row.stat1}</a></td>
@@ -295,7 +329,10 @@ const Logistics = (props) => {
                                         </tr>
                                     ))
                                 }
-                            </table></div>:<div/>}
+                                </tbody>
+                            </table>
+                            </div>
+                            </div>:<div/>}
                             </div>
                         
                     </React.Fragment>

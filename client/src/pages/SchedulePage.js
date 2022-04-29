@@ -57,7 +57,7 @@ const SchedulePage = (props) => {
                     }
                     } 
                 );
-        }, 1000);
+        }, 0);
     },[token] );
     const trainNameChanged = (e)=>{
         setTrainName(e.target.value);

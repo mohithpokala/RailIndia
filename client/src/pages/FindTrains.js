@@ -98,7 +98,7 @@ const FindTrains = (props) => {
                                                 <dd class="col-sm-9">{row.dist}</dd>
                                             </dl>
                                         </p>
-                                        <a href={"/train_schedule/" + row.train_no} class="btn btn-primary">Book Train</a>
+                                        <a href={"/train_schedule/" + row.train_no} class="btn btn-primary">View Train Schedule</a>
                                     </div>
                                 </div>
                             </li>                    

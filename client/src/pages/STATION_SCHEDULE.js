@@ -76,35 +76,42 @@ const STATION_SCHEDULE = (props) => {
             : 
             (
                 <React.Fragment>
-                    <div style={{position:"absolute",width:"100%",top:"25%",left:"0%",height:"100%",}}>
-                    <h4 style={{textAlign:"center"}}>
-                            {station_data[0]["station_name"]} ({station_data[0]["station_id"]})
-                        </h4>
-                        <h5 style={{textAlign:"center"}}>
-                            Number of Trains = {scheduled.length} 
-                        </h5>
-                        <h5 style={{textAlign:"center"}}>
-                            Location= [{station_data[0]["x"]} , {station_data[0]["y"]}]
-                        </h5>
-                        <table>
-                            <tr>
-                                <td><b>Train Number</b></td>
-                                <td><b>Train Name</b></td>
-                                <td><b>Expected Arrival Time</b></td>
-                                <td><b>Expected Departure Time</b></td>
-                            </tr>
-                            {
-                                scheduled.map((row) => (
+                    <div class="container">
+                        <div className="row">
+                            <h3>Station Schedule</h3>
+                        </div>
+                        <br></br>
+                        <div class="col-4 container justify-content-center text-center">
+                            <h3 class="alert alert-info">{station_data[0]["station_name"]} ({station_data[0]["station_id"]})</h3>
+                            <h5 class="alert alert-secondary">Number of Trains = {scheduled.length} </h5>
+                            <h5>Location: [{station_data[0]["x"]} , {station_data[0]["y"]}]</h5>
+                        </div>
+                        <div class="col-8 container justify-content-center text-center">
+                        <br></br>
+                            <table class="table table-hover border">
+                                <thead>
                                     <tr>
-                                        <td><a href={"/train_schedule/"+row.train_no} style={{textDecoration:"none",color:"black"}}><b>{row.train_no}</b></a></td>
-                                        <td>{row.train_name}</td>
-                                        <td>{row.expected_arrival_time}</td>
-                                        <td>{row.expected_departure_time}</td>
+                                        <th scope="col">Train Number</th>
+                                        <th scope="col">Train Name</th>
+                                        <th scope="col">Expected Arrival Time</th>
+                                        <th scope="col">Expected Departure Time</th>
                                     </tr>
-                                ))
-                            }
-                        </table>
+                                </thead>
+                                <tbody>
+                                {
+                                    scheduled.map((row) => (
+                                        <tr>
+                                            <td><a href={"/train_schedule/"+row.train_no} class="primary-text"><b>{row.train_no}</b></a></td>
+                                            <td>{row.train_name}</td>
+                                            <td>{row.expected_arrival_time}</td>
+                                            <td>{row.expected_departure_time}</td>
+                                        </tr>
+                                    ))
+                                }
+                                </tbody>
+                            </table>
 
+                        </div>
                     </div>
                 </React.Fragment>
     )}</>
