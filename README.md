@@ -31,5 +31,16 @@ is
 3. npx nodemon start
 
 # Load Testing
-1. pip install indian-names
-2. python loadtest.py
+1. cd dataset
+2. pip install indian-names
+3. python loadtest.py
+----
+
+>Test Plan.pdf contains the different testcases by which the performance and validation of the website can be done
+>Website Layout.pdf explains how the frontend of our website looks like and how the transition among different pages takes place
+>Requirement and analysis.pdf contains different use cases for the website and explains various relationships and entities present in the database
+>Design Document.pdf explains the schema (i.e 3NF Decomposition ) used for generating the ddl file and it contains all the wuerries that we implemented
+>Schema.ddl is used to load and create tables into the database with required relationships
+>dataset folder consist of insert.py file which is used to generate multiple queries which will then be loaded into the database
+>client folder consists of all frontend related files
+>new_server folder consists of all backend related files
