@@ -17,7 +17,7 @@ const user_bookings = async (req, res) => {
     return res.status(401).send({"token":"Invalid Token"});
   }
   const data = await user_booking(
-        req.params.user_id
+        req.body.user_id
     );
     return res.status(200).json(data);
 }
