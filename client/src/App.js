@@ -110,7 +110,8 @@ export default function App() {
             <Route path="/view_trains" element={<FindTrainsPage />}/>
             <Route path="/find_trains/:station1/:station2" element={<FindTrains />}/>
             <Route path="/station_schedule/:station_name/" element={<Station_info />}/>
-            <Route path="/Station_schedule//" element={<StationSchedulePage />}/>
+            <Route path="/station_schedule" element={<StationSchedulePage />}/>            
+            <Route path="/view_passenger/:train_no" element={<ViewPassenger />}/>
             <Route path="/stats/" element={<Logistics />}/>
             <Route path="/support" element={<Example />}/>
             <Route path="/all_Schedule" element={<AllSchedules />}/>
@@ -121,7 +122,6 @@ export default function App() {
             <Route path="/register_user" element={<RegisterUser />}/>
             <Route path="/add_station" element={<AddStation />}/>
             <Route path="/view_bookings" element={<ViewBooking />}/>
-            <Route path="/view_passenger/:booking_id" element={<ViewPassenger />}/>
           </Routes>
         </BrowserRouter>
       </div>

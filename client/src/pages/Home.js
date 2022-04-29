@@ -15,7 +15,6 @@ import rail6 from '../Assets/rail6.png'
 
 export default function Home() {
   const [token,setToken]=useState(localStorage.getItem("token"));
-  console.log(token);
   const hdim=[{im:rail1},{im:rail2},{im:rail3},{im:rail4},{im:rail5},{im:rail6}];
 
   if((token==null)||(token=="")||(token=="No Token")){
@@ -27,7 +26,7 @@ export default function Home() {
     <div class="jumbotron">
       <h4>Welcome to RailIndia</h4>
       <div class="container fluid">
-        <Slideshow img={hdim} fade={true} width={"30%"} ml={"20%"} mt={"20%"} ht={"70vh"} />
+        <img src={rail1} style={{width:"30%",position:"absolute",height:"50vh"}} />
       </div>
     </div>
   );

@@ -39,7 +39,6 @@ const Station_info = (props) => {
                 );
         }, 0);
     },[] );
-    console.log(scheduled);
     
     useEffect(() => {
         const jsonData={"token":token};
@@ -52,7 +51,6 @@ const Station_info = (props) => {
         .then((json) => {
             if(!(json.hasOwnProperty('token') )){
                 setStationData(json);
-                console.log(json);
             }
             else{
                 //setToken("");

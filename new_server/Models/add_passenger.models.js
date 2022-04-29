@@ -3,7 +3,6 @@ const pool = require("./database");
 const add_passenger = async(req) => {
     let bid = req.bid;
     let list = req.vals;
-    console.log(bid);
 
     const bid_query = 
     `
@@ -57,7 +56,6 @@ const add_passenger = async(req) => {
             const res3 = pool.query(av_q, [res1.rows[0]['tn'], res1.rows[0]['d'], res1.rows[0]['s'], res1.rows[0]['e']])
             .then((seats) => {
                 var seats = seats.rows[0]['available_seats'];
-                console.log(seats);
                 var promises = [];
                 for (var i = list.length - 1; i >= 0; i--) {
                     let seat = 0;

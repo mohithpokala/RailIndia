@@ -120,7 +120,6 @@ const Logistics = (props) => {
                     (json) => {
                         if(!(json.hasOwnProperty('token') )){
                             setLongestTrains(json);       
-                            console.log(json);                     
                         }
                         else{
                             localStorage.setItem("token","");
@@ -173,8 +172,6 @@ const Logistics = (props) => {
                                 options={statoptions}                                
                                 onChange={optionsss=>{
                                         setStat(optionsss.value);
-                                        console.log(optionsss);
-                                        console.log(options);
                                     }}
                                 value = {options}
                                 placeholder="Select Statistics type"

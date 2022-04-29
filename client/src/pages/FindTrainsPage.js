@@ -46,8 +46,6 @@ const FindTrainsPage = (props) => {
             setstationName(data1);
         }, 1000);
     },[token] );
-    console.log(station1);
-    console.log(stationName);
     if( !((token==null)||(token=="")||(token=="No Token")))
 
     return (
@@ -65,11 +63,9 @@ const FindTrainsPage = (props) => {
                             
                             <Dropdown options={stationName} onChange={stations=>{
                                     setstation1(stations.value);
-                                    console.log(station1);
                                 }}  placeholder="Select source station" value ={station1} />
                             <Dropdown options={stationName} onChange={stations=>{
                                     setstation2(stations.value);
-                                    console.log(station1);
                                 }}  placeholder="Select destination" value={station2}/> 
                         </div>
                         <a  href={"/find_trains/"+station1+"/"+station2}>Submit</a>

@@ -26,7 +26,6 @@ const StationSchedulePage = (props) => {
             const jsonData={"token":token};
             let data1 = [];
             let data2 = [];
-            // console.log(jsonData);
             fetch("http://localhost:" + port + "/all_stations",{
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -38,7 +37,6 @@ const StationSchedulePage = (props) => {
                         if(!(json.hasOwnProperty('token') )){
                             
                             for(var i=0;i<json.length;i++){ 
-                                // console.log(json[i]["station_name"]);
                                 data1.push({
                                     "label":json[i]["station_name"] ,
                                     "value":json[i]["station_id"]});
@@ -52,12 +50,10 @@ const StationSchedulePage = (props) => {
                             localStorage.setItem("token","");
                             window.location="/login";
                         }
-                        console.log(data1);
                         
                     } 
                 );
             setStationName(data1);
-            console.log(data1);
         }, 1000);
     },[token] );
     const stationNameChanged = (e)=>{
@@ -84,7 +80,6 @@ const StationSchedulePage = (props) => {
                       
                                 onChange={stations=>{
                                         setStation(stations.value);
-                                        console.log(stations);
                                     }}
                                 
                                 placeholder="Select station name"

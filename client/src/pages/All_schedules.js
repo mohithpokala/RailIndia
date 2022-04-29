@@ -80,7 +80,6 @@ const All_schedules=()=> {
   const [A,setA] = useState(false);
   const [markers,setMarkers]=useState(false);
   const [token,setToken]=useState(localStorage.getItem("token"));
-  console.log(token);
   if((token==null)||(token=="")||(token=="No Token")){
     window.location= "/login";
   }
@@ -123,10 +122,7 @@ const All_schedules=()=> {
                     localStorage.setItem("token","");
                     window.location="/login";
                 }
-                console.log(data3);
                 setData2(data3);
-                console.log("pokala mohith");
-                console.log(datax);
                 } 
             );
     }, 0);
@@ -190,7 +186,6 @@ const All_schedules=()=> {
           <Geographies geography={INDIA_TOPO_JSON}>
             {({ geographies }) =>
               geographies.map(geo => {
-                //console.log(geo.id);
                 return (
                   <Geography
                     key={geo.rsmKey}
@@ -226,8 +221,6 @@ const All_schedules=()=> {
           
         </Marker>
       ))}
-          {console.log("hello mohith pokala")}
-          {console.log(Array.from(datax))}
           
         </ComposableMap>
     </div>

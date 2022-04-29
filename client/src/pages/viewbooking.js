@@ -16,7 +16,6 @@ const ViewBooking = (props) => {
     useEffect(() => {
         setTimeout(() => {              
             const jsonData={"token":token,"user_id":localStorage.getItem("username")};
-            console.log(jsonData);
             fetch("http://localhost:" + port + "/view_booking",{
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -26,7 +25,6 @@ const ViewBooking = (props) => {
                 .then(
                     (json) => {
                         if(!(json.hasOwnProperty('token') )){
-                            console.log(json);
                             setBooking(json)
                         }
                         else{

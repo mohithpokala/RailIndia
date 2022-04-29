@@ -19,7 +19,6 @@ const view_bookings = async(user_id) => {
         `;
 
     const res = await pool.query(query,[user_id]);
-     console.log(res.rows);
     return  res.rows;
 }
 
