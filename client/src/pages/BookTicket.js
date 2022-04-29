@@ -18,12 +18,14 @@ const BookTicket = (props) => {
     const [formValues, setFormValues] = useState([{ name: "", age : "", sex : ""}])
     const [date, setDate] = useState("");
     const [trains, setTrains] = useState(false);
-    
+    const [a,setA] =useState(false);
+    const [available_seats,setAvailabileSeasts] = useState(false);
     const jsonData = {"token" : token};
-    
+    var x = "";
     if((token==null)||(token=="")||(token=="No Token")){
        window.location= "/login";
     }
+    const [data,setData] =useState("http://localhost:" + port + "/get_num_seats/");
 
     useEffect(() => {
         setTimeout(() => {
@@ -53,6 +55,7 @@ const BookTicket = (props) => {
         }, 1000);
     },[token] );
 
+    
     const [start_station, setStartStation] = useState("");
     const [end_station, setEndStation] = useState("");
     const sex_options = [{value:'M', label:'M'},  
@@ -69,6 +72,7 @@ const BookTicket = (props) => {
         for(var i = j + 1; i <= stations.length; i++){ 
             data1.push({label: stations[i - 1].label, value: i});
         }
+        setA(j);
         setEndStations(data1);
     }
 
@@ -101,6 +105,35 @@ const BookTicket = (props) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(json)
         }); 
+    }
+
+    let get_wl = async (sid,eid,train_no,date) =>
+    {
+        // var json = {"bid": bid,
+        // "name" : f['name'],
+        // "age" : f['age'],
+        // "sex" : f['sex']      
+        // };/get_num_seats/:train/:start_index/:end_index/:date
+        var json = {"token": token};
+        const response2 = await fetch("http://localhost:" + port + "/get_num_seats/"+train_no+"/"+sid+"/"+eid+"/"+date, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(json)
+        })
+        .then((res) => res.json())
+        .then((json) => 
+        {
+            if(!(json.hasOwnProperty('token') ))
+            {
+                setAvailabileSeasts(json[0]["x"]);
+                console.log(available_seats);
+            } 
+            else
+            {
+                // setToken("");
+                localStorage.setItem("token","");
+            }
+        });; 
     }
 
     let handleSubmit = async (event) => {
@@ -220,11 +253,9 @@ const BookTicket = (props) => {
                                         placeholder="Enter train number" 
                                         onChange ={e => {
                                             setTrain(e.value);
-                                            console.log(e.value);
                                             setDate("");
                                             setStartStation("");
                                             setEndStation("");
-                                            console.log(date);
                                             get_dates(e.value);
                                             get_stations(e.value);
                                         }} 
@@ -241,17 +272,18 @@ const BookTicket = (props) => {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Start Station</Form.Label>
-                        <Select options={stations} onChange={s=>{
+                        <Select options={stations} id="start station" onChange={s=>{
                                         get_end_stations(s.value);
-                                        // console.log(stations);
-                                        // console.log("Empty?", end_stations);   
                                         setStartStation(s.value);
                                     }}  placeholder="Select Source station" />
                     </Form.Group>
+                    {console.log("mohith")}
+                    {console.log(x)}
                     <Form.Group>
                         <Form.Label>End Station</Form.Label>
                         <Select options={stations1} onChange={s=>{
                                         setEndStation(s.value);
+                                        get_wl(x,a,date,train_no);
                                     }}  placeholder="Select Destination station"/>
                     </Form.Group>
                     <br></br>

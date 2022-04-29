@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Navbar from './Components/Navbar';
+
 import FindTrainsPage from "./pages/FindTrainsPage";
 import FindTrains from "./pages/FindTrains";
 import 'bootstrap/dist/css/bootstrap.css';
@@ -30,8 +30,8 @@ import ViewPassenger from "./pages/ViewPassengers";
 export default function App() {
 
   const navlinks=[
-    {text:"Home",link:"/"},
-    {text:"Schedule",link:"/train_schedule"},
+    {text:"RailIndia",link:"/"},
+    {text:"Train Schedule",link:"/train_schedule"},
     {text:"Find Trains",link:"/view_trains"},
     {text:"View Stations",link:"/support"},
     {text:"Book Ticket",link:"/book_ticket"},
@@ -41,12 +41,66 @@ export default function App() {
     {text:"All Trains",link:"/all_Schedule"},
     {text:"Register-User",link:"/register_user"},
     {text:"Add New Station",link:"/add_station"},
-    {text:"View Booking",link:"/view_bookings"},
+    {text:"View Bookings",link:"/view_bookings"},
   ]
   return (
-    <div className="home_page">
-      <Navbar links={navlinks} width="100%" height="8%" top="0%" />
-      <div className="routing_part" style={{position:"fixed",width:"100%",height:"90%",top:"8%",overflowY:"scroll"}}>
+    <div class="home_page">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-2">
+          <a class="navbar-brand btn btn-primary" 
+            href={navlinks[0].link}>{navlinks[0].text}</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <ul class="navbar-nav" id="navbarNavDarkDropdown">
+            <li class="nav-item dropdown" >
+              <ul class="navbar-nav">
+                <li class="p-2 collapse navbar-collapse">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Trains
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                    <li><a class="dropdown-item" href={navlinks[1].link}>{navlinks[1].text}</a></li>
+                    <li><a class="dropdown-item" href={navlinks[2].link}>{navlinks[2].text}</a></li>
+                    <li><a class="dropdown-item" href={navlinks[8].link}>{navlinks[8].text}</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="p-2 collapse navbar-collapse" >
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Stations
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                    <li><a class="dropdown-item" href={navlinks[3].link}>{navlinks[3].text}</a></li>
+                    <li><a class="dropdown-item" href={navlinks[10].link}>{navlinks[10].text}</a></li>                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="p-2 collapse navbar-collapse" >
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Bookings
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                    <li><a class="dropdown-item" href={navlinks[4].link}>{navlinks[4].text}</a></li>
+                    <li><a class="dropdown-item" href={navlinks[5].link}>{navlinks[5].text}</a></li>
+                    <li><a class="dropdown-item" href={navlinks[11].link}>{navlinks[11].text}</a></li>
+
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <a class="nav-link" href={navlinks[6].link}>{navlinks[6].text}</a>
+          <a class="nav-link" href={navlinks[7].link}>{navlinks[7].text}</a>
+          <a class="nav-link" href={navlinks[9].link}>{navlinks[9].text}</a>
+
+      </nav>
+      <br></br>
+      <div className="routing_part container">
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />}/>
