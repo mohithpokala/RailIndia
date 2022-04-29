@@ -12,7 +12,7 @@ const Station_info = (props) => {
     var station_name2 = props.station_name;
     const station_name = station_name1?station_name1:station_name2;
     const [token,setToken]=useState(localStorage.getItem("token"));
-    
+    const [station_data,setStationData]=useState(false);
     if((token==null)||(token=="")||(token=="No Token")){
         window.location= "/login";
     }
@@ -37,14 +37,35 @@ const Station_info = (props) => {
                         }
                     } 
                 );
-        }, 100);
+        }, 0);
     },[] );
     console.log(scheduled);
     
+    useEffect(() => {
+        const jsonData={"token":token};
+        const temp1=  fetch("http://localhost:" + port + "/get_station_info/"+station_name,{
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body:JSON.stringify(jsonData)
+        })
+        .then((res) => res.json())
+        .then((json) => {
+            if(!(json.hasOwnProperty('token') )){
+                setStationData(json);
+                console.log(json);
+            }
+            else{
+                //setToken("");
+                localStorage.setItem("token","");
+                window.location="/login";
+            }
+        });
+    },[token] );
+
     return (
         <>
         {
-            !(scheduled ) 
+            !(scheduled && station_data) 
             ? 
                 (
                     <></>
@@ -53,10 +74,15 @@ const Station_info = (props) => {
             (
                 <React.Fragment>
                     <div style={{position:"absolute",width:"100%",top:"25%",left:"0%",height:"100%",}}>
-                        <h4>
-                            Schedule for Station { station_name }
+                        <h4 style={{textAlign:"center"}}>
+                            {station_data[0]["station_name"]} ({station_data[0]["station_id"]})
                         </h4>
-
+                        <h5 style={{textAlign:"center"}}>
+                            Number of Trains = {scheduled.length} 
+                        </h5>
+                        <h5 style={{textAlign:"center"}}>
+                            Location= [{station_data[0]["x"]} , {station_data[0]["y"]}]
+                        </h5>
                         <table>
                             <tr>
                                 <td><b>Train Number</b></td>
@@ -67,7 +93,7 @@ const Station_info = (props) => {
                             {
                                 scheduled.map((row) => (
                                     <tr>
-                                        <td><a href={"/train_schedule/"+row.train_no}><b>{row.train_no}</b></a></td>
+                                        <td><a href={"/train_schedule/"+row.train_no} style={{textDecoration:"none",color:"black"}}><b>{row.train_no}</b></a></td>
                                         <td>{row.train_name}</td>
                                         <td>{row.expected_arrival_time}</td>
                                         <td>{row.expected_departure_time}</td>

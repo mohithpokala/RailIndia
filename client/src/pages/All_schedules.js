@@ -108,7 +108,7 @@ const All_schedules=()=> {
                           json[i]["lat"], json[i]["long"]
                         ]);
                         if(json[i]["train_no"]!==prev_train){
-                            data3.push(data2);
+                            data3.push({"x":data2,"y":json[i]['train_no']});
                             data2=[];
                         }
                         prev_train=json[i]["train_no"];
@@ -197,7 +197,7 @@ const All_schedules=()=> {
           {markers.map(({ name, coordinates, markerOffset,val }) => (
             <Marker key={name} coordinates={coordinates}>
               <g
-                fill="none"
+                fill="red"
                 stroke="#FF5533"
                 strokeWidth="2"
                 strokeLinecap="round"
@@ -215,7 +215,7 @@ const All_schedules=()=> {
           
       {datax.map((row)=>(
       <Line
-      coordinates={row}
+      coordinates={row["x"]}
       stroke={COLOR_RANGE[Math.floor(Math.random() * 24)]}
       strokeWidth={1}
     />
