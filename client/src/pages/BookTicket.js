@@ -153,7 +153,7 @@ const BookTicket = (props) => {
             "journey_date" : date,
             "start_id" : start_station,
             "end_id" : end_station,
-            "user_id" : localStorage.getItem("username"),
+            "user_id" : localStorage.getItem("user_id"),
             "token" : token
             };
            

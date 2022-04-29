@@ -7,7 +7,7 @@ const get_user = async(user_name,password) => {
 
     const query =
         `
-            SELECT is_admin,password FROM users WHERE name = $1;       
+            SELECT user_id, is_admin, password FROM users WHERE name = $1;       
         `;
     const res = await pool.query(query,[user_name]);
     if(res['rowCount']==0) return {check:"Invalid username"};
@@ -31,7 +31,7 @@ const get_user = async(user_name,password) => {
             }
           );
 
-            return {"check":check,"token":token};
+            return {"check":check, "token":token, "user_id":res['rows'][0]['user_id']};
         }
     else return {check:"Invalid Password"};
 

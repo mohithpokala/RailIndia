@@ -30,7 +30,7 @@ const CancelTicket = (props) => {
         let data2 = [];
         jsonData = {
             "token" : token,
-            "user_id" : localStorage.getItem("username")
+            "user_id" : localStorage.getItem("user_id")
         }
         fetch("http://localhost:" + port + "/bookings/",
         {

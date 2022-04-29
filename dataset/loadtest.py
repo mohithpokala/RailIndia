@@ -117,7 +117,7 @@ print(len(T))
 print(len(S))
 
 for i in range(50):
-    for j in range(1000):
+    for j in range(500):
         a=np.random.randint(1,1+S[i])
         b=np.random.randint(1,1+S[i])
         if a>b:
