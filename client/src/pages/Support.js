@@ -95,7 +95,6 @@ const Example=()=> {
             .then(
                 (json) => {
                   if(!(json.hasOwnProperty('token') )){
-                    console.log(json);
                     for(var i=0;i<json.length;i++){ 
                         data1.push({
                           "markerOffset": 0,
@@ -115,7 +114,6 @@ const Example=()=> {
                 } 
             );
         setMarkers(data1);
-        console.log(markers);
     }, 0);
   },[] );
   useEffect(() => {
@@ -140,7 +138,6 @@ const Example=()=> {
                   }
                   } 
             );
-        console.log(data1);
         
         
 
@@ -172,7 +169,6 @@ const Example=()=> {
 
     }, 0);
   },[] );
-  console.log(data);
   const onMouseEnter = (geo, current) => {
     if(current) return () => {
       setTooltipContent(`${geo.properties.name}: ${current["count"]}`);
@@ -211,12 +207,15 @@ const Example=()=> {
           <Geographies geography={INDIA_TOPO_JSON}>
             {({ geographies }) =>
               geographies.map(geo => {
-                //console.log(geo.id);
                 var current;
+                // console.log(x);
                 data.map((x) =>{
-                  if(x["state"]==geo["id"] || geo["id"]=="Telangana" && x["state"]=="Andhra Pradesh")
+                  // console.log(x, geo, "trtr");
+                  if(x["state"]===geo["id"] || geo["id"]==="Telangana" && x["state"]==="Andhra Pradesh")
                     current = x;
                 });
+                // console.log(current, "ewer");
+                // console.log(geo);
                 const colorScale =
                   scaleQuantile()
                   .domain(data.map(d => (d["count"])))

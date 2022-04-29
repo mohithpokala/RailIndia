@@ -82,36 +82,40 @@ const Schedules =  (props) => {
     ) 
 : 
     (
-        <React.Fragment>
-            <div style={{position:"absolute",width:"100%",top:"15%",left:"0%",height:"100%",}}>
-           
-                <h3 style={{textAlign:"center"}}>{trainname}({train_no})</h3>
-                <h4 style={{textAlign:"center"}}>From {from} to {to} through {numstations} stations</h4>
-                <h4 style={{textAlign:"center"}}>Capacity :{capacity}</h4>
-                <button onClick={()=>{setX(1-x)}}>Toggle</button>
-                {x==0?(
-                <table>
-                    <tr>
-                        <td><b>S.No</b></td>
-                        <td><b>Station Name</b></td>
-                        <td><b>Expected Arrival Time</b></td>
-                        <td><b>Expected Departure Time</b></td>
-                        <td><b>Distance from Source</b></td>
-                    </tr>
-                    {
-                        scheduled.map((row) => (
-                            <tr>
-                                <td><b>{row.path_id}</b></td>
-                                <td><b><a href={"/station_schedule/"+row.station_id} style={{textDecoration:"none",color:"black"}}>{row.station_name}</a></b></td>
-                                <td>{row.expected_arrival_time}</td>
-                                <td>{row.expected_departure_time}</td>
-                                <td>{row.distance_from_source}</td>
-                            </tr>
-                        ))
-                    }
-                </table>):<Schedule_on_map train_no={train_no}/>}
-            </div>
-        </React.Fragment>
+        <div class="container">
+            <React.Fragment>
+                <div class="col-4 container justify-content-center text-center">
+            
+                    <h3>{trainname}({train_no})</h3>
+                    <h4>From {from} to {to} through {numstations} stations</h4>
+                    <h4>Capacity :{capacity}</h4>
+                    <br></br>
+                    <button onClick={()=>{setX(1-x)}}>Toggle</button>
+                    <br></br>
+                    {x==0?(
+                    <table>
+                        <tr>
+                            <td><b>S.No</b></td>
+                            <td><b>Station Name</b></td>
+                            <td><b>Expected Arrival Time</b></td>
+                            <td><b>Expected Departure Time</b></td>
+                            <td><b>Distance from Source</b></td>
+                        </tr>
+                        {
+                            scheduled.map((row) => (
+                                <tr>
+                                    <td><b>{row.path_id}</b></td>
+                                    <td><b><a href={"/station_schedule/"+row.station_id} style={{textDecoration:"none",color:"black"}}>{row.station_name}</a></b></td>
+                                    <td>{row.expected_arrival_time}</td>
+                                    <td>{row.expected_departure_time}</td>
+                                    <td>{row.distance_from_source}</td>
+                                </tr>
+                            ))
+                        }
+                    </table>):<Schedule_on_map train_no={train_no}/>}
+                </div>
+            </React.Fragment>
+        </div>
     )
     );
 };
