@@ -13,7 +13,7 @@ import SchedulePage from "./pages/SchedulePage";
 import Example from "./pages/Support";
 import Login from "./pages/login";
 import Logout from "./pages/logout";
-import Schedules from "./pages/Schedules";
+import TRAIN_SCHEDULE from "./pages/Schedules";
 import STATIONINFO from "./pages/Station_info";
 import StationSchedulePage from "./pages/StationSchedules";
 import BookingTicket from './pages/BookTicket';
@@ -105,11 +105,11 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />}/>
             <Route path="/train_schedule" element={<SchedulePage />} />
-            <Route path="/train_schedule/:train_no" element={<Schedules />} />
+            <Route path="/train_schedule/:train_no" element={<TRAIN_SCHEDULE />} />
             <Route path="/schedule_on_map/:train_no" element={<Schedule_on_map />} />
             <Route path="/view_trains" element={<FindTrainsPage />}/>
             <Route path="/find_trains/:station1/:station2" element={<FindTrains />}/>
-            <Route path="/abcd/:booking_id/" element={<STATION_SCHEDULE />}/>
+            <Route path="/station_schedule/:booking_id/" element={<STATION_SCHEDULE />}/>
             <Route path="/station_schedule" element={<StationSchedulePage />}/>            
             <Route path="/view_passengers/:booking_id" element={<VIEWTRAIN />}/>
             <Route path="/stats/" element={<Logistics />}/>

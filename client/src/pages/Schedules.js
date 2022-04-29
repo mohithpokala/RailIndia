@@ -2,31 +2,35 @@
 import React, {useState, useEffect} from 'react';
 import 'chart.js/auto';
 import '../CSS/Match.css';
-import { useParams } from 'react-router';
+import "../CSS/Card.css";
+import { Card } from "react-bootstrap";
+import { Link, useParams } from 'react-router-dom';
 import { port } from './port';
 import Toggle from 'react-bootstrap-toggle';
 import Schedule_on_map from './Schedule_on_map';
 import Select from 'react-select';
 
-const Schedules =  (props) => {
+const TRAIN_SCHEDULE = (props) => {
     const [scheduled,setScheduled] = useState(false);
-    
     var train_no1 = useParams().train_no;
     var train_no2 = props.train_no;
     const train_no = train_no1?train_no1:train_no2;
-    const [token,setToken]=useState(localStorage.getItem("token"));
+    console.log(train_no);
+
+    const [token,setToken]=useState(localStorage.getItem("token"));    
+    if((token==null)||(token=="")||(token=="No Token")){
+        window.location= "/login";
+    }
+
     const [trainname,setTrainName] = useState("");
     const [capacity,setCapacity]=useState("");
     const [numstations,setNum] = useState("");
     const [from,setFrom] = useState("");
     const [to,setTo] = useState("");
-
     const [x,setX] = useState(0);
-    if((token==null)||(token=="")||(token=="No Token")){
-        window.location= "/login";
-    }
-    
-      useEffect(() => {
+
+
+    useEffect(() => {
         const jsonData={"token":token};
     const temp1=  fetch("http://localhost:" + port + "/get_train_info/"+train_no,{
             method: "POST",
@@ -72,9 +76,8 @@ const Schedules =  (props) => {
         });
     },[token] );
     if( !((token==null)||(token=="")||(token=="No Token")))
-
-    return (
-  
+    return(
+          
         !(scheduled && train_no!="abcd" && trainname) 
 ? 
     (
@@ -120,6 +123,6 @@ const Schedules =  (props) => {
         </div>
     )
     );
-};
-
-export default Schedules;
+  
+}
+export default TRAIN_SCHEDULE;
