@@ -54,7 +54,7 @@ const StationSchedulePage = (props) => {
                     } 
                 );
             setStationName(data1);
-        }, 1000);
+        }, 0);
     },[token] );
     const stationNameChanged = (e)=>{
         setStationName(e.target.value);

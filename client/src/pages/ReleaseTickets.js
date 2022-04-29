@@ -1,8 +1,30 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+import React, {Fragment, useState, useEffect} from 'react';
+=======
 import React, {Fragment,useState} from 'react';
+>>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
+=======
+import React, {Fragment,useState} from 'react';
+>>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
+=======
+import React, {Fragment,useState} from 'react';
+>>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {port} from './port';
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+import Select from 'react-select';
+=======
+>>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
+=======
+>>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
+=======
+>>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
 
 const ReleaseTicket =()=>{
 
@@ -10,6 +32,48 @@ const ReleaseTicket =()=>{
     const [token,setToken]=useState(localStorage.getItem("token"));
     const [date_val,setDate]=useState("");
     const [train_no,setTrain]=useState("");
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+    const [trains, setTrains] = useState(false);
+    const jsonData = {"token" : token};
+
+
+    useEffect(() => {
+      setTimeout(() => {
+          let data2 = [];
+          fetch("http://localhost:" + port + "/all_trains",{
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body:JSON.stringify(jsonData)
+          })
+              .then((res) => res.json())
+              .then(
+                  (json) => {
+                      if(!(json.hasOwnProperty('token') )){
+                      for(var i = 0; i < json.length; i++){ 
+                          data2.push({
+                              "value":json[i]["train_no"] ,
+                              "label":json[i]["train_no"]});
+                      } 
+                  }
+                  else{
+                      setToken("");
+                      window.location="/login";
+                  }
+                  } 
+              );
+          setTrains(data2);
+      }, 0);
+  },[token] );
+
+
+=======
+>>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
+=======
+>>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
+=======
+>>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
   const onSubmitForm = async e => {
     e.preventDefault();
     try {
@@ -28,7 +92,19 @@ const ReleaseTicket =()=>{
             .then((json) => {
                 console.log(json);
                 if((json.hasOwnProperty('check'))){
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+                    setMessage("FAILURE: ONLY ADMINS CAN RELEASE TICKETS");
+=======
                     setMessage("FAILURE: ONLY ADMINS CAN ADD STATIONS");
+>>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
+=======
+                    setMessage("FAILURE: ONLY ADMINS CAN ADD STATIONS");
+>>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
+=======
+                    setMessage("FAILURE: ONLY ADMINS CAN ADD STATIONS");
+>>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
 
                 }
                 else if((json.hasOwnProperty('token')))
@@ -70,6 +146,13 @@ return (
         <br></br><br></br>
         <Form.Group>
           <Form.Label>Train Number</Form.Label>
+
+<Select type="number" options={trains}
+                                            placeholder="Enter train number" 
+                                            onChange ={e => {
+                                                setTrain(e.value);
+                                            }} 
+                                            />
           <Form.Control type="number" 
                         placeholder="Enter Train Number" value={train_no}
                         onChange={e => {
@@ -79,7 +162,8 @@ return (
         <br></br><br></br>
         <Form.Group>
           <Form.Label>Date of Journey</Form.Label>
-          <Form.Control type="text" 
+
+          <Form.Control type="date" 
                         placeholder="Enter Date of Journey" value={date_val}
                         onChange={e => {
                             setDate(e.target.value);
