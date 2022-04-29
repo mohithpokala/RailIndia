@@ -1,23 +1,26 @@
 
 import React, {useState, useEffect} from 'react';
 import 'chart.js/auto';
-
+import { useParams } from 'react-router';
 import '../CSS/Match.css'
 import '../CSS/rotateimage.css'
 import {port} from './port';
     
-const ViewBooking = (props) => {
-    const [booking_data,setBooking] = useState([]);
+const ViewPassenger = (props) => {
+    const [passenger_data,setPassenger] = useState([]);
     const [token,setToken]=useState(localStorage.getItem("token"));
     
     if((token==null)||(token=="")||(token=="No Token")){
         window.location= "/login";
     }
+    console.log(useParams().booking_id);
+    const booking_id = useParams().pnr;
+    console.log(booking_id); 
     useEffect(() => {
         setTimeout(() => {              
-            const jsonData={"token":token,"user_id":localStorage.getItem("username")};
+            const jsonData={"token":token};
             console.log(jsonData);
-            fetch("http://localhost:" + port + "/view_booking",{
+            fetch("http://localhost:" + port + "/get_passenger/"+booking_id,{
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body:JSON.stringify(jsonData)
@@ -27,7 +30,7 @@ const ViewBooking = (props) => {
                     (json) => {
                         if(!(json.hasOwnProperty('token') )){
                             console.log(json);
-                            setBooking(json)
+                            setPassenger(json)
                         }
                         else{
                             // setToken("");
@@ -39,39 +42,31 @@ const ViewBooking = (props) => {
                 );
         }, );
     },[token] );
-    if( !((token==null)||(token=="")||(token=="No Token")))
-
     return (
-  
-        !(booking_data) 
-? 
-    (
-        <></>
-    ) 
-: 
-    (
+        <>
+            {
+            
+                (
                     <React.Fragment>
                         <div style={{position:"absolute",width:"100%",height:"90%"}}>
+             
 
                         <table>
                     <tr>
-                    
-                        <td><b>Booking ID</b></td>
-                        <td><b>Train No</b></td>
-                        <td><b>Train Name</b></td>
-                        <td><b>Start Station</b></td>
-                        <td><b>End Station</b></td>
-                        <td><b>Journey Date</b></td>
+                        <td><b>Pasenger Name</b></td>
+                        <td><b>Seat No</b></td>
+                        <td><b>Waiting List Pref No</b></td>
+                        <td><b>Gender</b></td>
+                        <td><b>Age</b></td>
                     </tr>
                     {
-                        booking_data.map((row) => (
+                        passenger_data.map((row) => (
                             <tr>
-                                <td><b><a href={"/view_passenger/"+row.booking_id} >{row.booking_id}</a></b></td>
-                                <td>{row.train_no}</td>
-                                <td>{row.train_name}</td>
-                                <td>{row.a}</td>
-                                <td>{row.b}</td>
-                                <td>{row.journey_date}</td>
+                                <td><b>{row.name}</b></td>
+                                <td>{row.seat_no}</td>
+                                <td>{row.waiting_pref_no}</td>
+                                <td>{row.age}</td>
+                                <td>{row.sex}</td>
                             </tr>
                         ))
                     }
@@ -80,7 +75,9 @@ const ViewBooking = (props) => {
                         </div>
 
                     </React.Fragment>
-                    )
-                    );
-                };
-export default ViewBooking;
+                )
+            }
+        </>);
+}
+
+export default ViewPassenger;
