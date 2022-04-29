@@ -6,7 +6,7 @@ import '../CSS/rotateimage.css'
 
 import Slideshow from '../Components/Slideshow'
 import { width } from '@mui/system';
-import rail1 from '../Assets/rail1.png'
+import rail1 from '../Assets/rail7.png'
 import rail2 from '../Assets/rail2.png'
 import rail3 from '../Assets/rail3.png'
 import rail4 from '../Assets/rail4.png'
