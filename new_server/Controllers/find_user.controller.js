@@ -9,6 +9,7 @@ const find_user = async (req,res) => {
         user_name,
         password
     );
+    console.log(data);
     return res.status(200).json(data);
 }
 
