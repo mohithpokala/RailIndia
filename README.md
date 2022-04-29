@@ -18,3 +18,18 @@ is
 [here](https://docs.google.com/document/d/e/2PACX-1vSmXQEsxZ5Pj7gX7MVy9amVMYhM1G6nRHbiDOBCnrO3-bkc6izFCOZY1vbYdHnxrFN_kPRobC5rBHbQ/pub).
 
 ---
+
+# Running Frontend
+1. cd client
+2. npm install
+3. npm i react-router-dom@next
+4. npm start
+
+# Running Backend
+1. cd new_server
+2. npm install
+3. npx nodemon start
+
+# Load Testing
+1. pip install indian-names
+2. python loadtest.py
