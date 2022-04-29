@@ -88,53 +88,59 @@ const FindTrains = (props) => {
             : 
             (
                 <React.Fragment>
-                    <div style={{position:"absolute",width:"100%",top:"25%",left:"0%",height:"100%",}}>
+                    <div class="container">
+                        <ul class="list-group">
                         {
                             singleTrains.map((row) => (
-                                <Link to={"/train_schedule/"+row.train_no} style={{textDecoration:"none"}}>
-                                    <Card key={row.train_name} className="box" >
-                                        <div style={{display:"block",opacity:0.9,width:"100%",height:"10vh",borderRadius:"4px",backgroundColor:props.color}}></div>
-                                        <Card.Body className='boxheader'>
-                                            <Card.Title classname="tit" >
-                                                <b>
-                                                    {row.train_no} : {row.train_name}
-                                                </b>
-                                            </Card.Title>
-                                            Departure Time : {row.expected_departure_time}
-                                            Arrival Time : {row.expected_arrival_time}
-                                            Distance : {row.dist}
-                                        </Card.Body>
-                                    </Card>
-                                </Link>
-
-                                
+                            <li class="list-group-item">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><span class="text-primary">{row.train_no}</span> {row.train_name}</h5>
+                                        <p class="card-text">
+                                            <dl class="row">
+                                                <dt class="col-sm-3">Departure Time</dt>
+                                                <dd class="col-sm-9">{row.expected_departure_time} </dd>
+                                                <dt class="col-sm-3">Arrival Time</dt>
+                                                <dd class="col-sm-9">{row.expected_arrival_time} </dd>
+                                                <dt class="col-sm-3">Distance</dt>
+                                                <dd class="col-sm-9">{row.dist}</dd>
+                                            </dl>
+                                        </p>
+                                        <a href={"/train_schedule/" + row.train_no} class="btn btn-primary">Book Train</a>
+                                    </div>
+                                </div>
+                            </li>                    
                             ))
                         }
- {
+                        </ul>
+
+                        {
                             multiPathTrains.map((row) => (
-                                <Link to="/" href={""} style={{textDecoration:"none"}}>
-                                    <Card key={row.train_name} className="box" >
-                                        <div style={{display:"block",opacity:0.9,width:"100%",height:"10vh",borderRadius:"4px",backgroundColor:props.color}}></div>
-                                        <Card.Body className='boxheader'>
-                                            <Card.Title classname="tit" >
-                                                <b>
-                                                   {start_id} ----{row.train1} ----{row.halt_station}---- {row.train2}----{dest_id}
-                                                </b>
-                                            </Card.Title>
-                                            Departure Time1 : {row.deptime1}
-                                            Arrival Time1 : {row.arrtime1}
-                                            Departure Time2 : {row.deptime2}
-                                            Arrival Time2 : {row.arrtime2}
-                                            Distance1 : {row.d1}
-                                            Distance2 : {row.d2}
-                                        </Card.Body>
-                                    </Card>
-                                </Link>
-
-                                
+                                <li class="list-group-item">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title"> <span class="text-primary">{row.train1}</span> - {row.halt_station} - <span class="text-primary">{row.train2}</span></h5>
+                                            <p class="card-text">
+                                                <dl class="row">
+                                                    <dt class="col-sm-3">Departure Time 1</dt>
+                                                    <dd class="col-sm-9">{row.deptime1} </dd>
+                                                    <dt class="col-sm-3">Arrival Time 1</dt>
+                                                    <dd class="col-sm-9">{row.arrtime1} </dd>
+                                                    <dt class="col-sm-3">Departure Time 2</dt>
+                                                    <dd class="col-sm-9">{row.deptime2} </dd>
+                                                    <dt class="col-sm-3">Arrival Time 3</dt>
+                                                    <dd class="col-sm-9">{row.arrtime2} </dd>
+                                                    <dt class="col-sm-3">Distance 1</dt>
+                                                    <dd class="col-sm-9">{row.d1}</dd>
+                                                    <dt class="col-sm-3">Distance 2</dt>
+                                                    <dd class="col-sm-9">{row.d2}</dd>
+                                                </dl>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>                    
                             ))
                         }
-
                     </div>
                 </React.Fragment>
     )}</>
