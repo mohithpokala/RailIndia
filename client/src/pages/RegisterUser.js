@@ -16,11 +16,19 @@ const RegisterUser =()=>{
   const [sex, setSex] = useState("");
   const [password, setPassword] = useState("");
   const [auth, setAuth] = useState(false);
-  
+  const [booking_status, setBookingStatus] = useState("none");
+  const [message, setMessage] = useState("");
+
   var token = "";
   const onSubmitForm = async e => {
     e.preventDefault();
     try {
+          if(user_name == "" || password == "" || email == "" || tel == "" || age == "" || sex == "")
+          {
+              setBookingStatus("error");
+              setMessage("Please fill all the fields");
+              return;
+          }
         const encrypt_password = crypt.AES.encrypt(password,"10").toString();
 
         var jsonData = {
@@ -48,7 +56,8 @@ const RegisterUser =()=>{
                 }
                 else{
                     localStorage.setItem("token","");
-                    // setText(json.check);
+                    setBookingStatus("error");
+                    setMessage(json.check);
                 }
             });
         
@@ -60,71 +69,89 @@ const RegisterUser =()=>{
 
 return (
     <Fragment>
-    <div className="home_page" style={{width:"60%",left:"20%",position:"absolute",top:"5%"}}>
-      <Form onSubmit={onSubmitForm}>
-      <Form.Group>
-          <Form.Label>User Name</Form.Label>
-          <Form.Control type="text" 
-                        placeholder="Enter the user name" value={user_name}
-                        onChange={e => {
-                            setUsername(e.target.value);
-                          }} default="" />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Age</Form.Label>
-          <Form.Control type="number" 
-                        placeholder="Enter Age" value={age}
-                        onChange={e => {
-                            setAge(e.target.value);
-                          }} default="" />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Phone</Form.Label>
-          <Form.Control type="tel" 
-                        placeholder="Enter Phone Number" value={tel}
-                        onChange={e => {
-                            setTel(e.target.value);
-                          }} default="" />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Email</Form.Label>
-          <Form.Control type="email" 
-                        placeholder="Enter Email ID" value={email}
-                        onChange={e => {
-                            setEmail(e.target.value);
-                          }} default="" />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Gender</Form.Label>
-          <Form.Control type="gender" 
-                        placeholder="Enter Gender" value={sex}
-                        onChange={e => {
-                            setSex(e.target.value);
-                          }} default="" />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" 
-                        placeholder="Enter Password" value={password}
-                        onChange={e => {
-                            setPassword(e.target.value);
-                          }} default="" />
-        </Form.Group>
-        <br></br><br></br>
-        <div>
-        {
-            (text!="")
-            ?
-            (<b>{text}</b>)
+      <div class="container">
+      <div className="row">
+          <h3>Register a new user</h3>
+      </div>
+      <br></br>
+      {
+            (booking_status == "success") ?
+            <div className = "row alert alert-success"> {message} </div>
             :
-            (<></>)
+            <></>
         }
-        </div>
-        <br></br><br></br>
-        <Button variant="primary" type="submit">
-           Submit
-        </Button>
-      </Form></div>
+        {
+            (booking_status == "error") ?
+            <div className='row alert alert-danger'> {message} </div>
+            :
+            <></>
+        }
+      <div className="home_page">
+        <Form onSubmit={onSubmitForm}>
+        <Form.Group>
+            <Form.Label>User Name</Form.Label>
+            <Form.Control type="text" 
+                          placeholder="Enter the user name" value={user_name}
+                          onChange={e => {
+                              setUsername(e.target.value);
+                            }} default="" />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Age</Form.Label>
+            <Form.Control type="number" 
+                          placeholder="Enter Age" value={age}
+                          onChange={e => {
+                              setAge(e.target.value);
+                            }} default="" />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Phone</Form.Label>
+            <Form.Control type="tel" 
+                          placeholder="Enter Phone Number" value={tel}
+                          onChange={e => {
+                              setTel(e.target.value);
+                            }} default="" />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Email</Form.Label>
+            <Form.Control type="email" 
+                          placeholder="Enter Email ID" value={email}
+                          onChange={e => {
+                              setEmail(e.target.value);
+                            }} default="" />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Gender</Form.Label>
+            <Form.Control type="gender" 
+                          placeholder="Enter Gender" value={sex}
+                          onChange={e => {
+                              setSex(e.target.value);
+                            }} default="" />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" 
+                          placeholder="Enter Password" value={password}
+                          onChange={e => {
+                              setPassword(e.target.value);
+                            }} default="" />
+          </Form.Group>
+          <br></br><br></br>
+          <div>
+          {
+              (text!="")
+              ?
+              (<b>{text}</b>)
+              :
+              (<></>)
+          }
+          </div>
+          <br></br><br></br>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form></div>
+      </div>
     </Fragment>
   );
 
