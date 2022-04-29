@@ -1,30 +1,10 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 import React, {Fragment, useState, useEffect} from 'react';
-=======
-import React, {Fragment,useState} from 'react';
->>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
-=======
-import React, {Fragment,useState} from 'react';
->>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
-=======
-import React, {Fragment,useState} from 'react';
->>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {port} from './port';
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 import Select from 'react-select';
-=======
->>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
-=======
->>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
-=======
->>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
 
 const ReleaseTicket =()=>{
 
@@ -32,9 +12,6 @@ const ReleaseTicket =()=>{
     const [token,setToken]=useState(localStorage.getItem("token"));
     const [date_val,setDate]=useState("");
     const [train_no,setTrain]=useState("");
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     const [trains, setTrains] = useState(false);
     const jsonData = {"token" : token};
 
@@ -67,13 +44,6 @@ const ReleaseTicket =()=>{
       }, 0);
   },[token] );
 
-
-=======
->>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
-=======
->>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
-=======
->>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
   const onSubmitForm = async e => {
     e.preventDefault();
     try {
@@ -92,19 +62,8 @@ const ReleaseTicket =()=>{
             .then((json) => {
                 console.log(json);
                 if((json.hasOwnProperty('check'))){
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
                     setMessage("FAILURE: ONLY ADMINS CAN RELEASE TICKETS");
-=======
-                    setMessage("FAILURE: ONLY ADMINS CAN ADD STATIONS");
->>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
-=======
-                    setMessage("FAILURE: ONLY ADMINS CAN ADD STATIONS");
->>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
-=======
-                    setMessage("FAILURE: ONLY ADMINS CAN ADD STATIONS");
->>>>>>> 8b9ee10787bc5011bb2c4af521b533dfa6c01921
 
                 }
                 else if((json.hasOwnProperty('token')))
@@ -136,35 +95,35 @@ const ReleaseTicket =()=>{
     window.location= "/login";
  }
   if( !((token==null)||(token=="")||(token=="No Token")))
-
+  
+  var today = new Date().toISOString().split('T')[0];
+  var next =  new Date(new Date().getTime() + 6 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+  
 return (
     <Fragment>
     <div className="home_page" style={{width:"60%",left:"20%",position:"absolute",top:"5%"}}>
       <Form onSubmit={onSubmitForm}>
-        
-        <br></br><br></br>
+        <div className="row">
+            <h3>Release Tickets for a Train</h3>
+        </div>
         <br></br><br></br>
         <Form.Group>
           <Form.Label>Train Number</Form.Label>
 
-<Select type="number" options={trains}
+          <Select type="number" options={trains}
                                             placeholder="Enter train number" 
                                             onChange ={e => {
                                                 setTrain(e.value);
                                             }} 
                                             />
-          <Form.Control type="number" 
-                        placeholder="Enter Train Number" value={train_no}
-                        onChange={e => {
-                            setTrain(e.target.value);
-                          }} default="" />
-        </Form.Group>
-        <br></br><br></br>
+          </Form.Group>
+        <br></br>
         <Form.Group>
           <Form.Label>Date of Journey</Form.Label>
 
           <Form.Control type="date" 
                         placeholder="Enter Date of Journey" value={date_val}
+                        min={today} max={next}
                         onChange={e => {
                             setDate(e.target.value);
                           }} default="" />
