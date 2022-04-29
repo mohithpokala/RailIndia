@@ -14,7 +14,10 @@ const ViewPassenger = (props) => {
         window.location= "/login";
     }
     console.log(useParams().booking_id);
-    const booking_id = useParams().pnr;
+    var pnr1 = useParams().pnr;
+    var pnr2 = props.pnr;
+    const booking_id = pnr1?pnr1:pnr2;
+    // const booking_id = props.pnr;
     console.log(booking_id); 
     useEffect(() => {
         setTimeout(() => {              

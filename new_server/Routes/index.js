@@ -58,7 +58,7 @@ routes.post('/trains_zone_stat',trains_zone_stat);
 routes.post('/train_state_stat2',trains_state_stat2);
 routes.post('/trains_zone_stat2',trains_zone_stat2);
 routes.post('/view_ticket/:pnr',view_ticket);
-routes.post('/release_tickets/:date/:seats/:train_no',release_tickets);
+routes.post('/release_tickets/:date/:train_no',release_tickets);
 routes.post('/get_passenger/:pnr',get_passenger);
 routes.post('/cancel_tickets/',cancel_tickets);
 routes.post('/add_stations',add_stations);
