@@ -73,28 +73,32 @@ const SchedulePage = (props) => {
             !(trainName ) 
                 ? 
                     (
-                        <></>
+                        <span class="error">The server is down</span>
                     ) 
                 : 
                 (
-                    <React.Fragment>
-                        <div style={{position:"absolute",width:"100%",height:"90%"}}>
-                            
-                            <Select
-                                options={trainName}
-                                search
-                      
-                                onChange={trains=>{
-                                        setTrain(trains.value);
-                                        console.log(train);
-                                    }}
+                    <div class="container">
+                        <React.Fragment>
+                            <div class="form-group">
                                 
-                                placeholder="Select train name or number"
-                            />
-                        </div>
-                        {train!="0000" && <Schedules train_no={train} key={train} train_name={trainName}/>}
-
-                    </React.Fragment>
+                                <Select
+                                    options={trainName}
+                                    search
+                        
+                                    onChange={trains=>{
+                                            setTrain(trains.value);
+                                            console.log(train);
+                                        }}
+                                    
+                                    placeholder="Select train name or number"
+                                />
+                            </div>
+                            <br></br>
+                            <div class="container">
+                                {train!="0000" && <Schedules train_no={train} key={train} train_name={trainName}/>}
+                            </div>
+                        </React.Fragment>
+                    </div>
                 )
             }
         </>);

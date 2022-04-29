@@ -24,9 +24,11 @@ export default function Home() {
   if( !((token==null)||(token=="")||(token=="No Token")))
 
   return (
-    <div >
-      <h1 style={{textAlign:"center"}}>Welcome to RailIndia</h1>
-      <img src = {rail1} style={{width:"30%",left:"35%",position:"absolute"}} />
+    <div class="jumbotron">
+      <h4>Welcome to RailIndia</h4>
+      <div class="container fluid">
+        <Slideshow img={hdim} fade={true} width={"30%"} ml={"20%"} mt={"20%"} ht={"70vh"} />
+      </div>
     </div>
   );
 }

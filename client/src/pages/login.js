@@ -33,7 +33,7 @@ const Login =()=>{
             .then((res) => res.json())
             .then((json) => {
                 console.log(json);
-                if((json.check != "INVALID USERID")&&(json.check!="INVALID PASSWORD")){
+                if((json.check != "Invalid username")&&(json.check!="Invalid Password")){
                     token = json.token;
                     localStorage.setItem("token", token);
                     localStorage.setItem("username", user_name);
@@ -55,7 +55,8 @@ const Login =()=>{
   //console.log(user_name,password);
 return (
     <Fragment>
-    <div className="home_page" style={{width:"60%",left:"20%",position:"absolute",top:"20%"}}>
+    <div className="home_page container jumbotron">
+      <h2>Login Page</h2>
       <Form onSubmit={onSubmitForm}>
       <Form.Group>
           <Form.Label>User Name</Form.Label>
@@ -78,7 +79,7 @@ return (
         {
             (text!="")
             ?
-            (<b>{text}</b>)
+            (<div class="alert alert-danger">{text}</div>)
             :
             (<></>)
         }
