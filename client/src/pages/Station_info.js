@@ -73,7 +73,7 @@ const Station_info = (props) => {
             : 
             (
                 <React.Fragment>
-                    <div style={{position:"absolute",width:"100%",top:"25%",left:"0%",height:"100%",}}>
+                    <div style={{position:"absolute",width:"100%",top:"10%",left:"0%",height:"100%",}}>
                         <h4 style={{textAlign:"center"}}>
                             {station_data[0]["station_name"]} ({station_data[0]["station_id"]})
                         </h4>

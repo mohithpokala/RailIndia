@@ -3,6 +3,7 @@ import { ComposableMap, Geographies, Geography, Marker,Markers,Line } from 'reac
 import { scaleQuantile } from 'd3-scale';
 import ReactTooltip from 'react-tooltip';
 import { port } from './port';
+import { useParams } from 'react-router-dom';
 /**
 * Courtesy: https://rawgit.com/Anujarya300/bubble_maps/master/data/geography-data/india.topo.json
 * Looking topojson for other countries/world? 
@@ -66,7 +67,7 @@ const getRandomInt = () => {
 
 // will generate random heatmap data on every call
 
-const Schedule_on_map=()=> {
+const Schedule_on_map=(props)=> {
   const [tooltipContent, setTooltipContent] = useState('');
   const [data, setData] = useState(false);
   const [data1, setData1] = useState(false);
@@ -76,6 +77,9 @@ const Schedule_on_map=()=> {
   const [A,setA] = useState(false);
   const [markers,setMarkers]=useState(false);
   const [token,setToken]=useState(localStorage.getItem("token"));
+  var train_no1 = useParams().train_no;
+  var train_no2 = props.train_no;
+  const train_no = train_no1?train_no1:train_no2;
   
   if((token==null)||(token=="")||(token=="No Token")){
     window.location= "/login";
@@ -85,7 +89,7 @@ const Schedule_on_map=()=> {
       const jsonData={"token":token};
         let data1 = [];
         let data2 = [];
-        fetch("http://localhost:"+port+"/train/schedule/12797",{
+        fetch("http://localhost:"+port+"/train/schedule/"+train_no,{
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body:JSON.stringify(jsonData)
@@ -159,7 +163,7 @@ const Schedule_on_map=()=> {
             ) 
         : 
         (
-    <div className="full-width-height container" >
+    <div className="full-width-height container" style={{width:"40%",left:"20%",position:"absolute",height:"30%"}} >
       <ReactTooltip>{tooltipContent}</ReactTooltip>
         <ComposableMap
           projectionConfig={PROJECTION_CONFIG}
@@ -187,6 +191,23 @@ const Schedule_on_map=()=> {
         stroke="#F53"
         strokeWidth={2}
       />
+
+{markers.map(({ name, coordinates, markerOffset,val }) => (
+            <Marker key={name} coordinates={coordinates}>
+              <g
+                fill="black"
+                stroke="#FF5533"
+                strokeWidth="0.01"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                onClick={()=>{setX(name);setA(val);}}
+              >
+                
+            <circle cx="0" cy="0" r="1" />
+              </g>
+          
+        </Marker>
+      ))}
         </ComposableMap>
         {A && <h1>Station Name = {x} Num trains = {A}</h1>}
     </div>

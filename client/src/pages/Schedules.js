@@ -4,7 +4,8 @@ import 'chart.js/auto';
 import '../CSS/Match.css';
 import { useParams } from 'react-router';
 import { port } from './port';
-
+import Toggle from 'react-bootstrap-toggle';
+import Schedule_on_map from './Schedule_on_map';
 import Select from 'react-select';
 
 const Schedules =  (props) => {
@@ -20,7 +21,7 @@ const Schedules =  (props) => {
     const [from,setFrom] = useState("");
     const [to,setTo] = useState("");
 
-    
+    const [x,setX] = useState(0);
     if((token==null)||(token=="")||(token=="No Token")){
         window.location= "/login";
     }
@@ -85,6 +86,8 @@ const Schedules =  (props) => {
                 <h3 style={{textAlign:"center"}}>{trainname}({train_no})</h3>
                 <h4 style={{textAlign:"center"}}>From {from} to {to} through {numstations} stations</h4>
                 <h4 style={{textAlign:"center"}}>Capacity :{capacity}</h4>
+                <button onClick={()=>{setX(1-x)}}>Toggle</button>
+                {x==0?(
                 <table>
                     <tr>
                         <td><b>S.No</b></td>
@@ -104,7 +107,7 @@ const Schedules =  (props) => {
                             </tr>
                         ))
                     }
-                </table>
+                </table>):<Schedule_on_map train_no={train_no}/>}
             </div>
         </React.Fragment>
     )
