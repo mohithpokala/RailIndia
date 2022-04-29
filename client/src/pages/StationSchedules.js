@@ -65,6 +65,7 @@ const StationSchedulePage = (props) => {
     const stationNameChanged = (e)=>{
         setStationName(e.target.value);
     }
+    if( !((token==null)||(token=="")||(token=="No Token")))
 
     return (
         <>

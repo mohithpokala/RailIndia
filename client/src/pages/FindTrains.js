@@ -36,7 +36,7 @@ const FindTrains = (props) => {
                 .then(
                     (json) => {
                         if(!(json.hasOwnProperty('token') )){
-                        setSingleTrains(json);
+                            setSingleTrains(json);
                         }
                         else{
                             // setToken("");
@@ -50,12 +50,24 @@ const FindTrains = (props) => {
     },[token] );
 
     useEffect(() => {
+        const jsonData={"token":token};
         setTimeout(() => {
-            fetch("http://localhost:"+port+"/train/find_multipath/"+start_id+"/"+dest_id)
+            fetch("http://localhost:"+port+"/train/find_multipath/"+start_id+"/"+dest_id,{
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body:JSON.stringify(jsonData)
+            })
                 .then((res) => res.json())
                 .then(
                     (json) => {
-                        setMultiPathTrains(json);
+                        if(!(json.hasOwnProperty('token') )){
+                            setMultiPathTrains(json);
+                        }
+                        else{
+                            // setToken("");
+                            localStorage.setItem("token","");
+                            window.location="/login";
+                        }
                     } 
                 );
 
@@ -63,10 +75,12 @@ const FindTrains = (props) => {
     },[] );
     console.log(multiPathTrains);
     console.log(singleTrains);
+    if( !((token==null)||(token=="")||(token=="No Token")))
+
     return (
         <>
         {
-            !(singleTrains  && start_id!="0000" && dest_id!="0000" ) 
+            !(singleTrains  && multiPathTrains && start_id!="0000" && dest_id!="0000" && !((token==null)||(token=="")||(token=="No Token"))) 
             ? 
                 (
                     <></>

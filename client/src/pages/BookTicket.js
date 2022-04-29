@@ -205,8 +205,10 @@ const BookTicket = (props) => {
             console.error(err.message);
           }
     }
-    
+    if( !((token==null)||(token=="")||(token=="No Token")))
     return (
+
+        
         <Fragment>
             <div className="home_page" style={{width:"60%",left:"20%",position:"absolute",top:"20%"}}>
                 <h4 style={{width:"100%",textAlign:"center"}}>Book your ticket!</h4><br></br><br></br>

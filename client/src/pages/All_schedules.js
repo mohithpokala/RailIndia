@@ -104,11 +104,9 @@ const All_schedules=()=> {
                           "markerOffset": 0,
                           "name":json[i]["station_name"],
                           "coordinates": [json[i]["a"], json[i]["b"]],
-                          "city":json[i]["city"],
-                          "state":json[i]["state"],
-                          "zone":json[i]["zone"],
                           
                         });
+                        
                         data2.push([
                           json[i]["lat"], json[i]["long"]
                         ]);
@@ -153,6 +151,9 @@ const All_schedules=()=> {
                           "markerOffset": 0,
                           "name":json[i]["station_name"],
                           "coordinates": [json[i]["a"], json[i]["b"]],
+                          "city":json[i]["city"],
+                          "state":json[i]["state"],
+                          "zone":json[i]["zone"],
                           
                         });
                     } 
@@ -167,10 +168,11 @@ const All_schedules=()=> {
             );
     }, 0);
   },[] );
+  if( !((token==null)||(token=="")||(token=="No Token")))
 
   return (<>
     {
-    !(markers && datax ) 
+    !(markers && datax  ) 
         ? 
             (
                 <></>
@@ -179,7 +181,7 @@ const All_schedules=()=> {
         (
     <div className="full-width-height container" style={{width:"60%",height:"70%",left:"20%",position:"absolute"}}>
       <ReactTooltip>{tooltipContent}</ReactTooltip>
-        {A && <h1>Station Name = {x} Num trains = {A}</h1>}
+        {A ? <h5>Station Name = {x} City = {city} State= {state} Zone={zone}</h5>:<h5>Hover on the red dots </h5>}
         <ComposableMap
           projectionConfig={PROJECTION_CONFIG}
           projection="geoMercator"
@@ -207,7 +209,7 @@ const All_schedules=()=> {
       strokeWidth={1}
     />
       ))}
-          {markers.map(({ name, coordinates, markerOffset,val }) => (
+          {markers.map(({ name, coordinates, markerOffset,city,state,zone }) => (
             <Marker key={name} coordinates={coordinates}>
               <g
                 fill="red"
@@ -215,7 +217,8 @@ const All_schedules=()=> {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                onMouseEnter={()=>{setX(name);setA("hello");}}
+                onMouseEnter={()=>{setX(name);setCity(city);setState(state);setZone(zone);setA(true)}}
+                onMouseLeave={()=>{setA(false);}}
               >
                 
             <circle cx="0" cy="0" r="3" />

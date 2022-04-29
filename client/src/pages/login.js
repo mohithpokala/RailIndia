@@ -56,7 +56,6 @@ const Login =()=>{
 return (
     <Fragment>
     <div className="home_page" style={{width:"60%",left:"20%",position:"absolute",top:"20%"}}>
-      <h4 style={{width:"100%",textAlign:"center"}}>Hurrah IPL is coming to your city</h4><br></br><br></br>
       <Form onSubmit={onSubmitForm}>
       <Form.Group>
           <Form.Label>User Name</Form.Label>

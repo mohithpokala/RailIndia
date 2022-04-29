@@ -61,6 +61,7 @@ const RegisterUser =()=>{
     }
   };
   //console.log(user_name,password);
+
 return (
     <Fragment>
     <div className="home_page" style={{width:"60%",left:"20%",position:"absolute",top:"5%"}}>

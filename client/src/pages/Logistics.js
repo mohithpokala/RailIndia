@@ -156,6 +156,8 @@ const Logistics = (props) => {
                 );
         }, 100);
     },[] );
+    if( !((token==null)||(token=="")||(token=="No Token")))
+
     return (
         <>
         {

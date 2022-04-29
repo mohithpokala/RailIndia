@@ -2,7 +2,7 @@ const pool = require("./database");
 
 const big_cities = async() => {
     const query =
-        `select station_name,station_id,count(distinct train_no)   as x,location[0] as a,location[1] as b,city,state
+        `select station_name,station_id,count(distinct train_no)   as x,location[0] as a,location[1] as b,city,state,zone
         from station natural join paths 
         group by station_name,station_id
         order by x desc

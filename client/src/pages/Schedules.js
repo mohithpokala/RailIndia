@@ -71,6 +71,8 @@ const Schedules =  (props) => {
             }
         });
     },[token] );
+    if( !((token==null)||(token=="")||(token=="No Token")))
+
     return (
   
         !(scheduled && train_no!="abcd" && trainname) 

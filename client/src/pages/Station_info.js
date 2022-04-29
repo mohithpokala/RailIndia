@@ -61,6 +61,7 @@ const Station_info = (props) => {
             }
         });
     },[token] );
+    if( !((token==null)||(token=="")||(token=="No Token")))
 
     return (
         <>

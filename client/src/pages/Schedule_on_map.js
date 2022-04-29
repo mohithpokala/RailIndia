@@ -153,6 +153,7 @@ const Schedule_on_map=(props)=> {
   
   console.log(data2);
   console.log([[1,3],[5,6],[8,9]]);
+  if( !((token==null)||(token=="")||(token=="No Token")))
 
   return (<>
     {

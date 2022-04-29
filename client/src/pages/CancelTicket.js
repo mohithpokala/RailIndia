@@ -49,6 +49,8 @@ const CancelTicket = (props) => {
           console.error(err.message);
         }
     }
+    if( !((token==null)||(token=="")||(token=="No Token")))
+
     return (
         <Fragment>
             <div className="home_page" style={{width:"60%",left:"20%",position:"absolute",top:"20%"}}>
