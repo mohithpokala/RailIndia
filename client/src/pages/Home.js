@@ -25,9 +25,9 @@ export default function Home() {
   return (
     <div class="jumbotron">
       <h4>Welcome to RailIndia</h4>
-      <div class="container fluid">
+      {/* <div class="container fluid">
         <img src={rail1} style={{width:"30%",position:"absolute",height:"50vh"}} />
-      </div>
+      </div> */}
     </div>
   );
 }

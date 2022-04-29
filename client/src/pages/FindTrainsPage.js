@@ -58,18 +58,31 @@ const FindTrainsPage = (props) => {
                     ) 
                 : 
                 (
-                    <React.Fragment>
-                        <div >
-                            
-                            <Dropdown options={stationName} onChange={stations=>{
-                                    setstation1(stations.value);
-                                }}  placeholder="Select source station" value ={station1} />
-                            <Dropdown options={stationName} onChange={stations=>{
-                                    setstation2(stations.value);
-                                }}  placeholder="Select destination" value={station2}/> 
+                    <div className="container">
+                        <div className="row">
+                            <h3>Search Trains between Stations</h3>
                         </div>
-                        <a  href={"/find_trains/"+station1+"/"+station2}>Submit</a>
-                    </React.Fragment>
+                        <br></br>
+                        <React.Fragment>
+                            <div class="form-group"> 
+                                <label> Source Station </label>
+                                <Dropdown options={stationName} onChange={stations=>{
+                                        setstation1(stations.value);
+                                        console.log(station1);
+                                    }}  placeholder="Select source station" value ={station1} />
+                            </div>
+                            <br></br>
+                            <div class="form-group">
+                                <label> Destination Station</label>
+                                <Dropdown options={stationName} onChange={stations=>{
+                                        setstation2(stations.value);
+                                        console.log(station1);
+                                    }}  placeholder="Select destination" value={station2}/> 
+                            </div>
+                            <br></br>
+                            <a class="btn btn-primary" href={"/find_trains/"+station1+"/"+station2}>Submit</a>
+                        </React.Fragment>
+                    </div>
                 )
             }
         </>);

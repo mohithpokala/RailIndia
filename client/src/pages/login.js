@@ -51,7 +51,7 @@ const Login =()=>{
   };
 return (
     <Fragment>
-    <div className="home_page container jumbotron">
+    <div className="home_page container">
       <h2>Login Page</h2>
       <Form onSubmit={onSubmitForm}>
       <Form.Group>

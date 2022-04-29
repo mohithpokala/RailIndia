@@ -70,11 +70,15 @@ const SchedulePage = (props) => {
             !(trainName ) 
                 ? 
                     (
-                        <span class="error">The server is down</span>
+                       <></>
                     ) 
                 : 
                 (
                     <div class="container">
+                        <div className="row">
+                            <h3>Train Schedule</h3>
+                        </div>
+                        <br></br>
                         <React.Fragment>
                             <div class="form-group">
                                 

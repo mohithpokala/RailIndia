@@ -46,7 +46,7 @@ export default function App() {
   ]
   return (
     <div class="home_page">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style={{paddingLeft:"30px"}}>
           <a class="navbar-brand btn btn-primary" 
             href={navlinks[0].link}>{navlinks[0].text}</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">

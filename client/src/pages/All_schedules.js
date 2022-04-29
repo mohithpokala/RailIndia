@@ -175,54 +175,82 @@ const All_schedules=()=> {
             ) 
         : 
         (
-    <div className="full-width-height container" style={{width:"60%",height:"70%",left:"20%",position:"absolute"}}>
-      <ReactTooltip>{tooltipContent}</ReactTooltip>
-        {A ? <h5>Station Name = {x} City = {city} State= {state} Zone={zone}</h5>:<h5>Hover on the red dots </h5>}
-        <ComposableMap
-          projectionConfig={PROJECTION_CONFIG}
-          projection="geoMercator"
-          data-tip=""
-        >
-          <Geographies geography={INDIA_TOPO_JSON}>
-            {({ geographies }) =>
-              geographies.map(geo => {
-                return (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    fill={DEFAULT_COLOR}
-                    style={geographyStyle}
-                  />
-                );
-              })
-            }
-          </Geographies >
-      {datax.map((row)=>(
-      <Line
-      coordinates={row["x"]}
-      stroke={COLOR_RANGE[Math.floor(Math.random() * 24)]}
-      strokeWidth={1}
-    />
-      ))}
-          {markers.map(({ name, coordinates, markerOffset,city,state,zone }) => (
-            <Marker key={name} coordinates={coordinates}>
-              <g
-                fill="red"
-                stroke="#FF5533"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                onMouseEnter={()=>{setX(name);setCity(city);setState(state);setZone(zone);setA(true)}}
-                onMouseLeave={()=>{setA(false);}}
-              >
-                
-            <circle cx="0" cy="0" r="3" />
-              </g>
-          
-        </Marker>
-      ))}
-          
-        </ComposableMap>
+    <div class="container">
+      <div className="row">
+          <h3>All train paths</h3>
+      </div>
+      <br></br>
+      <div className="full-width-height container" style={{width:"60%",height:"100%",left:"20%",position:"absolute"}}>
+        <ReactTooltip>{tooltipContent}</ReactTooltip>
+          <ComposableMap
+            projectionConfig={PROJECTION_CONFIG}
+            projection="geoMercator"
+            data-tip=""
+          >
+            <Geographies geography={INDIA_TOPO_JSON}>
+              {({ geographies }) =>
+                geographies.map(geo => {
+                  //console.log(geo.id);
+                  return (
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      fill={DEFAULT_COLOR}
+                      style={geographyStyle}
+                    />
+                  );
+                })
+              }
+            </Geographies >
+        {datax.map((row)=>(
+        <Line
+        coordinates={row["x"]}
+        stroke={COLOR_RANGE[Math.floor(Math.random() * 24)]}
+        strokeWidth={1}
+      />
+        ))}
+            {markers.map(({ name, coordinates, markerOffset,city,state,zone }) => (
+              <Marker key={name} coordinates={coordinates}>
+                <g
+                  fill="red"
+                  stroke="#FF5533"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  onMouseEnter={()=>{setX(name);setCity(city);setState(state);setZone(zone);setA(true)}}
+                  onMouseLeave={()=>{setA(false);}}
+                >
+                  
+              <circle cx="0" cy="0" r="3" />
+                </g>
+            
+          </Marker>
+        ))}
+
+            
+          </ComposableMap>
+          {
+            A 
+            ? 
+              <div class="card">
+                <h5 class="card-header">Station {x}</h5>
+                <div class="card-body">
+                  <p class="card-text">
+                    <dl class="row">
+                        <dt class="col-sm-3">City</dt>
+                        <dd class="col-sm-9">{city}</dd>
+                        <dt class="col-sm-3">State</dt>
+                        <dd class="col-sm-9">{state}</dd>
+                        <dt class="col-sm-3">Zone</dt>
+                        <dd class="col-sm-9">{zone}</dd>
+                    </dl>
+                  </p>
+                </div>
+              </div>
+            :
+            <div class ="alert alert-dark">Hover on the red dots </div>
+          }
+      </div>
     </div>
    )
   }
