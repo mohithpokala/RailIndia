@@ -13,12 +13,6 @@ const FindTrains = (props) => {
     const [token,setToken]=useState(localStorage.getItem("token"));
     const start_id=useParams().station1;
     const dest_id=useParams().station2;
-    console.log(props);
-    console.log(start_id);
-    console.log(useParams().station1);
-    console.log(useParams().station2);
-    
-    console.log(start_id,dest_id);
 
     if((token==null)||(token=="")||(token=="No Token")){
         window.location= "/login";
@@ -73,8 +67,6 @@ const FindTrains = (props) => {
 
         }, 0);
     },[] );
-    console.log(multiPathTrains);
-    console.log(singleTrains);
     if( !((token==null)||(token=="")||(token=="No Token")))
 
     return (

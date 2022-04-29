@@ -5,7 +5,6 @@ var jwt = require("jsonwebtoken");
 
 const get_user = async(user_name,password) => {
 
-  console.log(user_name);
     const query =
         `
             SELECT is_admin,password FROM users WHERE name = $1;       

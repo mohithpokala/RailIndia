@@ -46,8 +46,6 @@ const FindTrainsPage = (props) => {
             setstationName(data1);
         }, 1000);
     },[token] );
-    console.log(station1);
-    console.log(stationName);
     if( !((token==null)||(token=="")||(token=="No Token")))
 
     return (

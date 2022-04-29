@@ -26,7 +26,6 @@ const CancelTicket = (props) => {
 
     let loadBookings = async () => {
         let data2 = [];
-        console.log(localStorage.getItem("username"), "namaste"); 
         jsonData = {
             "token" : token,
             "user_id" : localStorage.getItem("username")
@@ -40,7 +39,6 @@ const CancelTicket = (props) => {
             .then((res) => res.json())
             .then(
                 (json) => {
-                    console.log(json, "fre");
                     if(!(json.hasOwnProperty('token') )){
                     for(var i = 0; i < json.length; i++){ 
                         data2.push({
@@ -54,7 +52,6 @@ const CancelTicket = (props) => {
                 }
                 } 
             );
-        console.log(data2, "here");
         setUserBookings(data2);
     }
    
@@ -72,7 +69,6 @@ const CancelTicket = (props) => {
             "bid" : bookingID,
             "token":token
             };
-            // console.log(jsonData);
             const response = await fetch("http://localhost:" + port + "/cancel_tickets", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },

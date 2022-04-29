@@ -1,8 +1,7 @@
 const pool = require("./database");
 
 const search_train = async(start_id,end_id) => {
-    console.log(start_id)
-    console.log(end_id);
+
     const query =
         `
         with f(i) as (select station_id from station where station_name = $1 limit 1 ),

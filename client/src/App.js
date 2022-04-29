@@ -24,6 +24,9 @@ import Logistics from './pages/Logistics'
 import Schedule_on_map from "./pages/Schedule_on_map";
 import AllSchedules from "./pages/All_schedules";
 import ViewBooking from "./pages/viewbooking";
+import ViewPassenger from "./pages/ViewPassengers";
+import VIEWTRAIN from "./pages/VIEWTRAIN";
+
 
 export default function App() {
 
@@ -108,7 +111,8 @@ export default function App() {
             <Route path="/view_trains" element={<FindTrainsPage />}/>
             <Route path="/find_trains/:station1/:station2" element={<FindTrains />}/>
             <Route path="/station_schedule/:station_name/" element={<Station_info />}/>
-            <Route path="/Station_schedule//" element={<StationSchedulePage />}/>
+            <Route path="/station_schedule" element={<StationSchedulePage />}/>            
+            <Route path="/view_passengers/:booking_id" element={<VIEWTRAIN />}/>
             <Route path="/stats/" element={<Logistics />}/>
             <Route path="/support" element={<Example />}/>
             <Route path="/all_Schedule" element={<AllSchedules />}/>
@@ -126,60 +130,5 @@ export default function App() {
   );
 }
 
-// const login_user = () => {
-//   const [user_name, setVenue] = useState("");
-//   const [password, setCity] = useState("");
-
-//   const onSubmitForm = async e => {
-//     e.preventDefault();
-//     try {
-//         var jsonData = {
-            
-//             "v1":user_name,
-//             "v2":password
-//             }
-//         console.log(jsonData);
-//         const response = await fetch("http://localhost:5000/add_user", {
-//             method: "POST",
-//             headers: { "Content-Type": "application/json" },
-//             body:JSON.stringify(jsonData)
-//         });
-//         window.location="/";
-
-//     } catch (err) {
-//       console.error(err.message);
-//     }
-//   };
-//   console.log(user_name,password);
-//   return (
-//     <Fragment>
-//     <div className="home_page" style={{width:"60%",left:"20%",position:"absolute",top:"20%"}}>
-//       <h4 style={{width:"100%",textAlign:"center"}}>Hurrah IPL is coming to your city</h4><br></br><br></br>
-//       <Form onSubmit={onSubmitForm}>
-//       <Form.Group>
-//           <Form.Label>User Name</Form.Label>
-//           <Form.Control type="text" 
-//                         placeholder="Enter the name of Stadium" value={venue}
-//                         onChange={e => {
-//                             setVenue(e.target.value);
-//                           }} default="" />
-//         </Form.Group>
-//         <Form.Group>
-//           <Form.Label>Password</Form.Label>
-//           <Form.Control type="text" 
-//                         placeholder="Enter city name" value={city}
-//                         onChange={e => {
-//                             setCity(e.target.value);
-//                           }} default="" />
-//         </Form.Group>
-        
-//         <br></br><br></br>
-//         <Button variant="primary" type="submit">
-//            Click here to submit form
-//         </Button>
-//       </Form></div>
-//     </Fragment>
-//   );
-// };
 
 ReactDOM.render(<App />, document.getElementById("root"));

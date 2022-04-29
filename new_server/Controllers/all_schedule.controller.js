@@ -26,7 +26,6 @@ const all_schedules = async (req,res) => {
 
 
     const data = await all_schedule();
-    console.log(data);
     return res.status(200).json(data);
 }
 

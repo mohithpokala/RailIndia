@@ -31,7 +31,6 @@ const RegisterUser =()=>{
             "sex":sex,
             "password":encrypt_password
             }
-        console.log(jsonData);
         const response = await fetch(
             "http://localhost:"+port+"/add_user",{
                 method: "POST",
@@ -40,12 +39,10 @@ const RegisterUser =()=>{
             })
             .then((res) => res.json())
             .then((json) => {
-                console.log(json);
                 if((json.check != "INVALID USERID")&&(json.check!="INVALID PASSWORD")){
                     token = json.token;
                     localStorage.setItem("token", token);
                     localStorage.setItem("username", user_name);
-                    console.log("random");
                     setAuth(true);
                     window.location="/";
                 }
@@ -60,7 +57,6 @@ const RegisterUser =()=>{
       console.error(err);
     }
   };
-  //console.log(user_name,password);
 
 return (
     <Fragment>

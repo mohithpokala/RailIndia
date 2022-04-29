@@ -80,7 +80,6 @@ const All_schedules=()=> {
   const [A,setA] = useState(false);
   const [markers,setMarkers]=useState(false);
   const [token,setToken]=useState(localStorage.getItem("token"));
-  console.log(token);
   if((token==null)||(token=="")||(token=="No Token")){
     window.location= "/login";
   }

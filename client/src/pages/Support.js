@@ -208,14 +208,10 @@ const Example=()=> {
             {({ geographies }) =>
               geographies.map(geo => {
                 var current;
-                // console.log(x);
                 data.map((x) =>{
-                  // console.log(x, geo, "trtr");
                   if(x["state"]===geo["id"] || geo["id"]==="Telangana" && x["state"]==="Andhra Pradesh")
                     current = x;
                 });
-                // console.log(current, "ewer");
-                // console.log(geo);
                 const colorScale =
                   scaleQuantile()
                   .domain(data.map(d => (d["count"])))

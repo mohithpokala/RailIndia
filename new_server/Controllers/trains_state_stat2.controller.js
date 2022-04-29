@@ -16,7 +16,6 @@ const trains_state_stat2 = async (req,res) => {
     return res.status(401).send({"token":"Invalid Token"});
   }
     const data = await state_stat2();
-    console.log(data);
     return res.status(200).json(data);
 }
 

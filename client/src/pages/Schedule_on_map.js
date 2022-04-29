@@ -143,13 +143,13 @@ const Schedule_on_map=(props)=> {
                   }
                   } 
             );
-        console.log(data1);
         
         
 
     }, 0);
   },[] );
 
+  
   if( !((token==null)||(token=="")||(token=="No Token")))
 
   return (<>

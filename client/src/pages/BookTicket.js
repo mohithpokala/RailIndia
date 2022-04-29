@@ -126,7 +126,6 @@ const BookTicket = (props) => {
             if(!(json.hasOwnProperty('token') ))
             {
                 setAvailabileSeasts(json[0]["x"]);
-                console.log(available_seats);
             } 
             else
             {
@@ -163,7 +162,6 @@ const BookTicket = (props) => {
                 {
                     const res = json;
                     const booking_id = res['booking_id'];
-                    console.log(booking_id);
                     const res1 = addPassengers(booking_id, formValues);
                     setID(booking_id);
                 } 
@@ -277,8 +275,6 @@ const BookTicket = (props) => {
                                         setStartStation(s.value);
                                     }}  placeholder="Select Source station" />
                     </Form.Group>
-                    {console.log("mohith")}
-                    {console.log(x)}
                     <Form.Group>
                         <Form.Label>End Station</Form.Label>
                         <Select options={stations1} onChange={s=>{
