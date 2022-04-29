@@ -66,6 +66,8 @@ const BookTicket = (props) => {
     const [dates, setDates] = useState([]);
     const [stations1, setEndStations] = useState([]);
     const [bookingID, setID] = useState("");
+    const [booking_status, setBookingStatus] = useState("none");
+    const [message, setMessage] = useState("");
 
     let get_end_stations = (j) => {
         let data1 = [];
@@ -140,6 +142,12 @@ const BookTicket = (props) => {
         
         try {
             // console.log(train_no);
+            if(train_no == "" || date == "" || start_station == "" || end_station == "")
+            {
+                setBookingStatus("error");
+                setMessage("Please fill all the fields");
+                return;
+            }
             var jsonData = {
             "train_no" : train_no,
             "journey_date" : date,
@@ -164,6 +172,9 @@ const BookTicket = (props) => {
                     const booking_id = res['booking_id'];
                     const res1 = addPassengers(booking_id, formValues);
                     setID(booking_id);
+                    setBookingStatus("success");
+                    setMessage("Successfully booked with booking ID " + booking_id);
+                    return;
                 } 
                 else
                 {
@@ -173,6 +184,8 @@ const BookTicket = (props) => {
             });
     
         } catch (err) {
+            setBookingStatus("error");
+            setMessage("There was some error while processing the request");
           console.error(err.message);
         }
     }
@@ -241,80 +254,99 @@ const BookTicket = (props) => {
 
         
         <Fragment>
-            <div className="home_page" style={{width:"60%",left:"20%",position:"absolute",top:"20%"}}>
-                <h4 style={{width:"100%",textAlign:"center"}}>Book your ticket!</h4><br></br><br></br>
-               
-                <Form  onSubmit={handleSubmit}>
-                    <Form.Group>
-                        <Form.Label>Train ID</Form.Label>
-                        <Select type="number" options={trains}
-                                        placeholder="Enter train number" 
-                                        onChange ={e => {
-                                            setTrain(e.value);
-                                            setDate("");
-                                            setStartStation("");
-                                            setEndStation("");
-                                            get_dates(e.value);
-                                            get_stations(e.value);
-                                        }} 
-                                        />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Date</Form.Label>
-                        <Select options={dates} type="date" 
-                                        placeholder="Enter date of travel" 
-                                        onChange={e => {
-                                            setDate(e.value);
-                                        }} 
-                                        />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Start Station</Form.Label>
-                        <Select options={stations} id="start station" onChange={s=>{
-                                        get_end_stations(s.value);
-                                        setStartStation(s.value);
-                                    }}  placeholder="Select Source station" />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>End Station</Form.Label>
-                        <Select options={stations1} onChange={s=>{
-                                        setEndStation(s.value);
-                                        get_wl(x,a,date,train_no);
-                                    }}  placeholder="Select Destination station"/>
-                    </Form.Group>
-                    <br></br>
-                {formValues.map((element, index) => (
-                <div class="p-5 mb-4 bg-light rounded-3">
-                    <Form.Group className="form-inline" key={index}>
-                    <Form.Label> Passenger {index + 1} </Form.Label> <br></br>
-                    <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" name="name" value={element.name || ""} onChange={e => handleChange(index, e)} />
-                    <Form.Label>Age</Form.Label>
-                    <Form.Control type="number" name="age" value={element.age || ""} onChange={e => {handleChange(index, e)}} />
-                    <Form.Label>Sex</Form.Label>
-                    <Select options={sex_options} onChange={e => {handleChange(index, {target:{name:"sex", value:e.value}})}} />
-                    <br></br>
-                    {
-                        index ? 
-                        <button type="button" class="btn btn-danger" onClick={() => removeFormFields(index)}>Remove</button> 
-                        : null
-                    }
-                    </Form.Group>
+            <div class="container">
+                <div className="row">
+                    <h3>Book a ticket</h3>
                 </div>
-                ))}
-                <div className="row button-section">
-                <div class="col">
-                    <Button variant="secondary" type="button" onClick={() => addFormFields()}>
-                    Add Passenger
-                    </Button>
-                </div>
-                <div class="col">
-                    <Button variant="primary" type="submit">
-                    Book Ticket
-                    </Button>
-                </div>
-                </div>
-            </Form>
+                <br></br>
+                {
+                    (booking_status == "success") ?
+                    <div className = "row alert alert-success"> {message} </div>
+                    :
+                    <></>
+                }
+                {
+                    (booking_status == "error") ?
+                    <div className='row alert alert-danger'> {message} </div>
+                    :
+                    <></>
+                }
+                <div className="home_page">
+                    <Form  onSubmit={handleSubmit}>
+                        <Form.Group>
+                            <Form.Label>Train ID</Form.Label>
+                            <Select type="number" options={trains}
+                                            placeholder="Enter train number" 
+                                            onChange ={e => {
+                                                setTrain(e.value);
+                                                setDate("");
+                                                setStartStation("");
+                                                setEndStation("");
+                                                get_dates(e.value);
+                                                get_stations(e.value);
+                                            }} 
+                                            />
+                        </Form.Group>
+                        <br></br>
+                        <Form.Group>
+                            <Form.Label>Date</Form.Label>
+                            <Select options={dates} type="date" 
+                                            placeholder="Enter date of travel" 
+                                            onChange={e => {
+                                                setDate(e.value);
+                                            }} 
+                                            />
+                        </Form.Group>
+                        <br></br>
+                        <Form.Group>
+                            <Form.Label>Start Station</Form.Label>
+                            <Select options={stations} id="start station" onChange={s=>{
+                                            get_end_stations(s.value);
+                                            setStartStation(s.value);
+                                        }}  placeholder="Select Source station" />
+                        </Form.Group>
+                        <br></br>
+                        <Form.Group>
+                            <Form.Label>End Station</Form.Label>
+                            <Select options={stations1} onChange={s=>{
+                                            setEndStation(s.value);
+                                            get_wl(x,a,date,train_no);
+                                        }}  placeholder="Select Destination station"/>
+                        </Form.Group>
+                        <br></br>
+                    {formValues.map((element, index) => (
+                    <div class="p-5 mb-4 bg-light rounded-3">
+                        <Form.Group className="form-inline" key={index}>
+                        <Form.Label class="h5"> Passenger {index + 1} </Form.Label> <br></br>
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control type="text" name="name" value={element.name || ""} onChange={e => handleChange(index, e)} />
+                        <Form.Label>Age</Form.Label>
+                        <Form.Control type="number" name="age" value={element.age || ""} onChange={e => {handleChange(index, e)}} />
+                        <Form.Label>Sex</Form.Label>
+                        <Select options={sex_options} onChange={e => {handleChange(index, {target:{name:"sex", value:e.value}})}} />
+                        <br></br>
+                        {
+                            index ? 
+                            <button type="button" class="btn btn-danger" onClick={() => removeFormFields(index)}>Remove</button> 
+                            : null
+                        }
+                        </Form.Group>
+                    </div>
+                    ))}
+                    <div className="row button-section">
+                    <div class="col">
+                        <Button variant="secondary" type="button" onClick={() => addFormFields()}>
+                        Add Passenger
+                        </Button>
+                    </div>
+                    <div class="col">
+                        <Button variant="primary" type="submit">
+                        Book Ticket
+                        </Button>
+                    </div>
+                    </div>
+                </Form>
+            </div>
         </div>
       </Fragment>
     )

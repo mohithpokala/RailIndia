@@ -78,7 +78,7 @@ const Example=()=> {
   const [A,setA] = useState(false);
   const [markers,setMarkers]=useState(false);
   const [token,setToken]=useState(localStorage.getItem("token"));
-  const [type,setType]=useState("Number of stations");
+  const [type,setType]=useState("number of stations");
   if((token==null)||(token=="")||(token=="No Token")){
     window.location= "/login";
 }
@@ -190,63 +190,87 @@ const Example=()=> {
             ) 
         : 
         (
-    <div className="full-width-height container" style ={{height:"70%",top:"0%",width:"50%",left:"25%",position:"absolute"}} >
-      <button onClick={()=>{
-          y?setData(data2):setData(data1);
-          y?setType("Number of trains"):setType("Number of stations");
-          setY(1-y);
-        }}>Heat map on {type}</button>
-        
-      {x ? <p>Station Name = {x} Num trains = {A}</p>:<p>Hover on the stations to display station info</p>}
-      <ReactTooltip>{tooltipContent}</ReactTooltip>
-        <ComposableMap
-          projectionConfig={PROJECTION_CONFIG}
-          projection="geoMercator"
-          data-tip=""
-        >
-          <Geographies geography={INDIA_TOPO_JSON}>
-            {({ geographies }) =>
-              geographies.map(geo => {
-                var current;
-                data.map((x) =>{
-                  if(x["state"]===geo["id"] || geo["id"]==="Telangana" && x["state"]==="Andhra Pradesh")
-                    current = x;
-                });
-                const colorScale =
-                  scaleQuantile()
-                  .domain(data.map(d => (d["count"])))
-                  .range(COLOR_RANGE);
-                return (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    fill={current ? colorScale(current.count):DEFAULT_COLOR}
-                    style={geographyStyle}
-                    onMouseEnter={onMouseEnter(geo, current)}
-                    onMouseLeave={onMouseLeave}
-                  />
-                );
-              })
-            }
-          </Geographies >
-          {markers.map(({ name, coordinates, markerOffset,val,city,state }) => (
-            <Marker key={name} coordinates={coordinates}>
-              <g
-                fill="black"
-                stroke="#FF5533"
-                strokeWidth="0"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                onMouseEnter={()=>{setX(name);setA(val);setCity(city);setState(state);}}
-                onMouseLeave={()=>{setX('');setA(false);setCity('');setState('');}}
-              >
-                
-            <circle cx="0" cy="0" r="5" />
-              </g>
-          
-        </Marker>
-      ))}
-        </ComposableMap>
+    <div class="container">
+      <div className="row">
+          <h3>Heat Maps</h3>
+      </div>
+      <br></br>
+      <div className="row">
+        <button class="btn btn-primary"
+        onClick={()=>{
+            y?setData(data2):setData(data1);
+            y?setType("number of trains"):setType("number of stations");
+            setY(1-y);
+          }}> Change to Heat map on {type}
+        </button>
+      </div>
+      <div className="full-width-height container" style ={{width:"60%",left:"20%",position:"absolute",height:"100%"}} >
+        <ReactTooltip>{tooltipContent}</ReactTooltip>
+          <ComposableMap
+            projectionConfig={PROJECTION_CONFIG}
+            projection="geoMercator"
+            data-tip=""
+          >
+            <Geographies geography={INDIA_TOPO_JSON}>
+              {({ geographies }) =>
+                geographies.map(geo => {
+                  var current;
+                  data.map((x) =>{
+                    if(x["state"]===geo["id"] || geo["id"]==="Telangana" && x["state"]==="Andhra Pradesh")
+                      current = x;
+                  });
+                  const colorScale =
+                    scaleQuantile()
+                    .domain(data.map(d => (d["count"])))
+                    .range(COLOR_RANGE);
+                  return (
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      fill={current ? colorScale(current.count):DEFAULT_COLOR}
+                      style={geographyStyle}
+                      onMouseEnter={onMouseEnter(geo, current)}
+                      onMouseLeave={onMouseLeave}
+                    />
+                  );
+                })
+              }
+            </Geographies >
+            {markers.map(({ name, coordinates, markerOffset,val,city,state }) => (
+              <Marker key={name} coordinates={coordinates}>
+                <g
+                  fill="black"
+                  stroke="#FF5533"
+                  strokeWidth="0"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  onMouseEnter={()=>{setX(name);setA(val);setCity(city);setState(state);}}
+                  onMouseLeave={()=>{setX('');setA(false);setCity('');setState('');}}
+                >
+                  
+              <circle cx="0" cy="0" r="5" />
+                </g>
+            
+          </Marker>
+        ))}
+          </ComposableMap>
+          {x 
+            ? 
+            <div class="card">
+              <h5 class="card-header">Station {x}</h5>
+              <div class="card-body">
+                <p class="card-text">
+                  <dl class="row">
+                      <dt class="col-sm-3">No. of trains</dt>
+                      <dd class="col-sm-9">{A}</dd>
+                  </dl>
+                </p>
+              </div>
+            </div>
+            :
+            <div class ="alert alert-dark">Hover on the dots for station info </div>
+          }
+      </div>
     </div>
    )
   }

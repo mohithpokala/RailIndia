@@ -40,7 +40,7 @@ export default function App() {
     {text:"Stats",link:"/stats"},  
     {text:"Logout",link:"/logout"},
     {text:"All Trains",link:"/all_Schedule"},
-    {text:"Register-User",link:"/register_user"},
+    {text:"Register",link:"/register_user"},
     {text:"Add New Station",link:"/add_station"},
     {text:"View Bookings",link:"/view_bookings"},
   ]
