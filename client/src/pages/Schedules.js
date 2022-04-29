@@ -4,7 +4,8 @@ import 'chart.js/auto';
 import '../CSS/Match.css';
 import { useParams } from 'react-router';
 import { port } from './port';
-
+import Toggle from 'react-bootstrap-toggle';
+import Schedule_on_map from './Schedule_on_map';
 import Select from 'react-select';
 
 const Schedules =  (props) => {
@@ -20,7 +21,7 @@ const Schedules =  (props) => {
     const [from,setFrom] = useState("");
     const [to,setTo] = useState("");
 
-    
+    const [x,setX] = useState(0);
     if((token==null)||(token=="")||(token=="No Token")){
         window.location= "/login";
     }
@@ -40,10 +41,6 @@ const Schedules =  (props) => {
                 setNum(json[0]["num_stations"]);
                 setFrom(json[0]["source_id"]);
                 setTo(json[0]["dest_id"]);
-
-
-                
-                
             }
             else{
                 //setToken("");
@@ -74,9 +71,11 @@ const Schedules =  (props) => {
             }
         });
     },[token] );
+    if( !((token==null)||(token=="")||(token=="No Token")))
+
     return (
   
-        !(scheduled && train_no!="abcd" ) 
+        !(scheduled && train_no!="abcd" && trainname) 
 ? 
     (
         <></>
@@ -84,27 +83,13 @@ const Schedules =  (props) => {
 : 
     (
         <React.Fragment>
-            <div style={{position:"absolute",width:"100%",top:"25%",left:"0%",height:"100%",}}>
-                <h4>
-                    Schedule for Train { train_no }
-                    {
-            (trainname!="") 
-                ? 
-                    (
-                        <h3>
-                            <h2>Train Name: {trainname}
-                            </h2>
-                            <h2>From {from} to {to} through {numstations} stations</h2>
-                            <h2>Capacity: {capacity}</h2>
-                        </h3>
-                    ) 
-                : 
-                (
-                    <></>
-                )
-            }
-                </h4>
-
+            <div style={{position:"absolute",width:"100%",top:"15%",left:"0%",height:"100%",}}>
+           
+                <h3 style={{textAlign:"center"}}>{trainname}({train_no})</h3>
+                <h4 style={{textAlign:"center"}}>From {from} to {to} through {numstations} stations</h4>
+                <h4 style={{textAlign:"center"}}>Capacity :{capacity}</h4>
+                <button onClick={()=>{setX(1-x)}}>Toggle</button>
+                {x==0?(
                 <table>
                     <tr>
                         <td><b>S.No</b></td>
@@ -117,14 +102,14 @@ const Schedules =  (props) => {
                         scheduled.map((row) => (
                             <tr>
                                 <td><b>{row.path_id}</b></td>
-                                <td>{row.station_name}</td>
+                                <td><b><a href={"/station_schedule/"+row.station_id} style={{textDecoration:"none",color:"black"}}>{row.station_name}</a></b></td>
                                 <td>{row.expected_arrival_time}</td>
                                 <td>{row.expected_departure_time}</td>
                                 <td>{row.distance_from_source}</td>
                             </tr>
                         ))
                     }
-                </table>
+                </table>):<Schedule_on_map train_no={train_no}/>}
             </div>
         </React.Fragment>
     )

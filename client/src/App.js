@@ -33,7 +33,7 @@ export default function App() {
     {text:"Find Trains",link:"/view_trains"},
     {text:"View Stations",link:"/support"},
     {text:"Book Ticket",link:"/book_ticket"},
-    {text:"Cancel Ticket",link:"/cancel_ticket"},  
+    {text:"Cancel Ticket",link:"/cancel_ticket"},
     {text:"Stats",link:"/stats"},  
     {text:"Logout",link:"/logout"},
     {text:"All Trains",link:"/all_Schedule"},

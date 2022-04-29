@@ -65,6 +65,7 @@ const SchedulePage = (props) => {
         setTrainName(e.target.value);
     }
     console.log(train);
+    if( !((token==null)||(token=="")||(token=="No Token")))
 
     return (
         <>

@@ -14,7 +14,7 @@ const Passenger_entry = async (req,res) => {
     const decoded = jwt.verify(token, '}Z{C&dFwZ_ j9CI^Tp=-1I[|)]3|4a>7`$SSgNPe,5`b_1RjrB&+=erO@{t09RK:');
     req.user = decoded;
   } catch (err) {
-    return res.status(401).send({"token":"Invalid Token"});
+    return res.status(401).send({"token":"No Token"});
   }
 
 

@@ -42,7 +42,6 @@ const StationSchedulePage = (props) => {
                                 data1.push({
                                     "label":json[i]["station_name"] ,
                                     "value":json[i]["station_id"]});
-                                
                                 data1.push({
                                     "value":json[i]["station_id"] ,
                                     "label":json[i]["station_id"]});
@@ -53,6 +52,7 @@ const StationSchedulePage = (props) => {
                             localStorage.setItem("token","");
                             window.location="/login";
                         }
+                        console.log(data1);
                         
                     } 
                 );
@@ -63,11 +63,12 @@ const StationSchedulePage = (props) => {
     const stationNameChanged = (e)=>{
         setStationName(e.target.value);
     }
+    if( !((token==null)||(token=="")||(token=="No Token")))
 
     return (
         <>
             {
-            !(stationName) 
+            !(stationName ) 
                 ? 
                     (
                         <></>

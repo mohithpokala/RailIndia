@@ -2,7 +2,7 @@ const { search_train_multipath} = require('../Models/train_finder_multipath.mode
 
 jwt = require("jsonwebtoken");
 const train_finder_multipath = async (req,res) => {
-
+  console.log("pora po")
     const token =
     req.body.token || req.query.token || req.headers["x-access-token"];
 

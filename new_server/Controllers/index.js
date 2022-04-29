@@ -29,9 +29,12 @@ const {station_schedule} =require('./station_schedule.controller');
 const {top5_trains}=require('./LongestTrains.controller');
 const {get_station_info}=require('./get_station_info.controller');
 const {get_train_info}=require('./get_train_info.controller');
-const {all_schedules} = require('./all_schedule.controller');const {add_user}=require('./add_user.controller');
-const {available_dates} =require('./available_dates.controller')
-const {view_booking} =require('./view_booking.controller')
+const {all_schedules} = require('./all_schedule.controller');
+const {add_user}=require('./add_user.controller');
+const {available_dates} =require('./available_dates.controller');
+const {view_booking} =require('./view_booking.controller');
+const {user_bookings} = require('./user_booking.controller');
+
 module.exports = 
 {
     big_city,
@@ -45,7 +48,8 @@ module.exports =
     book_tickets,
     view_trains_from_station,
     train_finder_multipath,
-    find_user,Passenger_entry,
+    find_user,
+    Passenger_entry,
     get_passenger,
     cancel_tickets,
     book_tickets,
@@ -69,4 +73,5 @@ module.exports =
     top5_trains,
     big_city2,
     view_booking,
+    user_bookings,
 } 

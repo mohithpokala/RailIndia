@@ -72,6 +72,9 @@ const All_schedules=()=> {
   const [data1, setData1] = useState(false);
   const [datax, setData2] = useState(false);
   const [x,setX] = useState('');
+  const [city,setCity] =useState('');
+  const [state,setState] =useState('');
+  const [zone,setZone] = useState('');
   const [y,setY] = useState(0);
   var prev_train=0;
   const [A,setA] = useState(false);
@@ -101,14 +104,14 @@ const All_schedules=()=> {
                           "markerOffset": 0,
                           "name":json[i]["station_name"],
                           "coordinates": [json[i]["a"], json[i]["b"]],
-                          "val":json[i]["x"],
                           
                         });
+                        
                         data2.push([
                           json[i]["lat"], json[i]["long"]
                         ]);
                         if(json[i]["train_no"]!==prev_train){
-                            data3.push(data2);
+                            data3.push({"x":data2,"y":json[i]['train_no']});
                             data2=[];
                         }
                         prev_train=json[i]["train_no"];
@@ -148,6 +151,9 @@ const All_schedules=()=> {
                           "markerOffset": 0,
                           "name":json[i]["station_name"],
                           "coordinates": [json[i]["a"], json[i]["b"]],
+                          "city":json[i]["city"],
+                          "state":json[i]["state"],
+                          "zone":json[i]["zone"],
                           
                         });
                     } 
@@ -162,18 +168,20 @@ const All_schedules=()=> {
             );
     }, 0);
   },[] );
+  if( !((token==null)||(token=="")||(token=="No Token")))
 
   return (<>
     {
-    !(markers && datax ) 
+    !(markers && datax  ) 
         ? 
             (
                 <></>
             ) 
         : 
         (
-    <div className="full-width-height container" >
+    <div className="full-width-height container" style={{width:"60%",height:"70%",left:"20%",position:"absolute"}}>
       <ReactTooltip>{tooltipContent}</ReactTooltip>
+        {A ? <h5>Station Name = {x} City = {city} State= {state} Zone={zone}</h5>:<h5>Hover on the red dots </h5>}
         <ComposableMap
           projectionConfig={PROJECTION_CONFIG}
           projection="geoMercator"
@@ -194,15 +202,23 @@ const All_schedules=()=> {
               })
             }
           </Geographies >
-          {markers.map(({ name, coordinates, markerOffset,val }) => (
+      {datax.map((row)=>(
+      <Line
+      coordinates={row["x"]}
+      stroke={COLOR_RANGE[Math.floor(Math.random() * 24)]}
+      strokeWidth={1}
+    />
+      ))}
+          {markers.map(({ name, coordinates, markerOffset,city,state,zone }) => (
             <Marker key={name} coordinates={coordinates}>
               <g
-                fill="none"
+                fill="red"
                 stroke="#FF5533"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                onClick={()=>{setX(name);setA(val);}}
+                onMouseEnter={()=>{setX(name);setCity(city);setState(state);setZone(zone);setA(true)}}
+                onMouseLeave={()=>{setA(false);}}
               >
                 
             <circle cx="0" cy="0" r="3" />
@@ -213,15 +229,7 @@ const All_schedules=()=> {
           {console.log("hello mohith pokala")}
           {console.log(Array.from(datax))}
           
-      {datax.map((row)=>(
-      <Line
-      coordinates={row}
-      stroke={COLOR_RANGE[Math.floor(Math.random() * 24)]}
-      strokeWidth={1}
-    />
-      ))}
         </ComposableMap>
-        {A && <h1>Station Name = {x} Num trains = {A}</h1>}
     </div>
    )
   }

@@ -16,15 +16,15 @@ const Logistics = (props) => {
     const [options,setStat] =useState(1);
     const statoptions=[
         
-        {"label":"Inflow" ,
+        {"label":"Inflow stats" ,
         "value":1},
-        {"label":"outflow" ,
+        {"label":"Outflow stats" ,
         "value":2},
-        {"label":"zone data 1" ,
+        {"label":"Zone-station stats" ,
         "value":3},
-        {"label":"zonestat2" ,
+        {"label":"Zone-train stats" ,
         "value":4},
-        {"label":"longest trains" ,
+        {"label":"Longest trains" ,
         "value":5}
         
     ]
@@ -119,7 +119,8 @@ const Logistics = (props) => {
                 .then(
                     (json) => {
                         if(!(json.hasOwnProperty('token') )){
-                            setLongestTrains(json);                            
+                            setLongestTrains(json);       
+                            console.log(json);                     
                         }
                         else{
                             localStorage.setItem("token","");
@@ -155,6 +156,8 @@ const Logistics = (props) => {
                 );
         }, 100);
     },[] );
+    if( !((token==null)||(token=="")||(token=="No Token")))
+
     return (
         <>
         {
@@ -167,9 +170,7 @@ const Logistics = (props) => {
             (
                 <React.Fragment>
                     <Select
-                                options={statoptions}
-                                search
-                      
+                                options={statoptions}                                
                                 onChange={optionsss=>{
                                         setStat(optionsss.value);
                                         console.log(optionsss);
@@ -178,12 +179,12 @@ const Logistics = (props) => {
                                 value = {options}
                                 placeholder="Select Statistics type"
                             />
-                    <div style={{position:"absolute",width:"100%",top:"25%",left:"0%",height:"100%"}}>
+                    <div style={{position:"absolute",width:"100%",top:"15%",left:"0%",height:"100%"}}>
                         {options==1?
                         <div>
-                        <h4>
+                        <h6 style={{textAlign:"center"}}>
                             TOP 5 stations with highest inflow
-                        </h4>
+                        </h6>
 
                         <table>
                             <tr>
@@ -194,8 +195,8 @@ const Logistics = (props) => {
                             {
                                 top5inflow.map((row) => (
                                     <tr>
-                                        <td><b>{row.station_id}</b></td>
-                                        <td><a href={"/station_schedule/"+row.station_id}>{row.station_name}</a></td>
+                                        <td>{row.station_id}</td>
+                                        <td><a href={"/station_schedule/"+row.station_id} style={{textDecoration:"none",color:"black"}}>{row.station_name}</a></td>
                                         <td>{row.x}</td>
                                     </tr>
                                 ))
@@ -203,9 +204,9 @@ const Logistics = (props) => {
                         </table></div>:<div/>}
                         {options==2?
                         <div>
-                        <h4>
+                        <h6 style={{textAlign:"center"}}>
                             TOP 5 stations with highest outflow
-                        </h4>
+                        </h6>
 
                         <table>
                             <tr>
@@ -216,8 +217,8 @@ const Logistics = (props) => {
                             {
                                 top5outflow.map((row) => (
                                     <tr>
-                                        <td><b>{row.station_id}</b></td>
-                                        <td><a href={"/station_schedule/"+row.station_id}>{row.station_name}</a></td>
+                                        <td>{row.station_id}</td>
+                                        <td><a href={"/station_schedule/"+row.station_id} style={{textDecoration:"none",color:"black"}}>{row.station_name}</a></td>
                                         <td>{row.x}</td>
                                     </tr>
                                 ))
@@ -225,9 +226,9 @@ const Logistics = (props) => {
                         </table></div>:<div/>}
                         {options==3?
                         <div>
-                        <h4>
+                        <h6 style={{textAlign:"center"}}>
                             Zone wise train count
-                        </h4>
+                        </h6>
 
                         <table>
                             <tr>
@@ -237,17 +238,17 @@ const Logistics = (props) => {
                             {
                                 zonestat1.map((row) => (
                                     <tr>
-                                        <td><b>{row.zone}</b></td>
-                                        <td>{row.count}</td>
+                                        <td>{row.zone}</td>
+                                        <td>{row.x}</td>
                                     </tr>
                                 ))
                             }
                         </table></div>:<div/>}
                         {options==4?
                         <div>
-                        <h4>
+                        <h6 style={{textAlign:"center"}}>
                             Zone wise station count
-                        </h4>
+                        </h6>
 
                         <table>
                             <tr>
@@ -257,17 +258,17 @@ const Logistics = (props) => {
                             {
                                 zonestat2.map((row) => (
                                     <tr>
-                                        <td><b>{row.zone}</b></td>
-                                        <td>{row.count}</td>
+                                        <td>{row.zone}</td>
+                                        <td>{row.x}</td>
                                     </tr>
                                 ))
                             }
                         </table></div>:<div/>}
                         {options==5?
                         <div>
-                        <h4>
+                        <h6 style={{textAlign:"center"}}>
                             Longest trains
-                        </h4>
+                        </h6>
 
                         <table>
                             <tr>
@@ -277,14 +278,14 @@ const Logistics = (props) => {
                                 <td><b>Train Number </b></td>
                                 <td><b>Train Name</b></td>
                             </tr>
-                            {
-                                zonestat1.map((row) => (
+                            { 
+                                LongestTrains.map((row) => (
                                     <tr>
-                                        <td><b>{row.stat1}</b></td>
-                                        <td>{row.stat2}</td>
-                                        <td><b>{row.dist}</b></td>
-                                        <td>{row.train_no}</td>
-                                        <td><b>{row.train_name}</b></td>
+                                        <td><a href={"/station_schedule/"+row.s1} style={{textDecoration:"none",color:"black"}}>{row.stat1}</a></td>
+                                        <td><a href={"/station_schedule/"+row.s2} style={{textDecoration:"none",color:"black"}}>{row.stat2}</a></td>
+                                        <td>{row.dist}</td>
+                                        <td><a href={"/train_schedule/"+row.train_no} style={{textDecoration:"none",color:"black"}}>{row.train_no}</a></td>
+                                        <td>{row.train_name}</td>
                                     </tr>
                                 ))
                             }
