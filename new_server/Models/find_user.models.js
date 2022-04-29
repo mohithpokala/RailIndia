@@ -32,7 +32,6 @@ const get_user = async(user_name,password) => {
             }
           );
 
-
             return {"check":check,"token":token};
         }
     else return {check:"INVALID PASSWORD"};

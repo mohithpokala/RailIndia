@@ -95,12 +95,11 @@ export default function Home() {
   ]
   const prop = {}
   const [token,setToken]=useState(localStorage.getItem("token"));
-  if((token==null)||(token=="")){
+  if((token==null)||(token=="")||(token=="No Token")){
     window.location= "/login";
   }
   return (
     <div style={{backgroundColor:"grey",width:"100%",height:"100%",position:"absolute"}}>
-      <Slideshow img={hdim} fade={true} width={"64%"} ml={"18%"} mt={"0%"} ht={"90vh"} />
     </div>
   );
 }

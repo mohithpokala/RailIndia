@@ -12,9 +12,10 @@ const Station_info = (props) => {
     var station_name2 = props.station_name;
     const station_name = station_name1?station_name1:station_name2;
     const [token,setToken]=useState(localStorage.getItem("token"));
-    if((token==null)||(token=="")){
+    
+    if((token==null)||(token=="")||(token=="No Token")){
         window.location= "/login";
-      }
+    }
     useEffect(() => {
         setTimeout(() => {
             const jsonData={"token":token};

@@ -20,7 +20,7 @@ const FindTrains = (props) => {
     
     console.log(start_id,dest_id);
 
-    if((token==null)||(token=="")){
+    if((token==null)||(token=="")||(token=="No Token")){
         window.location= "/login";
     }
     

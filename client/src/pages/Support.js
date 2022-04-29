@@ -72,18 +72,21 @@ const Example=()=> {
   const [data1, setData1] = useState(false);
   const [data2, setData2] = useState(false);
   const [x,setX] = useState('');
+  const [city,setCity] = useState('');
+  const [state,setState] = useState('');
   const [y,setY] = useState(0);
   const [A,setA] = useState(false);
   const [markers,setMarkers]=useState(false);
   const [token,setToken]=useState(localStorage.getItem("token"));
-  if((token==null)||(token=="")){
+  
+  if((token==null)||(token=="")||(token=="No Token")){
     window.location= "/login";
-  }
+}
   useEffect(() => {
     setTimeout(() => {
       const jsonData={"token":token};
         let data1 = [];
-        fetch("http://localhost:"+port+"/train/schedule/12797",{
+        fetch("http://localhost:"+port+"/big_cities",{
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body:JSON.stringify(jsonData)
@@ -92,12 +95,15 @@ const Example=()=> {
             .then(
                 (json) => {
                   if(!(json.hasOwnProperty('token') )){
+                    console.log(json);
                     for(var i=0;i<json.length;i++){ 
                         data1.push({
                           "markerOffset": 0,
                           "name":json[i]["station_name"],
                           "coordinates": [json[i]["a"], json[i]["b"]],
-                          "val":json[i]["x"]
+                          "val":json[i]["x"],
+                          "city":json[i]["city"],
+                          "state":json[i]["state"]
                         });
                     } 
                   }
@@ -109,6 +115,7 @@ const Example=()=> {
                 } 
             );
         setMarkers(data1);
+        console.log(markers);
     }, 0);
   },[] );
   useEffect(() => {
@@ -203,17 +210,13 @@ const Example=()=> {
                 //console.log(geo.id);
                 var current;
                 data.map((x) =>{
-                  if(x["state"]==geo["id"])
+                  if(x["state"]==geo["id"] || geo["id"]=="Telangana" && x["state"]=="Andhra Pradesh")
                     current = x;
                 });
-                console.log(Array.from(data));
                 const colorScale =
                   scaleQuantile()
                   .domain(data.map(d => (d["count"])))
                   .range(COLOR_RANGE);
-                console.log(colorScale);
-                console.log(colorScale(0));
-                console.log(colorScale(40));
                 return (
                   <Geography
                     key={geo.rsmKey}
@@ -227,25 +230,25 @@ const Example=()=> {
               })
             }
           </Geographies >
-          {markers.map(({ name, coordinates, markerOffset,val }) => (
+          {markers.map(({ name, coordinates, markerOffset,val,city,state }) => (
             <Marker key={name} coordinates={coordinates}>
               <g
-                fill="none"
+                fill="black"
                 stroke="#FF5533"
-                strokeWidth="2"
+                strokeWidth="0"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                onMouseEnter={()=>{setX(name);setA(val);}}
-                onMouseLeave={()=>{setX('');setA(false);}}
+                onMouseEnter={()=>{setX(name);setA(val);setCity(city);setState(state);}}
+                onMouseLeave={()=>{setX('');setA(false);setCity('');setState('');}}
               >
                 
-            <circle cx="0" cy="0" r="3" />
+            <circle cx="0" cy="0" r="5" />
               </g>
           
         </Marker>
       ))}
         </ComposableMap>
-        {A && <h1>Station Name = {x} Num trains = {A}</h1>}
+        <h1>Station Name = {x} Num trains = {A} State = {state} City = {city}</h1>
     </div>
    )
   }

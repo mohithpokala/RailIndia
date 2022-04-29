@@ -15,7 +15,7 @@ import Select from 'react-select';
 const CancelTicket = (props) => {
     const [bookingID, setBookingID] = useState(false);
     const [token,setToken]=useState(localStorage.getItem("token"));
-    if((token==null)||(token=="")){
+    if((token==null)||(token=="")||(token=="No Token")){
         window.location= "/login";
       }
     let handleSubmit = async (event) => {

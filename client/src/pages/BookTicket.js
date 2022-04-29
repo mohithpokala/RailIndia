@@ -21,9 +21,9 @@ const BookTicket = (props) => {
     
     const jsonData = {"token" : token};
     
-    // if((token==null)||(token=="")){
-    //     window.location= "/login";
-    //   }
+    if((token==null)||(token=="")||(token=="No Token")){
+       window.location= "/login";
+    }
 
     useEffect(() => {
         setTimeout(() => {

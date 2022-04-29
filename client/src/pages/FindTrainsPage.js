@@ -17,7 +17,7 @@ const FindTrainsPage = (props) => {
     const [station1,setstation1]=useState("KACHEGUDA");
     const [station2,setstation2]=useState("TIRUPATI MAIN");
     const [token,setToken]=useState(localStorage.getItem("token"));
-    if((token==null)||(token=="")){
+    if((token==null)||(token=="")||(token=="No Token")){
         window.location= "/login";
     }
     useEffect(() => {

@@ -18,29 +18,29 @@ const PROJECTION_CONFIG = {
 // Red Variants
 const COLOR_RANGE = [
   
-  '#57bb8a',
-  '#63b682',
-  '#73b87e',
-  '#84bb7b',
-  '#94bd77',
-  '#a4c073',
-  '#b0be6e',
-  '#c4c56d',
-  '#d4c86a',
-  '#e2c965',
-  '#f5ce62',
-  '#f3c563',
-  '#e9b861',
-  '#e6ad61',
-  '#ecac67',
-  '#e9a268',
-  '#e79a69',
-  '#e5926b',
-  '#e2886c',
-  '#CD5C5C',
-  '#DC143C',
-  '#B22222',
+  '#00FFFF',
+  '#8A2BE2',
   '#A52A2A',
+  '#D2691E',
+  '#DC143C',
+  '#00008B',
+  '#006400',
+  '#9B008B',
+  '#E9967A',
+  '#9400D3',
+  '#FF1493',
+  '#FFD700',
+  '#ADFF2F',
+  '#800000',
+  '#FF4500',
+  '#CD853F',
+  '#800080',
+  '#FF0000',
+  '#8B4513',
+  '#EE82EE',
+  '#FFFF00',
+  '#F4A460',
+  '#FA8072',
   '#FF0000',
   '#8B0000'
 
@@ -70,14 +70,15 @@ const All_schedules=()=> {
   const [tooltipContent, setTooltipContent] = useState('');
   const [data, setData] = useState(false);
   const [data1, setData1] = useState(false);
-  const [data2, setData2] = useState(false);
+  const [datax, setData2] = useState(false);
   const [x,setX] = useState('');
   const [y,setY] = useState(0);
-  const [prev_train,setPrevTrain] =useState(0);
+  var prev_train=0;
   const [A,setA] = useState(false);
   const [markers,setMarkers]=useState(false);
   const [token,setToken]=useState(localStorage.getItem("token"));
-  if((token==null)||(token=="")){
+  console.log(token);
+  if((token==null)||(token=="")||(token=="No Token")){
     window.location= "/login";
   }
   useEffect(() => {
@@ -100,22 +101,18 @@ const All_schedules=()=> {
                           "markerOffset": 0,
                           "name":json[i]["station_name"],
                           "coordinates": [json[i]["a"], json[i]["b"]],
-                          "val":json[i]["x"]
+                          "val":json[i]["x"],
+                          
                         });
                         data2.push([
                           json[i]["lat"], json[i]["long"]
                         ]);
-                        console.log(json[i]["train_no"]);
-                        console.log(prev_train);
-                        console.log(json[i]["train_no"]!==prev_train);
-
                         if(json[i]["train_no"]!==prev_train){
                             data3.push(data2);
-                            console.log("hello");
-                            console.log(prev_train);
+                            data2=[];
                         }
-                        setPrevTrain(json[i]["train_no"]);
-                        console.log(prev_train);
+                        prev_train=json[i]["train_no"];
+                        
                     } 
                   }
                   else{
@@ -123,18 +120,21 @@ const All_schedules=()=> {
                     localStorage.setItem("token","");
                     window.location="/login";
                 }
+                console.log(data3);
+                setData2(data3);
+                console.log("pokala mohith");
+                console.log(datax);
                 } 
             );
-        setMarkers(data1);
-        setData2(data3);
-        console.log(data3);
     }, 0);
   },[] );
+ 
+
   useEffect(() => {
     setTimeout(() => {
       const jsonData={"token":token};
         let data1 = [];
-        fetch("http://localhost:"+port+"/train_state_stat",{
+        fetch("http://localhost:"+port+"/big_cities2",{
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body:JSON.stringify(jsonData)
@@ -143,29 +143,29 @@ const All_schedules=()=> {
             .then(
                 (json) => {
                   if(!(json.hasOwnProperty('token') )){
-                    setData(json);   setData1(json);  
+                    for(var i=0;i<json.length;i++){ 
+                        data1.push({
+                          "markerOffset": 0,
+                          "name":json[i]["station_name"],
+                          "coordinates": [json[i]["a"], json[i]["b"]],
+                          
+                        });
+                    } 
                   }
-                    else{
-                      // setToken("");
-                      localStorage.setItem("token","");
-                      window.location="/login";
-                  }
-                  } 
+                  else{
+                    // setToken("");
+                    localStorage.setItem("token","");
+                    window.location="/login";
+                }
+                setMarkers(data1);
+                } 
             );
-        console.log(data1);
-        
-        
-
     }, 0);
   },[] );
 
-  
-  console.log(data2);
-  console.log([[1,3],[5,6],[8,9]]);
-
   return (<>
     {
-    !(markers ) 
+    !(markers && datax ) 
         ? 
             (
                 <></>
@@ -183,7 +183,6 @@ const All_schedules=()=> {
             {({ geographies }) =>
               geographies.map(geo => {
                 //console.log(geo.id);
-                var current;
                 return (
                   <Geography
                     key={geo.rsmKey}
@@ -195,11 +194,32 @@ const All_schedules=()=> {
               })
             }
           </Geographies >
+          {markers.map(({ name, coordinates, markerOffset,val }) => (
+            <Marker key={name} coordinates={coordinates}>
+              <g
+                fill="none"
+                stroke="#FF5533"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                onClick={()=>{setX(name);setA(val);}}
+              >
+                
+            <circle cx="0" cy="0" r="3" />
+              </g>
+          
+        </Marker>
+      ))}
+          {console.log("hello mohith pokala")}
+          {console.log(Array.from(datax))}
+          
+      {datax.map((row)=>(
       <Line
-        coordinates={data2}
-        stroke="#F53"
-        strokeWidth={2}
-      />
+      coordinates={row}
+      stroke={COLOR_RANGE[Math.floor(Math.random() * 24)]}
+      strokeWidth={1}
+    />
+      ))}
         </ComposableMap>
         {A && <h1>Station Name = {x} Num trains = {A}</h1>}
     </div>
