@@ -24,6 +24,8 @@ import Logistics from './pages/Logistics'
 import Schedule_on_map from "./pages/Schedule_on_map";
 import AllSchedules from "./pages/All_schedules";
 import ViewBooking from "./pages/viewbooking";
+import ViewPassenger from "./pages/ViewPassengers";
+
 
 export default function App() {
 
@@ -65,6 +67,7 @@ export default function App() {
             <Route path="/register_user" element={<RegisterUser />}/>
             <Route path="/add_station" element={<AddStation />}/>
             <Route path="/view_bookings" element={<ViewBooking />}/>
+            <Route path="/view_passenger/:booking_id" element={<ViewPassenger />}/>
           </Routes>
         </BrowserRouter>
       </div>
@@ -72,60 +75,5 @@ export default function App() {
   );
 }
 
-// const login_user = () => {
-//   const [user_name, setVenue] = useState("");
-//   const [password, setCity] = useState("");
-
-//   const onSubmitForm = async e => {
-//     e.preventDefault();
-//     try {
-//         var jsonData = {
-            
-//             "v1":user_name,
-//             "v2":password
-//             }
-//         console.log(jsonData);
-//         const response = await fetch("http://localhost:5000/add_user", {
-//             method: "POST",
-//             headers: { "Content-Type": "application/json" },
-//             body:JSON.stringify(jsonData)
-//         });
-//         window.location="/";
-
-//     } catch (err) {
-//       console.error(err.message);
-//     }
-//   };
-//   console.log(user_name,password);
-//   return (
-//     <Fragment>
-//     <div className="home_page" style={{width:"60%",left:"20%",position:"absolute",top:"20%"}}>
-//       <h4 style={{width:"100%",textAlign:"center"}}>Hurrah IPL is coming to your city</h4><br></br><br></br>
-//       <Form onSubmit={onSubmitForm}>
-//       <Form.Group>
-//           <Form.Label>User Name</Form.Label>
-//           <Form.Control type="text" 
-//                         placeholder="Enter the name of Stadium" value={venue}
-//                         onChange={e => {
-//                             setVenue(e.target.value);
-//                           }} default="" />
-//         </Form.Group>
-//         <Form.Group>
-//           <Form.Label>Password</Form.Label>
-//           <Form.Control type="text" 
-//                         placeholder="Enter city name" value={city}
-//                         onChange={e => {
-//                             setCity(e.target.value);
-//                           }} default="" />
-//         </Form.Group>
-        
-//         <br></br><br></br>
-//         <Button variant="primary" type="submit">
-//            Click here to submit form
-//         </Button>
-//       </Form></div>
-//     </Fragment>
-//   );
-// };
 
 ReactDOM.render(<App />, document.getElementById("root"));
