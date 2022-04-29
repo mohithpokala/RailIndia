@@ -23,6 +23,8 @@ import AddStation from "./pages/AddStation";
 import Logistics from './pages/Logistics'
 import Schedule_on_map from "./pages/Schedule_on_map";
 import AllSchedules from "./pages/All_schedules";
+import ViewBooking from "./pages/viewbooking";
+
 export default function App() {
 
   const navlinks=[
@@ -31,13 +33,13 @@ export default function App() {
     {text:"Find Trains",link:"/view_trains"},
     {text:"View Stations",link:"/support"},
     {text:"Book Ticket",link:"/book_ticket"},
-    {text:"Cancel Ticket",link:"/cancel_ticket"},
-    {text:"Station SCHEDULE",link:"/station_schedule"},  
+    {text:"Cancel Ticket",link:"/cancel_ticket"},  
     {text:"Stats",link:"/stats"},  
     {text:"Logout",link:"/logout"},
     {text:"All Trains",link:"/all_Schedule"},
     {text:"Register-User",link:"/register_user"},
-    {text:"Add New Station",link:"/add_station"}
+    {text:"Add New Station",link:"/add_station"},
+    {text:"View Booking",link:"/view_bookings"},
   ]
   return (
     <div className="home_page">
@@ -62,6 +64,7 @@ export default function App() {
             <Route path="/logout" element={<Logout />}/>
             <Route path="/register_user" element={<RegisterUser />}/>
             <Route path="/add_station" element={<AddStation />}/>
+            <Route path="/view_bookings" element={<ViewBooking />}/>
           </Routes>
         </BrowserRouter>
       </div>

@@ -43,7 +43,7 @@ const Login =()=>{
                 }
                 else{
                     localStorage.setItem("token","");
-                    // setText(json.check);
+                    setText(json.check);
                 }
             });
         
