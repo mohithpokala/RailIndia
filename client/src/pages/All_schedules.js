@@ -72,6 +72,9 @@ const All_schedules=()=> {
   const [data1, setData1] = useState(false);
   const [datax, setData2] = useState(false);
   const [x,setX] = useState('');
+  const [city,setCity] =useState('');
+  const [state,setState] =useState('');
+  const [zone,setZone] = useState('');
   const [y,setY] = useState(0);
   var prev_train=0;
   const [A,setA] = useState(false);
@@ -101,7 +104,9 @@ const All_schedules=()=> {
                           "markerOffset": 0,
                           "name":json[i]["station_name"],
                           "coordinates": [json[i]["a"], json[i]["b"]],
-                          "val":json[i]["x"],
+                          "city":json[i]["city"],
+                          "state":json[i]["state"],
+                          "zone":json[i]["zone"],
                           
                         });
                         data2.push([
@@ -172,8 +177,9 @@ const All_schedules=()=> {
             ) 
         : 
         (
-    <div className="full-width-height container" >
+    <div className="full-width-height container" style={{width:"60%",height:"70%",left:"20%",position:"absolute"}}>
       <ReactTooltip>{tooltipContent}</ReactTooltip>
+        {A && <h1>Station Name = {x} Num trains = {A}</h1>}
         <ComposableMap
           projectionConfig={PROJECTION_CONFIG}
           projection="geoMercator"
@@ -194,6 +200,13 @@ const All_schedules=()=> {
               })
             }
           </Geographies >
+      {datax.map((row)=>(
+      <Line
+      coordinates={row["x"]}
+      stroke={COLOR_RANGE[Math.floor(Math.random() * 24)]}
+      strokeWidth={1}
+    />
+      ))}
           {markers.map(({ name, coordinates, markerOffset,val }) => (
             <Marker key={name} coordinates={coordinates}>
               <g
@@ -202,7 +215,7 @@ const All_schedules=()=> {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                onClick={()=>{setX(name);setA(val);}}
+                onMouseEnter={()=>{setX(name);setA("hello");}}
               >
                 
             <circle cx="0" cy="0" r="3" />
@@ -213,15 +226,7 @@ const All_schedules=()=> {
           {console.log("hello mohith pokala")}
           {console.log(Array.from(datax))}
           
-      {datax.map((row)=>(
-      <Line
-      coordinates={row["x"]}
-      stroke={COLOR_RANGE[Math.floor(Math.random() * 24)]}
-      strokeWidth={1}
-    />
-      ))}
         </ComposableMap>
-        {A && <h1>Station Name = {x} Num trains = {A}</h1>}
     </div>
    )
   }
