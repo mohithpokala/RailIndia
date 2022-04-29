@@ -1,7 +1,6 @@
 const pool = require("./database");
 
 const state_stat = async() => {
-    console.log("hello babe ");
     const query =
         `
         SELECT state, count(distinct train_no)

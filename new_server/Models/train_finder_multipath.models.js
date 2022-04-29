@@ -1,9 +1,7 @@
 const pool = require("./database");
 
 const search_train_multipath = async(start_id,end_id) => {
-    console.log(start_id);
-    console.log(end_id);
-    console.log("mohith");
+    
     const query =
         ` 
         with
@@ -49,7 +47,6 @@ const search_train_multipath = async(start_id,end_id) => {
         order by total_dist asc limit 3    
         `;
     const res = await pool.query(query,[start_id,end_id]);
-    console.log(res.rows);
     return  res.rows;
 }
 

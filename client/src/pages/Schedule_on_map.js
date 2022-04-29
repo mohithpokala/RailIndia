@@ -143,7 +143,6 @@ const Schedule_on_map=(props)=> {
                   }
                   } 
             );
-        console.log(data1);
         
         
 
@@ -151,8 +150,6 @@ const Schedule_on_map=(props)=> {
   },[] );
 
   
-  console.log(data2);
-  console.log([[1,3],[5,6],[8,9]]);
   if( !((token==null)||(token=="")||(token=="No Token")))
 
   return (<>
@@ -164,53 +161,55 @@ const Schedule_on_map=(props)=> {
             ) 
         : 
         (
-    <div className="full-width-height container" style={{width:"40%",left:"20%",position:"absolute",height:"30%"}} >
-      <ReactTooltip>{tooltipContent}</ReactTooltip>
-        <ComposableMap
-          projectionConfig={PROJECTION_CONFIG}
-          projection="geoMercator"
-          data-tip=""
-        >
-          <Geographies geography={INDIA_TOPO_JSON}>
-            {({ geographies }) =>
-              geographies.map(geo => {
-                //console.log(geo.id);
-                var current;
-                return (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    fill={DEFAULT_COLOR}
-                    style={geographyStyle}
-                  />
-                );
-              })
-            }
-          </Geographies >
-      <Line
-        coordinates={data2}
-        stroke="#F53"
-        strokeWidth={2}
-      />
+    <div class="col-4 container justify-content-center text-center">
+      <div className="full-width-height container" style={{width:"60%",left:"20%",position:"absolute",height:"100%"}} >
+        <ReactTooltip>{tooltipContent}</ReactTooltip>
+          <ComposableMap
+            projectionConfig={PROJECTION_CONFIG}
+            projection="geoMercator"
+            data-tip=""
+          >
+            <Geographies geography={INDIA_TOPO_JSON}>
+              {({ geographies }) =>
+                geographies.map(geo => {
+                  //console.log(geo.id);
+                  var current;
+                  return (
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      fill={DEFAULT_COLOR}
+                      style={geographyStyle}
+                    />
+                  );
+                })
+              }
+            </Geographies >
+        <Line
+          coordinates={data2}
+          stroke="#F53"
+          strokeWidth={2}
+        />
 
-{markers.map(({ name, coordinates, markerOffset,val }) => (
-            <Marker key={name} coordinates={coordinates}>
-              <g
-                fill="black"
-                stroke="#FF5533"
-                strokeWidth="0.01"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                onClick={()=>{setX(name);setA(val);}}
-              >
-                
-            <circle cx="0" cy="0" r="1" />
-              </g>
-          
-        </Marker>
-      ))}
-        </ComposableMap>
-        {A && <h1>Station Name = {x} Num trains = {A}</h1>}
+  {markers.map(({ name, coordinates, markerOffset,val }) => (
+              <Marker key={name} coordinates={coordinates}>
+                <g
+                  fill="black"
+                  stroke="#FF5533"
+                  strokeWidth="0.01"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  onClick={()=>{setX(name);setA(val);}}
+                >
+                  
+              <circle cx="0" cy="0" r="1" />
+                </g>
+            
+          </Marker>
+        ))}
+          </ComposableMap>
+          {A && <h1>Station Name = {x} Num trains = {A}</h1>}
+      </div>
     </div>
    )
   }

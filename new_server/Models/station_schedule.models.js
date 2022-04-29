@@ -9,7 +9,7 @@ const get_station_schedule = async(station_id)=>{
   order by expected_arrival_time asc   
     `;
     const res = await pool.query(query,[station_id]);
-
+console.log(res.rows,station_id);
     return  res.rows
 }
 

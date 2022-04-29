@@ -14,7 +14,7 @@ import Example from "./pages/Support";
 import Login from "./pages/login";
 import Logout from "./pages/logout";
 import Schedules from "./pages/Schedules";
-import Station_info from "./pages/Station_info";
+import STATIONINFO from "./pages/Station_info";
 import StationSchedulePage from "./pages/StationSchedules";
 import BookingTicket from './pages/BookTicket';
 import CancelTicket from "./pages/CancelTicket";
@@ -26,6 +26,8 @@ import AllSchedules from "./pages/All_schedules";
 import ViewBooking from "./pages/viewbooking";
 import ViewPassenger from "./pages/ViewPassengers";
 import ReleaseTicket from "./pages/ReleaseTickets";
+import VIEWTRAIN from "./pages/VIEWTRAIN";
+import STATION_SCHEDULE from "./pages/STATION_SCHEDULE";
 
 export default function App() {
 
@@ -39,14 +41,14 @@ export default function App() {
     {text:"Stats",link:"/stats"},  
     {text:"Logout",link:"/logout"},
     {text:"All Trains",link:"/all_Schedule"},
-    {text:"Register-User",link:"/register_user"},
+    {text:"Register",link:"/register_user"},
     {text:"Add New Station",link:"/add_station"},
     {text:"View Bookings",link:"/view_bookings"},
     {text:"Release Ticket",link:"/release_ticket"},
   ]
   return (
     <div class="home_page">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style={{paddingLeft:"30px"}}>
           <a class="navbar-brand btn btn-primary" 
             href={navlinks[0].link}>{navlinks[0].text}</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -111,8 +113,9 @@ export default function App() {
             <Route path="/schedule_on_map/:train_no" element={<Schedule_on_map />} />
             <Route path="/view_trains" element={<FindTrainsPage />}/>
             <Route path="/find_trains/:station1/:station2" element={<FindTrains />}/>
-            <Route path="/station_schedule/:station_name/" element={<Station_info />}/>
-            <Route path="/Station_schedule//" element={<StationSchedulePage />}/>
+            <Route path="/abcd/:booking_id/" element={<STATION_SCHEDULE />}/>
+            <Route path="/station_schedule" element={<StationSchedulePage />}/>            
+            <Route path="/view_passengers/:booking_id" element={<VIEWTRAIN />}/>
             <Route path="/stats/" element={<Logistics />}/>
             <Route path="/support" element={<Example />}/>
             <Route path="/all_Schedule" element={<AllSchedules />}/>

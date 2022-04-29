@@ -23,7 +23,6 @@ const Login =()=>{
             "user_name":user_name,
             "password":encrypt_password
             }
-        console.log(jsonData);
         const response = await fetch(
             "http://localhost:"+port+"/find_user",{
                 method: "POST",
@@ -32,12 +31,10 @@ const Login =()=>{
             })
             .then((res) => res.json())
             .then((json) => {
-                console.log(json);
                 if((json.check != "Invalid username")&&(json.check!="Invalid Password")){
                     token = json.token;
                     localStorage.setItem("token", token);
                     localStorage.setItem("username", user_name);
-                    console.log("random");
                     setAuth(true);
                     window.location="/";
                 }
@@ -52,10 +49,9 @@ const Login =()=>{
       console.error(err);
     }
   };
-  //console.log(user_name,password);
 return (
     <Fragment>
-    <div className="home_page container jumbotron">
+    <div className="home_page container">
       <h2>Login Page</h2>
       <Form onSubmit={onSubmitForm}>
       <Form.Group>

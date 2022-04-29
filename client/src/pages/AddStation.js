@@ -33,7 +33,6 @@ const AddStation =()=>{
             "zone":zone,
             "token":token
             }
-        console.log(jsonData);
         const response = await fetch(
             "http://localhost:"+port+"/add_stations",{
                 method: "POST",
@@ -42,7 +41,6 @@ const AddStation =()=>{
             })
             .then((res) => res.json())
             .then((json) => {
-                console.log(json);
                 if((json.hasOwnProperty('check'))){
                     setMessage("FAILURE: ONLY ADMINS CAN ADD STATIONS");
 
@@ -50,7 +48,6 @@ const AddStation =()=>{
                 }
                 else if((json.hasOwnProperty('token')))
                 {
-                    console.log(json.token);
                         setMessage("INVALID TOKEN");
                         localStorage.setItem("token","");
 
@@ -75,8 +72,6 @@ const AddStation =()=>{
       console.error(err);
     }
   };
-  //console.log(user_name,password);
-  console.log(token);
   if((token==null)||(token=="")||(token=="No Token")){
     window.location= "/login";
  }
@@ -84,79 +79,85 @@ const AddStation =()=>{
 
 return (
     <Fragment>
-    <div className="home_page" style={{width:"60%",left:"20%",position:"absolute",top:"5%"}}>
-      <Form onSubmit={onSubmitForm}>
-      <Form.Group>
-          <Form.Label>Station ID</Form.Label>
-          <Form.Control type="text" 
-                        placeholder="Enter the station id" value={sid}
-                        onChange={e => {
-                            setSid(e.target.value);
-                          }} default="" />
-        </Form.Group>
+    <div>
+      <div className="row">
+          <h3>Add a Station</h3>
+      </div>
+      <div className="home_page row">
+        <Form onSubmit={onSubmitForm}>
         <Form.Group>
-          <Form.Label>Station Name</Form.Label>
-          <Form.Control type="text" 
-                        placeholder="Enter Sation Name" value={sname}
-                        onChange={e => {
-                            setSname(e.target.value);
-                          }} default="" />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Latitude</Form.Label>
-          <Form.Control type="number" 
-                        placeholder="Enter Latitude" value={lat}
-                        onChange={e => {
-                            setLat(e.target.value);
-                          }} default="" />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Longitude</Form.Label>
-          <Form.Control type="number" 
-                        placeholder="Enter Longitude" value={long}
-                        onChange={e => {
-                            setLong(e.target.value);
-                          }} default="" />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>City</Form.Label>
-          <Form.Control type="text" 
-                        placeholder="Enter City" value={city}
-                        onChange={e => {
-                            setCity(e.target.value);
-                          }} default="" />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Zone</Form.Label>
-          <Form.Control type="text" 
-                        placeholder="Enter Zone" value={zone}
-                        onChange={e => {
-                            setZone(e.target.value);
-                          }} default="" />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>State</Form.Label>
-          <Form.Control type="text" 
-                        placeholder="Enter State" value={state}
-                        onChange={e => {
-                            setState(e.target.value);
-                          }} default="" />
-        </Form.Group>
-        <br></br><br></br>
-        <div>
-        {
-            (message!="")
-            ?
-            (<b>{message}</b>)
-            :
-            (<></>)
-        }
-        </div>
-        <br></br><br></br>
-        <Button variant="primary" type="submit">
-           Submit
-        </Button>
-      </Form></div>
+            <Form.Label>Station ID</Form.Label>
+            <Form.Control type="text" 
+                          placeholder="Enter the station id" value={sid}
+                          onChange={e => {
+                              setSid(e.target.value);
+                            }} default="" />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Station Name</Form.Label>
+            <Form.Control type="text" 
+                          placeholder="Enter Sation Name" value={sname}
+                          onChange={e => {
+                              setSname(e.target.value);
+                            }} default="" />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Latitude</Form.Label>
+            <Form.Control type="number" 
+                          placeholder="Enter Latitude" value={lat}
+                          onChange={e => {
+                              setLat(e.target.value);
+                            }} default="" />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Longitude</Form.Label>
+            <Form.Control type="number" 
+                          placeholder="Enter Longitude" value={long}
+                          onChange={e => {
+                              setLong(e.target.value);
+                            }} default="" />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>City</Form.Label>
+            <Form.Control type="text" 
+                          placeholder="Enter City" value={city}
+                          onChange={e => {
+                              setCity(e.target.value);
+                            }} default="" />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Zone</Form.Label>
+            <Form.Control type="text" 
+                          placeholder="Enter Zone" value={zone}
+                          onChange={e => {
+                              setZone(e.target.value);
+                            }} default="" />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>State</Form.Label>
+            <Form.Control type="text" 
+                          placeholder="Enter State" value={state}
+                          onChange={e => {
+                              setState(e.target.value);
+                            }} default="" />
+          </Form.Group>
+          <br></br>
+          <div>
+          {
+              (message!="")
+              ?
+              (<b>{message}</b>)
+              :
+              (<></>)
+          }
+          </div>
+          <br></br>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
+      </div>
+    </div>
     </Fragment>
   );
 

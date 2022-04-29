@@ -17,13 +17,11 @@ const SchedulePage = (props) => {
     const [token,setToken]=useState(localStorage.getItem("token"));
     
     const [train,setTrain]=useState("12797");
-    console.log(token);
     const [train_num,setTrainNum]=useState(false);
     
     if((token==null)||(token=="")||(token=="No Token")){
         window.location= "/login";
     }
-    console.log(token);
     useEffect(() => {
         setTimeout(() => {
             const jsonData={"token":token};
@@ -64,7 +62,6 @@ const SchedulePage = (props) => {
     const trainNameChanged = (e)=>{
         setTrainName(e.target.value);
     }
-    console.log(train);
     if( !((token==null)||(token=="")||(token=="No Token")))
 
     return (
@@ -73,11 +70,15 @@ const SchedulePage = (props) => {
             !(trainName ) 
                 ? 
                     (
-                        <span class="error">The server is down</span>
+                       <></>
                     ) 
                 : 
                 (
                     <div class="container">
+                        <div className="row">
+                            <h3>Train Schedule</h3>
+                        </div>
+                        <br></br>
                         <React.Fragment>
                             <div class="form-group">
                                 
@@ -87,7 +88,6 @@ const SchedulePage = (props) => {
                         
                                     onChange={trains=>{
                                             setTrain(trains.value);
-                                            console.log(train);
                                         }}
                                     
                                     placeholder="Select train name or number"

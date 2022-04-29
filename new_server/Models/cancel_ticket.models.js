@@ -22,7 +22,6 @@ const cancel_ticket = async(bid) => {
         `;
 
         const seats_res = await pool.query(seats_query, [bid]);
-        console.log(seats_res.rows[0].cnt);
 
         if (seats_res < 0) return -1;
 
@@ -56,13 +55,9 @@ const cancel_ticket = async(bid) => {
             end
         `;
 
-        console.log(res2.rows, "here");
         const res5 = await pool.query(query5,[train_no, seats_res.rows[0].cnt]);
-        console.log(res5.rows, "here1");
         const res3 = await pool.query(query3,[bid]);
-        console.log(res3.rows, "here2");
         const res4 = await pool.query(query4,[bid]);
-        console.log(res4.rows, "here3");
     }
     return  res.rows;
 }

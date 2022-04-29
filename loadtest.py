@@ -44,7 +44,7 @@ if __name__ == "__main__":
         a=1
         b=num_stations
     body1={"train_no":train_no,"journey_date":date,"start_id":a,"end_id":b,"user_id":1,"num_seats":1,"token":token2}
-    body2={"train_no":train_no,"journey_date":date,"start_id":a,"end_id":b,"user_id":51,"num_seats":1,"token":token1}
+    body2={"train_no":train_no,"journey_date":date,"start_id":a,"end_id":b,"user_id":0,"num_seats":1,"token":token1}
     x=requests.post("http://localhost:8000/book_ticket/",json=body1)
     x=json.loads(x.text)
     b1=x["booking_id"]

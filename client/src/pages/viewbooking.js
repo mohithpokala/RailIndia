@@ -16,7 +16,6 @@ const ViewBooking = (props) => {
     useEffect(() => {
         setTimeout(() => {              
             const jsonData={"token":token,"user_id":localStorage.getItem("username")};
-            console.log(jsonData);
             fetch("http://localhost:" + port + "/view_booking",{
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -26,7 +25,6 @@ const ViewBooking = (props) => {
                 .then(
                     (json) => {
                         if(!(json.hasOwnProperty('token') )){
-                            console.log(json);
                             setBooking(json)
                         }
                         else{
@@ -39,19 +37,26 @@ const ViewBooking = (props) => {
                 );
         }, );
     },[token] );
+    if( !((token==null)||(token=="")||(token=="No Token")))
+
     return (
-        <>
-            {
-            
-                (
+  
+        !(booking_data) 
+? 
+    (
+        <></>
+    ) 
+: 
+    (
                     <React.Fragment>
                         <div style={{position:"absolute",width:"100%",height:"90%"}}>
-             
 
                         <table>
                     <tr>
+                    
                         <td><b>Booking ID</b></td>
                         <td><b>Train No</b></td>
+                        <td><b>Train Name</b></td>
                         <td><b>Start Station</b></td>
                         <td><b>End Station</b></td>
                         <td><b>Journey Date</b></td>
@@ -61,8 +66,9 @@ const ViewBooking = (props) => {
                             <tr>
                                 <td><b><a href={"/view_passenger/"+row.booking_id} >{row.booking_id}</a></b></td>
                                 <td>{row.train_no}</td>
-                                <td>{row.start_station}</td>
-                                <td>{row.end_station}</td>
+                                <td>{row.train_name}</td>
+                                <td>{row.a}</td>
+                                <td>{row.b}</td>
                                 <td>{row.journey_date}</td>
                             </tr>
                         ))
@@ -72,9 +78,7 @@ const ViewBooking = (props) => {
                         </div>
 
                     </React.Fragment>
-                )
-            }
-        </>);
-}
-
+                    )
+                    );
+                };
 export default ViewBooking;

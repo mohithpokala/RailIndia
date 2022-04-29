@@ -16,8 +16,6 @@ const view_booking = async (req,res) => {
   } catch (err) {
     return res.status(401).send({"token":"Invalid Token"});
   }
-    // console.log("backend");
-    // console.log(req);
     const data = await view_bookings(req.body.user_id);
     return res.status(200).json(data);
 }

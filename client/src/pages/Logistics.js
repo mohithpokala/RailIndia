@@ -120,7 +120,6 @@ const Logistics = (props) => {
                     (json) => {
                         if(!(json.hasOwnProperty('token') )){
                             setLongestTrains(json);       
-                            console.log(json);                     
                         }
                         else{
                             localStorage.setItem("token","");
@@ -168,131 +167,139 @@ const Logistics = (props) => {
                 ) 
             : 
             (
-                <React.Fragment>
-                    <Select
-                                options={statoptions}                                
-                                onChange={optionsss=>{
-                                        setStat(optionsss.value);
-                                        console.log(optionsss);
-                                        console.log(options);
-                                    }}
-                                value = {options}
-                                placeholder="Select Statistics type"
-                            />
-                    <div style={{position:"absolute",width:"100%",top:"15%",left:"0%",height:"100%"}}>
-                        {options==1?
-                        <div>
-                        <h6 style={{textAlign:"center"}}>
-                            TOP 5 stations with highest inflow
-                        </h6>
-
-                        <table>
-                            <tr>
-                                <td><b>Station Code</b></td>
-                                <td><b>Station Name</b></td>
-                                <td><b>Inflow</b></td>
-                            </tr>
-                            {
-                                top5inflow.map((row) => (
-                                    <tr>
-                                        <td>{row.station_id}</td>
-                                        <td><a href={"/station_schedule/"+row.station_id} style={{textDecoration:"none",color:"black"}}>{row.station_name}</a></td>
-                                        <td>{row.x}</td>
-                                    </tr>
-                                ))
-                            }
-                        </table></div>:<div/>}
-                        {options==2?
-                        <div>
-                        <h6 style={{textAlign:"center"}}>
-                            TOP 5 stations with highest outflow
-                        </h6>
-
-                        <table>
-                            <tr>
-                                <td><b>Station Code</b></td>
-                                <td><b>Station Name</b></td>
-                                <td><b>Outflow</b></td>
-                            </tr>
-                            {
-                                top5outflow.map((row) => (
-                                    <tr>
-                                        <td>{row.station_id}</td>
-                                        <td><a href={"/station_schedule/"+row.station_id} style={{textDecoration:"none",color:"black"}}>{row.station_name}</a></td>
-                                        <td>{row.x}</td>
-                                    </tr>
-                                ))
-                            }
-                        </table></div>:<div/>}
-                        {options==3?
-                        <div>
-                        <h6 style={{textAlign:"center"}}>
-                            Zone wise train count
-                        </h6>
-
-                        <table>
-                            <tr>
-                                <td><b>Zone </b></td>
-                                <td><b>Count</b></td>
-                            </tr>
-                            {
-                                zonestat1.map((row) => (
-                                    <tr>
-                                        <td>{row.zone}</td>
-                                        <td>{row.x}</td>
-                                    </tr>
-                                ))
-                            }
-                        </table></div>:<div/>}
-                        {options==4?
-                        <div>
-                        <h6 style={{textAlign:"center"}}>
-                            Zone wise station count
-                        </h6>
-
-                        <table>
-                            <tr>
-                                <td><b>Zone </b></td>
-                                <td><b>Count</b></td>
-                            </tr>
-                            {
-                                zonestat2.map((row) => (
-                                    <tr>
-                                        <td>{row.zone}</td>
-                                        <td>{row.x}</td>
-                                    </tr>
-                                ))
-                            }
-                        </table></div>:<div/>}
-                        {options==5?
-                        <div>
-                        <h6 style={{textAlign:"center"}}>
-                            Longest trains
-                        </h6>
-
-                        <table>
-                            <tr>
-                                <td><b>Source</b></td>
-                                <td><b>Destination</b></td>
-                                <td><b>Distance</b></td>
-                                <td><b>Train Number </b></td>
-                                <td><b>Train Name</b></td>
-                            </tr>
-                            { 
-                                LongestTrains.map((row) => (
-                                    <tr>
-                                        <td><a href={"/station_schedule/"+row.s1} style={{textDecoration:"none",color:"black"}}>{row.stat1}</a></td>
-                                        <td><a href={"/station_schedule/"+row.s2} style={{textDecoration:"none",color:"black"}}>{row.stat2}</a></td>
-                                        <td>{row.dist}</td>
-                                        <td><a href={"/train_schedule/"+row.train_no} style={{textDecoration:"none",color:"black"}}>{row.train_no}</a></td>
-                                        <td>{row.train_name}</td>
-                                    </tr>
-                                ))
-                            }
-                        </table></div>:<div/>}
+                <div class="container">
+                    <div className="row">
+                        <h3>Statistics</h3>
+                    </div>
+                    <br></br>
+                    <React.Fragment>
+                        <div class="row">
+                            <Select
+                                        options={statoptions}                                
+                                        onChange={optionsss=>{
+                                                setStat(optionsss.value);
+                                            }}
+                                        value = {options}
+                                        placeholder="Select Statistics type"
+                                    />
                         </div>
-                    
-                </React.Fragment>
+                        
+                        <div class="container">
+                            <br></br>
+                            {options==1?
+                            <div>
+                            <h6 style={{textAlign:"center"}}>
+                                TOP 5 stations with highest inflow
+                            </h6>
+
+                            <table>
+                                <tr>
+                                    <td><b>Station Code</b></td>
+                                    <td><b>Station Name</b></td>
+                                    <td><b>Inflow</b></td>
+                                </tr>
+                                {
+                                    top5inflow.map((row) => (
+                                        <tr>
+                                            <td>{row.station_id}</td>
+                                            <td><a href={"/station_schedule/"+row.station_id} style={{textDecoration:"none",color:"black"}}>{row.station_name}</a></td>
+                                            <td>{row.x}</td>
+                                        </tr>
+                                    ))
+                                }
+                            </table></div>:<div/>}
+                            {options==2?
+                            <div>
+                            <h6 style={{textAlign:"center"}}>
+                                TOP 5 stations with highest outflow
+                            </h6>
+
+                            <table>
+                                <tr>
+                                    <td><b>Station Code</b></td>
+                                    <td><b>Station Name</b></td>
+                                    <td><b>Outflow</b></td>
+                                </tr>
+                                {
+                                    top5outflow.map((row) => (
+                                        <tr>
+                                            <td>{row.station_id}</td>
+                                            <td><a href={"/station_schedule/"+row.station_id} style={{textDecoration:"none",color:"black"}}>{row.station_name}</a></td>
+                                            <td>{row.x}</td>
+                                        </tr>
+                                    ))
+                                }
+                            </table></div>:<div/>}
+                            {options==3?
+                            <div>
+                            <h6 style={{textAlign:"center"}}>
+                                Zone wise train count
+                            </h6>
+
+                            <table>
+                                <tr>
+                                    <td><b>Zone </b></td>
+                                    <td><b>Count</b></td>
+                                </tr>
+                                {
+                                    zonestat1.map((row) => (
+                                        <tr>
+                                            <td>{row.zone}</td>
+                                            <td>{row.x}</td>
+                                        </tr>
+                                    ))
+                                }
+                            </table></div>:<div/>}
+                            {options==4?
+                            <div>
+                            <h6 style={{textAlign:"center"}}>
+                                Zone wise station count
+                            </h6>
+
+                            <table>
+                                <tr>
+                                    <td><b>Zone </b></td>
+                                    <td><b>Count</b></td>
+                                </tr>
+                                {
+                                    zonestat2.map((row) => (
+                                        <tr>
+                                            <td>{row.zone}</td>
+                                            <td>{row.x}</td>
+                                        </tr>
+                                    ))
+                                }
+                            </table></div>:<div/>}
+                            {options==5?
+                            <div>
+                            <h6 style={{textAlign:"center"}}>
+                                Longest trains
+                            </h6>
+
+                            <table>
+                                <tr>
+                                    <td><b>Source</b></td>
+                                    <td><b>Destination</b></td>
+                                    <td><b>Distance</b></td>
+                                    <td><b>Train Number </b></td>
+                                    <td><b>Train Name</b></td>
+                                </tr>
+                                { 
+                                    LongestTrains.map((row) => (
+                                        <tr>
+                                            <td><a href={"/station_schedule/"+row.s1} style={{textDecoration:"none",color:"black"}}>{row.stat1}</a></td>
+                                            <td><a href={"/station_schedule/"+row.s2} style={{textDecoration:"none",color:"black"}}>{row.stat2}</a></td>
+                                            <td>{row.dist}</td>
+                                            <td><a href={"/train_schedule/"+row.train_no} style={{textDecoration:"none",color:"black"}}>{row.train_no}</a></td>
+                                            <td>{row.train_name}</td>
+                                        </tr>
+                                    ))
+                                }
+                            </table></div>:<div/>}
+                            </div>
+                        
+                    </React.Fragment>
+                </div>
     )}</>
   );
   

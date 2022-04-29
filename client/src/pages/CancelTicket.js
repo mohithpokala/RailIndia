@@ -17,6 +17,8 @@ const CancelTicket = (props) => {
     const [token, setToken]=useState(localStorage.getItem("token"));
     const [userBookings, setUserBookings] = useState([]);
     let selected = null;
+    const [booking_status, setBookingStatus] = useState("none");
+    const [message, setMessage] = useState("");
 
     if((token==null)||(token=="")||(token=="No Token")){
         window.location= "/login";
@@ -26,7 +28,6 @@ const CancelTicket = (props) => {
 
     let loadBookings = async () => {
         let data2 = [];
-        console.log(localStorage.getItem("username"), "namaste"); 
         jsonData = {
             "token" : token,
             "user_id" : localStorage.getItem("username")
@@ -40,7 +41,6 @@ const CancelTicket = (props) => {
             .then((res) => res.json())
             .then(
                 (json) => {
-                    console.log(json, "fre");
                     if(!(json.hasOwnProperty('token') )){
                     for(var i = 0; i < json.length; i++){ 
                         data2.push({
@@ -54,7 +54,6 @@ const CancelTicket = (props) => {
                 }
                 } 
             );
-        console.log(data2, "here");
         setUserBookings(data2);
     }
    
@@ -68,11 +67,16 @@ const CancelTicket = (props) => {
         event.preventDefault();
         
         try {
+            if(bookingID == "")
+            {
+                setBookingStatus("error");
+                setMessage("Please fill all the fields");
+                return;
+            }
             var jsonData = {
             "bid" : bookingID,
             "token":token
             };
-            // console.log(jsonData);
             const response = await fetch("http://localhost:" + port + "/cancel_tickets", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -86,6 +90,8 @@ const CancelTicket = (props) => {
                     selected = null;
                     setUserBookings([]);
                     loadBookings();
+                    setBookingStatus("success");
+                    setMessage("Successfully cancelled booking ID " + bookingID);
                   }
                   else{
                     // setToken("");
@@ -96,6 +102,8 @@ const CancelTicket = (props) => {
             );
     
         } catch (err) {
+            setBookingStatus("error");
+            setMessage("There was some error while processing the request");
           console.error(err.message);
         }
     }
@@ -103,31 +111,48 @@ const CancelTicket = (props) => {
 
     return (
         <Fragment>
-            <div className="home_page" style={{width:"60%",left:"20%",position:"absolute",top:"20%"}}>
-                <h4 style={{width:"100%",textAlign:"center"}}>Cancel your ticket :(</h4><br></br><br></br>
-                <Form  onSubmit={handleSubmit}>
-                    <Form.Group>
-                        <Form.Label>Booking ID</Form.Label>
-                        <Select type="number" 
-                                        placeholder="Enter booking ID/PNR"
-                                        options={ userBookings }
-                                        onChange={e => {
-                                           setBookingID(e.value);
-                                            selected = e.value;
-                                    
-                                        }}
-                        >{ selected || "" }</Select>
-                    </Form.Group>
-                    <br></br>
-                <div className="row button-section">
-                  
-                <div class="col">
-                    <Button variant="primary" type="submit">
-                        Cancel Ticket
-                    </Button>
+            <div class="container">
+                <div className="row">
+                    <h3>Cancel tickets</h3>
                 </div>
-                </div>
-            </Form>
+                <br></br>
+                {
+                    (booking_status == "success") ?
+                    <div className = "row alert alert-success"> {message} </div>
+                    :
+                    <></>
+                }
+                {
+                    (booking_status == "error") ?
+                    <div className='row alert alert-danger'> {message} </div>
+                    :
+                    <></>
+                }
+                <div className="home_page">
+                    <Form  onSubmit={handleSubmit}>
+                        <Form.Group>
+                            <Form.Label>Booking ID</Form.Label>
+                            <Select type="number" 
+                                            placeholder="Enter booking ID/PNR"
+                                            options={ userBookings }
+                                            onChange={e => {
+                                            setBookingID(e.value);
+                                                selected = e.value;
+                                        
+                                            }}
+                            >{ selected || "" }</Select>
+                        </Form.Group>
+                        <br></br>
+                    <div className="row button-section">
+                    
+                    <div class="col">
+                        <Button variant="primary" type="submit">
+                            Cancel Ticket
+                        </Button>
+                    </div>
+                    </div>
+                </Form>
+            </div>
         </div>
       </Fragment>
     )

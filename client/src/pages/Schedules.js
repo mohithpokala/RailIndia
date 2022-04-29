@@ -86,11 +86,13 @@ const Schedules =  (props) => {
             <React.Fragment>
                 <div class="col-4 container justify-content-center text-center">
             
-                    <h3>{trainname}({train_no})</h3>
-                    <h4>From {from} to {to} through {numstations} stations</h4>
-                    <h4>Capacity :{capacity}</h4>
+                    <h3 class="alert alert-info">{trainname}({train_no})</h3>
+                    <h5 class="alert alert-secondary">From {from} to {to} through {numstations} stations</h5>
+                    <h5>Capacity :{capacity}</h5>
                     <br></br>
-                    <button onClick={()=>{setX(1-x)}}>Toggle</button>
+                    <div class="container">
+                        <button class="btn btn-primary" onClick={()=>{setX(1-x)}}>Toggle Map/Schedule</button>
+                    </div>
                     <br></br>
                     {x==0?(
                     <table>

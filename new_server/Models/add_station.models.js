@@ -17,7 +17,6 @@ const add_station = async(user_name,station_id, name,lat,long, city, state, zone
             VALUES ( $1, $2, POINT($3, $4), $5, $6, $7);
         `;
     const res = await pool.query(query,[station_id, name,lat,long, city, state, zone]);
-    console.log(res);
     return  res.rows;
 }
 
