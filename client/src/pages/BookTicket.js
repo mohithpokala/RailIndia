@@ -52,7 +52,7 @@ const BookTicket = (props) => {
                     } 
                 );
             setTrains(data2);
-        }, 1000);
+        }, 0);
     },[token] );
 
     

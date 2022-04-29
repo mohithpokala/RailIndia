@@ -60,7 +60,7 @@ const CancelTicket = (props) => {
     useEffect(() => {
         setTimeout(() => {
             loadBookings();
-        }, 1000);
+        }, 0);
     },[]);
 
     let handleSubmit = async (event) => {

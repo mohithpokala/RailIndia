@@ -24,6 +24,8 @@ import Logistics from './pages/Logistics'
 import Schedule_on_map from "./pages/Schedule_on_map";
 import AllSchedules from "./pages/All_schedules";
 import ViewBooking from "./pages/viewbooking";
+import ViewPassenger from "./pages/ViewPassengers";
+import ReleaseTicket from "./pages/ReleaseTickets";
 import VIEWTRAIN from "./pages/VIEWTRAIN";
 import STATION_SCHEDULE from "./pages/STATION_SCHEDULE";
 
@@ -42,6 +44,7 @@ export default function App() {
     {text:"Register",link:"/register_user"},
     {text:"Add New Station",link:"/add_station"},
     {text:"View Bookings",link:"/view_bookings"},
+    {text:"Release Ticket",link:"/release_ticket"},
   ]
   return (
     <div class="home_page">
@@ -62,6 +65,7 @@ export default function App() {
                     <li><a class="dropdown-item" href={navlinks[1].link}>{navlinks[1].text}</a></li>
                     <li><a class="dropdown-item" href={navlinks[2].link}>{navlinks[2].text}</a></li>
                     <li><a class="dropdown-item" href={navlinks[8].link}>{navlinks[8].text}</a></li>
+                    <li><a class="dropdown-item" href={navlinks[12].link}>{navlinks[12].text}</a></li>
                   </ul>
                 </li>
               </ul>
@@ -121,7 +125,9 @@ export default function App() {
             <Route path="/logout" element={<Logout />}/>
             <Route path="/register_user" element={<RegisterUser />}/>
             <Route path="/add_station" element={<AddStation />}/>
-            <Route path="/view_bookings" element={<ViewBooking />}/>
+            <Route path="/view_bookings/" element={<ViewBooking />}/>
+            <Route path="/view_passenger/:booking_id" element={<VIEWTRAIN />}/>
+            <Route path="/release_ticket/" element={<ReleaseTicket />}/>
           </Routes>
         </BrowserRouter>
       </div>

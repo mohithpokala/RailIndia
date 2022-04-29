@@ -177,7 +177,7 @@ const All_schedules=()=> {
         (
     <div class="container">
       <div className="row">
-          <h3>All train paths</h3>
+          <h3 style={{textAlign:"center"}}>All train paths</h3>
       </div>
       <br></br>
       <div className="full-width-height container" style={{width:"60%",height:"100%",left:"20%",position:"absolute"}}>

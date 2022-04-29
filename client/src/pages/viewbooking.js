@@ -1,7 +1,7 @@
 
 import React, {useState, useEffect} from 'react';
 import 'chart.js/auto';
-
+import { useParams } from 'react-router';
 import '../CSS/Match.css'
 import '../CSS/rotateimage.css'
 import {port} from './port';
@@ -9,7 +9,7 @@ import {port} from './port';
 const ViewBooking = (props) => {
     const [booking_data,setBooking] = useState([]);
     const [token,setToken]=useState(localStorage.getItem("token"));
-    
+    console.log(useParams().rank);
     if((token==null)||(token=="")||(token=="No Token")){
         window.location= "/login";
     }

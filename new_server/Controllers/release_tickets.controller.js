@@ -17,10 +17,10 @@ const release_tickets = async (req,res) => {
     return res.status(401).send({"token":"Invalid Token"});
   }
 
-
+    console.log(req.user);
     const data = await rel_tckt(
+        req.user['user_name'],
         req.params.date,
-        req.params.seats,
         req.params.train_no
     );
     return res.status(200).json(data);
