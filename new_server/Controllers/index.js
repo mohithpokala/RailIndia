@@ -66,5 +66,6 @@ module.exports =
     add_user,
     all_schedules,
     top5_trains,
-    big_city2
+    big_city2,
+    user_bookings,
 } 

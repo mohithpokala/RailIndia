@@ -14,10 +14,46 @@ import Select from 'react-select';
 
 const CancelTicket = (props) => {
     const [bookingID, setBookingID] = useState(false);
-    const [token,setToken]=useState(localStorage.getItem("token"));
+    const [token, setToken]=useState(localStorage.getItem("token"));
+    const [userBookings, setUserBookings] = useState([]);
+    const [user, setUser] = useState("");
+    
     if((token==null)||(token=="")||(token=="No Token")){
         window.location= "/login";
       }
+
+    var jsonData = {"token" : token};
+
+    useEffect(() => {
+        setTimeout(() => {
+            let data2 = [];
+            setUser(localStorage.getItem("username"));
+            fetch("http://localhost:" + port + "/bookings/" + user,
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body:JSON.stringify(jsonData)
+            })
+                .then((res) => res.json())
+                .then(
+                    (json) => {
+                        if(!(json.hasOwnProperty('token') )){
+                        for(var i = 0; i < json.length; i++){ 
+                            data2.push({
+                                "value":json[i]["booking_id"] ,
+                                "label":json[i]["booking_id"]});
+                        } 
+                    }
+                    else{
+                        setToken("");
+                        window.location="/login";
+                    }
+                    } 
+                );
+            setTrains(data2);
+        }, 100);
+    },[token] );
+
     let handleSubmit = async (event) => {
         event.preventDefault();
         
@@ -56,12 +92,13 @@ const CancelTicket = (props) => {
                 <Form  onSubmit={handleSubmit}>
                     <Form.Group>
                         <Form.Label>Booking ID</Form.Label>
-                        <Form.Control type="number" 
-                                        placeholder="Enter booking ID/PNR" value={bookingID}
+                        <Select type="number" 
+                                        placeholder="Enter booking ID/PNR" 
+                                        options={ userBookings }
                                         onChange={e => {
-                                            setBookingID(e.target.value);
+                                            setBookingID(e.value);
                                         }} 
-                                        default="" />
+                                        />
                     </Form.Group>
                     
                 <div className="row button-section">

@@ -45,8 +45,8 @@ const add_passenger = async(req) => {
 
     const query2 =
             `
-            INSERT INTO Passenger(booking_id, name, age, sex, waiting_pref_no) 
-            VALUES ($1, $2, $3, $4, $5);
+            INSERT INTO Passenger(booking_id, name, age, sex, waiting_pref_no, seat_no) 
+            VALUES ($1, $2, $3, $4, $5, 0);
         `
     ;
 
