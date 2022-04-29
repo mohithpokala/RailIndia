@@ -5,8 +5,6 @@ import 'chart.js/auto';
 import '../CSS/Match.css'
 import '../CSS/rotateimage.css'
 import {port} from './port';
-
-
     
 const ViewBooking = (props) => {
     const [booking_data,setBooking] = useState([]);
@@ -18,7 +16,6 @@ const ViewBooking = (props) => {
     useEffect(() => {
         setTimeout(() => {              
             const jsonData={"token":token,"user_id":localStorage.getItem("username")};
-            let data1 = [];
             console.log(jsonData);
             fetch("http://localhost:" + port + "/view_booking",{
                 method: "POST",
@@ -30,17 +27,7 @@ const ViewBooking = (props) => {
                     (json) => {
                         if(!(json.hasOwnProperty('token') )){
                             console.log(json);
-                            for(var i=0;i<json.length;i++){ 
-                                 console.log(json[i]["booking_id"]);
-                                data1.push({
-                                    "booking_id":json[i]["booking_id"],
-                                    "train_no":json[i]["train_no"],
-                                    "start_station":json[i]["start_station"],
-                                    "end_station":json[i]["end_station"],
-                                    "journey_date":json[i]["journey_date"],
-                                });
-                                
-                            } 
+                            setBooking(json)
                         }
                         else{
                             // setToken("");
@@ -50,13 +37,8 @@ const ViewBooking = (props) => {
                         
                     } 
                 );
-            setBooking(data1);
-            console.log(data1);
         }, );
     },[token] );
-    console.log(booking_data);
-    const [map_booking, set_Booking] = React.useState(booking_data);
-    console.log(map_booking);
     return (
         <>
             {
@@ -69,21 +51,23 @@ const ViewBooking = (props) => {
                         <table>
                     <tr>
                         <td><b>Booking ID</b></td>
-                        {/* <td><b>Train No</b></td>
+                        <td><b>Train No</b></td>
                         <td><b>Start Station</b></td>
                         <td><b>End Station</b></td>
-                        <td><b>Journey Date</b></td> */}
+                        <td><b>Journey Date</b></td>
                     </tr>
-                    {booking_data.map((item) => (
-                        <tr key={item.booking_id}>
-                        {Object.values(item).map((val) => (
-                                console.log(val),
-                                <td>{val}</td>
-                                ))}
-                        </tr>
-                        )
-                    )
+                    {
+                        booking_data.map((row) => (
+                            <tr>
+                                <td><b>{row.booking_id}</b></td>
+                                <td>{row.train_no}</td>
+                                <td>{row.start_station}</td>
+                                <td>{row.end_station}</td>
+                                <td>{row.journey_date}</td>
+                            </tr>
+                        ))
                     }
+                    
                 </table>
                         </div>
 
