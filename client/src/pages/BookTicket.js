@@ -66,8 +66,8 @@ const BookTicket = (props) => {
 
     let get_end_stations = (j) => {
         let data1 = [];
-        for(var i = j + 1; i < stations.length; i++){ 
-            data1.push({label: stations[i].label, value: i});
+        for(var i = j + 1; i <= stations.length; i++){ 
+            data1.push({label: stations[i - 1].label, value: i});
         }
         setEndStations(data1);
     }
@@ -159,7 +159,7 @@ const BookTicket = (props) => {
        
             if(!(json.hasOwnProperty('token') )){
                 for(var i = 0; i < json.length; i++){ 
-                    data1.push({label: json[i]["station_name"], value: json[i]["path_id"]});
+                    data1.push({label: json[i]["station_name"], value: i + 1});
                 } 
                 setStations(data1);
             }

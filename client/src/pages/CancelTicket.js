@@ -14,10 +14,56 @@ import Select from 'react-select';
 
 const CancelTicket = (props) => {
     const [bookingID, setBookingID] = useState(false);
-    const [token,setToken]=useState(localStorage.getItem("token"));
+    const [token, setToken]=useState(localStorage.getItem("token"));
+    const [userBookings, setUserBookings] = useState([]);
+    let selected = null;
+
     if((token==null)||(token=="")||(token=="No Token")){
         window.location= "/login";
       }
+
+    var jsonData = {"token" : token};
+
+    let loadBookings = async () => {
+        let data2 = [];
+        console.log(localStorage.getItem("username"), "namaste"); 
+        jsonData = {
+            "token" : token,
+            "user_id" : localStorage.getItem("username")
+        }
+        fetch("http://localhost:" + port + "/bookings/",
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(jsonData)
+        })
+            .then((res) => res.json())
+            .then(
+                (json) => {
+                    console.log(json, "fre");
+                    if(!(json.hasOwnProperty('token') )){
+                    for(var i = 0; i < json.length; i++){ 
+                        data2.push({
+                            "value":json[i]["booking_id"] ,
+                            "label":json[i]["booking_id"]});
+                    } 
+                }
+                else{
+                    setToken("");
+                    window.location="/login";
+                }
+                } 
+            );
+        console.log(data2, "here");
+        setUserBookings(data2);
+    }
+   
+    useEffect(() => {
+        setTimeout(() => {
+            loadBookings();
+        }, 1000);
+    },[]);
+
     let handleSubmit = async (event) => {
         event.preventDefault();
         
@@ -36,6 +82,10 @@ const CancelTicket = (props) => {
                 (json) => {
                   if(!(json.hasOwnProperty('token') )){
                     const res = json;
+                    setBookingID("");
+                    selected = null;
+                    setUserBookings([]);
+                    loadBookings();
                   }
                   else{
                     // setToken("");
@@ -58,16 +108,19 @@ const CancelTicket = (props) => {
                 <Form  onSubmit={handleSubmit}>
                     <Form.Group>
                         <Form.Label>Booking ID</Form.Label>
-                        <Form.Control type="number" 
-                                        placeholder="Enter booking ID/PNR" value={bookingID}
+                        <Select type="number" 
+                                        placeholder="Enter booking ID/PNR"
+                                        options={ userBookings }
                                         onChange={e => {
-                                            setBookingID(e.target.value);
-                                        }} 
-                                        default="" />
+                                           setBookingID(e.value);
+                                            selected = e.value;
+                                    
+                                        }}
+                        >{ selected || "" }</Select>
                     </Form.Group>
-                    
-                <div className="row button-section">
                     <br></br>
+                <div className="row button-section">
+                  
                 <div class="col">
                     <Button variant="primary" type="submit">
                         Cancel Ticket
