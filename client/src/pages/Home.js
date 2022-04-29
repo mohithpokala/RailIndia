@@ -28,6 +28,15 @@ export default function Home() {
       {/* <div class="container fluid">
         <img src={rail1} style={{width:"30%",position:"absolute",height:"50vh"}} />
       </div> */}
+      Here is a website that is a collective effort of
+      <ul>
+        <li>Sudhansh</li>
+        <li>Mohith</li>
+        <li>Preetham</li>
+        <li>Hitesh</li>
+      </ul>
+      We aim to provide a platform for the people to get the information about the trains and their status.
+      
     </div>
   );
 }

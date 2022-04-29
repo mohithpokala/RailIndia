@@ -97,27 +97,36 @@ const TRAIN_SCHEDULE = (props) => {
                         <button class="btn btn-primary" onClick={()=>{setX(1-x)}}>Toggle Map/Schedule</button>
                     </div>
                     <br></br>
-                    {x==0?(
-                    <table>
-                        <tr>
-                            <td><b>S.No</b></td>
-                            <td><b>Station Name</b></td>
-                            <td><b>Expected Arrival Time</b></td>
-                            <td><b>Expected Departure Time</b></td>
-                            <td><b>Distance from Source</b></td>
-                        </tr>
+                </div>
+                <div class="col-8 container justify-content-center text-center">{
+                    x==0?(
+                        <table class="table table-hover border">
+                        <thead>
+                            <tr>
+                                <th scope="col">S. No</th>
+                                <th scope="col">Station Name</th>
+                                <th scope="col">Expected Arrival Time</th>
+                                <th scope="col">Expected Departure Time</th>
+                                <th scope="col">Distance from Source</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                         {
                             scheduled.map((row) => (
                                 <tr>
-                                    <td><b>{row.path_id}</b></td>
-                                    <td><b><a href={"/station_schedule/"+row.station_id} style={{textDecoration:"none",color:"black"}}>{row.station_name}</a></b></td>
-                                    <td>{row.expected_arrival_time}</td>
-                                    <td>{row.expected_departure_time}</td>
-                                    <td>{row.distance_from_source}</td>
-                                </tr>
+                                        <td><b>{row.path_id}</b></td>
+                                        <td><b><a href={"/station_schedule/"+row.station_id} class="primary-text">{row.station_name}</a></b></td>
+                                        <td>{row.expected_arrival_time}</td>
+                                        <td>{row.expected_departure_time}</td>
+                                        <td>{row.distance_from_source}</td>
+                                    </tr>
                             ))
                         }
-                    </table>):<Schedule_on_map train_no={train_no}/>}
+                        </tbody>
+                    </table>
+               
+                    ):
+                    <Schedule_on_map train_no={train_no}/>}
                 </div>
             </React.Fragment>
         </div>

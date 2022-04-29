@@ -49,32 +49,37 @@ const ViewBooking = (props) => {
 : 
     (
                     <React.Fragment>
-                        <div style={{position:"absolute",width:"100%",height:"90%"}}>
+                        <div class="col-8 container justify-content-center text-center">
+                        <br></br>
+                            <table class="table table-hover border">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Booking ID</th>
+                                        <th scope="col">Train No</th>
+                                        <th scope="col">Train Name</th>
+                                        <th scope="col">Start Station</th>
+                                        <th scope="col">End Station</th>
+                                        <th scope="col">Journey Date</th>
 
-                        <table>
-                    <tr>
-                    
-                        <td><b>Booking ID</b></td>
-                        <td><b>Train No</b></td>
-                        <td><b>Train Name</b></td>
-                        <td><b>Start Station</b></td>
-                        <td><b>End Station</b></td>
-                        <td><b>Journey Date</b></td>
-                    </tr>
-                    {
-                        booking_data.map((row) => (
-                            <tr>
-                                <td><b><a href={"/view_passenger/"+row.booking_id} >{row.booking_id}</a></b></td>
-                                <td>{row.train_no}</td>
-                                <td>{row.train_name}</td>
-                                <td>{row.a}</td>
-                                <td>{row.b}</td>
-                                <td>{row.journey_date}</td>
-                            </tr>
-                        ))
-                    }
-                    
-                </table>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {
+                                    booking_data.map((row) => (
+                                        <tr>
+                                            <td><b><a href={"/view_passenger/"+row.booking_id} >{row.booking_id}</a></b></td>
+                                            <td>{row.train_no}</td>
+                                            <td>{row.train_name}</td>
+                                            <td>{row.a}</td>
+                                            <td>{row.b}</td>
+                                            <td>{row.journey_date}</td>
+                                        </tr>
+                                    ))
+                                }
+                                </tbody>
+                            </table>
+
                         </div>
 
                     </React.Fragment>

@@ -1,8 +1,5 @@
 table {
-    width: 50%;
-    position: absolute;
     border: 1px solid black;
-    left:25%
   }
   
   td {
@@ -10,12 +7,13 @@ table {
     padding: 1%;
   }
   tr{
-      width: 100%;
+      /* width: 100%; */
       height: 1%;
       left:0%;
   }
-  
-  tr:nth-child(even){background-color: #f2f2f2}
-  tr:first-child{background-color: #04AA6D;
-    color: white;}
+  thead
+  {
+    background-color: #0275d8;
+    color: white;
+}
   

@@ -55,28 +55,32 @@ const VIEWTRAIN = (props) => {
             : 
             (
                 <React.Fragment>
-                    <div style={{position:"absolute",width:"100%",top:"25%",left:"0%",height:"100%",}}>
-                    <table>
-                    <tr>
-                        <td><b>Pasenger Name</b></td>
-                        <td><b>Waiting List Pref No</b></td>
-                        <td><b>Gender</b></td>
-                        <td><b>Age</b></td>
-                    </tr>
-                    {
-                        passenger_data.map((row) => (
-                            <tr>
-                                <td><b>{row.name}</b></td>
-                                <td>{row.waiting_pref_no}</td>
-                                <td>{row.age}</td>
-                                <td>{row.sex}</td>
-                            </tr>
-                        ))
-                    }
-                    
-                </table>
+                    <div class="col-8 container justify-content-center text-center">
+                        <br></br>
+                            <table class="table table-hover border">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Passenger Name</th>
+                                        <th scope="col">Waiting List Pref No.</th>
+                                        <th scope="col">Gender</th>
+                                        <th scope="col">Age</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {
+                                    passenger_data.map((row) => (
+                                        <tr>
+                                            <td><b>{row.name}</b></td>
+                                            <td>{row.waiting_pref_no}</td>
+                                            <td>{row.age}</td>
+                                            <td>{row.sex}</td>
+                                        </tr>
+                                    ))
+                                }
+                                </tbody>
+                            </table>
 
-                    </div>
+                        </div>
                 </React.Fragment>
     )}</>
   );

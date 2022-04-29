@@ -53,6 +53,7 @@ return (
     <Fragment>
     <div className="home_page container">
       <h2>Login Page</h2>
+      <br></br>
       <Form onSubmit={onSubmitForm}>
       <Form.Group>
           <Form.Label>User Name</Form.Label>
@@ -62,6 +63,7 @@ return (
                             setUsername(e.target.value);
                           }} default="" />
         </Form.Group>
+        <br></br>
         <Form.Group>
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" 
@@ -70,7 +72,7 @@ return (
                             setPassword(e.target.value);
                           }} default="" />
         </Form.Group>
-        <br></br><br></br>
+        <br></br>
         <div>
         {
             (text!="")
@@ -80,7 +82,7 @@ return (
             (<></>)
         }
         </div>
-        <br></br><br></br>
+        <br></br>
         <Button variant="primary" type="submit">
            Login
         </Button>
